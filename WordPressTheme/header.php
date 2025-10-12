@@ -10,15 +10,15 @@
 
 <?php 
 $campaign = esc_url( home_url( '/campaign/' ) );
-$about = esc_url( home_url( '/about/' ) );
+$about = esc_url( home_url( '/about-us/' ) );
 $information = esc_url( home_url( '/information/' ) );
 $blog = esc_url( home_url( '/home/' ) );
 $voice = esc_url( home_url( '/voice/' ) );
 $price = esc_url( home_url( '/price/' ) );
 $faq = esc_url( home_url( '/faq/' ) );
 $contact = esc_url( home_url( '/contact/' ) );
-$privacy_policy = esc_url( home_url( '/privacy-policy/' ) );
-$terms = esc_url( home_url( '/terms/' ) );
+$privacy_policy = esc_url( home_url( '/privacypolicy/' ) );
+$terms = esc_url( home_url( '/terms-of-service/' ) );
  ?>
 
   <body>
@@ -158,6 +158,6 @@ $terms = esc_url( home_url( '/terms/' ) );
     <main>
     <?php 
     if ( !is_front_page() && !is_404() ) :
-        get_template_part( 'page-header' );
+        get_template_part( 'template-parts/page-header' );
     endif;
     ?>

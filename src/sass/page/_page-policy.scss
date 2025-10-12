@@ -1,14 +1,10 @@
 @use "global" as *;
 
-.page-policy__main {
+.page-policy {
   position: relative;
-  margin-top: rem(47);
-  @include mq("md"){
-    margin-top: rem(143);
-  }
 }
 
-.page-policy__main::before {
+.page-policy::before {
   content: "";
   position: absolute;
   top: rem(-19.5);

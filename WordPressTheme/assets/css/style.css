@@ -378,12 +378,15 @@ a {
 	padding-top: 4.3125rem;
 }
 
-.page-policy__main {
+.page-policy-layout {
 	margin-top: 2.9375rem;
+}
+
+.page-policy {
 	position: relative;
 }
 
-.page-policy__main::before {
+.page-policy::before {
 	background-image: url(../images/common/embellishment_3.png);
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -3123,11 +3126,11 @@ html {
 	padding-top: 0;
 }
 
-.page-policy__main {
+.page-policy-layout {
 	margin-top: 8.9375rem;
 }
 
-.page-policy__main::before {
+.page-policy::before {
 	height: 8.625rem;
 	left: calc(50% - min(38.75rem, 48%));
 	top: -4rem;

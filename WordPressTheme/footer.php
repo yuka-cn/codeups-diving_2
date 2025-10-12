@@ -1,4 +1,15 @@
-<?php
+<?php 
+$campaign = esc_url( home_url( '/campaign/' ) );
+$about = esc_url( home_url( '/about-us/' ) );
+$information = esc_url( home_url( '/information/' ) );
+$blog = esc_url( home_url( '/home/' ) );
+$voice = esc_url( home_url( '/voice/' ) );
+$price = esc_url( home_url( '/price/' ) );
+$faq = esc_url( home_url( '/faq/' ) );
+$contact = esc_url( home_url( '/contact/' ) );
+$privacy_policy = esc_url( home_url( '/privacypolicy/' ) );
+$terms = esc_url( home_url( '/terms-of-service/' ) );
+
 $exclude_pages = array( 'contact', 'contact-error', 'contact-thanks' );
 
 if ( ! is_page( $exclude_pages ) && ! is_404() ) :
@@ -77,64 +88,54 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
           <div class="nav__left">
             <div class="nav__block">
               <ul class="nav__items">
-                <li class="nav__item"><a href="archive-campaign.html">キャンペーン</a></li>
-                <li class="nav__item"><a href="archive-campaign.html">ライセンス取得</a></li>
-                <li class="nav__item"><a href="archive-campaign.html">貸切体験ダイビング</a></li>
-                <li class="nav__item"><a href="archive-campaign.html">ナイトダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $campaign; ?>">キャンペーン</a></li>
+                <li class="nav__item"><a href="<?php echo $campaign; ?>">ライセンス取得</a></li>
+                <li class="nav__item"><a href="<?php echo $campaign; ?>">貸切体験ダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $campaign; ?>">ナイトダイビング</a></li>
               </ul>
               <ul class="nav__items">
-                <li class="nav__item"><a href="page-about.html">私たちについて</a></li>
+                <li class="nav__item"><a href="<?php echo $about; ?>">私たちについて</a></li>
               </ul>
             </div>
             <div class="nav__block">
               <ul class="nav__items">
-                <li class="nav__item"><a href="page-information.html">ダイビング情報</a></li>
-                <li class="nav__item"><a href="page-information.html">ライセンス講習</a></li>
-                <li class="nav__item"><a href="page-information.html">体験ダイビング</a></li>
-                <li class="nav__item"><a href="page-information.html">ファンダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $information; ?>">ダイビング情報</a></li>
+                <li class="nav__item"><a href="<?php echo $information; ?>">ライセンス講習</a></li>
+                <li class="nav__item"><a href="<?php echo $information; ?>">体験ダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $information; ?>">ファンダイビング</a></li>
               </ul>
               <ul class="nav__items">
-                <li class="nav__item"><a href="home.html">ブログ</a></li>
+              <li class="sp-nav__item"><a href="<?php echo $blog; ?>">ブログ</a></li>
               </ul>
             </div>
           </div>
           <div class="nav__right">
             <div class="nav__block">
               <ul class="nav__items">
-                <li class="nav__item"><a href="archive-voice.html">お客様の声</a></li>
+                <li class="nav__item"><a href="<?php echo $voice; ?>">お客様の声</a></li>
               </ul>
               <ul class="nav__items">
-                <li class="nav__item"><a href="page-price.html">料金一覧</a></li>
-                <li class="nav__item"><a href="page-price.html">ライセンス講習</a></li>
-                <li class="nav__item"><a href="page-price.html">体験ダイビング</a></li>
-                <li class="nav__item">
-                  <a href="page-price.html">ファンダイビング</a>
-                </li>
+                <li class="nav__item"><a href="<?php echo $price; ?>">料金一覧</a></li>
+                <li class="nav__item"><a href="<?php echo $price; ?>">ライセンス講習</a></li>
+                <li class="nav__item"><a href="<?php echo $price; ?>">体験ダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $price; ?>">ファンダイビング</a></li>
               </ul>
             </div>
             <div class="nav__block">
               <ul class="nav__items">
-                <li class="nav__item"><a href="page-faq.html">よくある質問</a></li>
+                <li class="nav__item"><a href="<?php echo $faq; ?>">よくある質問</a></li>
               </ul>
               <ul class="nav__items u-mobile">
-                <li class="nav__item nav__item--multiline">
-                  <a href="page-privacy-policy.html">プライバシー<br>ポリシー</a>
-                </li>
+                <li class="nav__item nav__item--multiline"><a href="<?php echo $privacy_policy; ?>">プライバシー<br>ポリシー</a></li>
               </ul>
               <ul class="nav__items u-desktop">
-                <li class="nav__item">
-                  <a href="page-privacy-policy.html">プライバシーポリシー</a>
-                </li>
+                <li class="nav__item"><a href="<?php echo $privacy_policy; ?>">プライバシーポリシー</a></li>
               </ul>
               <ul class="nav__items">
-                <li class="nav__item">
-                  <a href="page-terms.html">利用規約</a>
-                </li>
+                <li class="nav__item"><a href="<?php echo $terms; ?>">利用規約</a></li>
               </ul>
               <ul class="nav__items">
-                <li class="nav__item">
-                  <a href="page-contact.html">お問い合わせ</a>
-                </li>
+                <li class="nav__item"><a href="<?php echo $contact; ?>">お問い合わせ</a></li>
               </ul>
             </div>
           </div>
