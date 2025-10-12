@@ -154,4 +154,10 @@ $terms = esc_url( home_url( '/terms/' ) );
       </div>
       <?php wp_head(); ?>
     </header>
-    
+
+    <main>
+    <?php 
+    if ( !is_front_page() && !is_404() ) :
+        get_template_part( 'page-header' );
+    endif;
+    ?>
