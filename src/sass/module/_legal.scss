@@ -1,0 +1,41 @@
+@use "global" as *;
+
+.legal__title {
+  position: relative;
+  font-size: rem(24);
+  font-weight: $medium;
+  z-index: 1;
+  @include mq("md"){
+   font-size: rem(32);
+  }
+}
+
+.legal__lead{
+  margin-top: rem(42);
+  line-height: 2;
+  @include mq("md"){
+  margin-top: rem(43);
+  }
+}
+
+.legal__body,
+.legal__text,
+.legal__footer{
+  margin-top: rem(32);
+  line-height: 2;
+}
+
+.legal__text.legal__text--numbered {
+  margin-top: 0;
+  padding-left: rem(24);
+  text-indent: rem(-17);
+}
+
+.legal__text.legal__text--tight{
+  margin-top: 0;
+}
+
+.legal__text--numbered.legal__text--spaced{
+  margin-top: rem(32);
+  line-height: 2;
+}

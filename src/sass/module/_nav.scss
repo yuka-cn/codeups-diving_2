@@ -1,0 +1,136 @@
+@use "global" as *;
+
+.nav {
+  display: flex;
+  font-size: rem(16);
+}
+
+.nav__left,
+.nav__right {
+  width: 50%;
+  @include mq(md) {
+    display: flex;
+  }
+}
+
+.nav__left {
+  padding-left: rem(22);
+}
+
+.nav__right {
+  padding-left: rem(33);
+  @include mq(md) {
+    padding-left: rem(38);
+  }
+}
+
+.nav__left .nav__block {
+  @include mq(md) {
+    width: 55%;
+  }
+}
+
+.nav__right .nav__block {
+  @include mq(md) {
+    width: 54%;
+  }
+}
+
+.nav__block:nth-child(2) {
+  margin-top: rem(16);
+  @include mq(md) {
+    margin-top: 0;
+    width: 45%;
+  }
+}
+
+.nav__items {
+  margin-top: rem(16);
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__items.u-mobile {
+  @include mq("md") {
+    display: none;
+  }
+}
+
+.nav__items.u-desktop {
+  display: none;
+  @include mq("md") {
+    display: block;
+  }
+}
+
+.nav__items:first-child {
+  margin-top: 0;
+}
+
+.nav__item:first-child {
+  position: relative;
+  font-weight: $bold;
+}
+
+.nav__item:first-child::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: rem(-22);
+  transform: translateY(-50%);
+  width: rem(18);
+  height: rem(18);
+  background-image: url(../images/common/nav.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.nav__item a {
+  display: flex;
+  align-items: center;
+  padding: rem(9) 0;
+}
+
+.nav__item a:hover {
+  opacity: 0.7;
+}
+
+.nav__item--multiline {
+  position: relative;
+  line-height: 1.39;
+}
+
+.nav__items .nav__item--multiline::before {
+  display: inline-block;
+  position: absolute;
+  top: 37%;
+  left: rem(-22);
+  transform: translateY(-50%);
+  width: rem(18);
+  height: rem(18);
+  background-image: url(../images/common/nav.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  @include mq(md) {
+    top: 50%;
+  }
+}
+
+.nav--site-map .nav__item:first-child::before,
+.nav--site-map .nav__items .nav__item--multiline::before {
+  background-image: url(../images/pages/site-map_1.png);
+}
+
+.nav--site-map .nav__left{
+  width: 57%;
+  @include mq("md"){
+    width:60%;
+  }
+}
+
+.nav--site-map .nav__right .nav__block:first-child {
+  @include mq(md) {
+    width: 82%;
+  }
+}
