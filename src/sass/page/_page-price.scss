@@ -1,14 +1,10 @@
 @use "global" as *;
 
-.page-price__main {
+.page-price {
   position: relative;
-  margin-top: rem(52);
-  @include mq("md"){
-    margin-top: rem(150);
-  }
 }
 
-.page-price__main::before {
+.page-price::before {
   content: "";
   position: absolute;
   top: rem(-24);
