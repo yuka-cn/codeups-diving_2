@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 <!-- ページコンテンツ -->
-
 <div class="page-price page-price-layout">
     <div class="page-price__body price-tables">
         <div class="price-tables__inner inner">

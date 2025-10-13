@@ -335,12 +335,15 @@ a {
 	text-align: center;
 }
 
-.page-faq__main {
+.page-faq-layout {
 	margin-top: 3.25rem;
+}
+
+.page-faq {
 	position: relative;
 }
 
-.page-faq__main::before {
+.page-faq::before {
 	background-image: url(../images/common/embellishment_3.png);
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -3098,11 +3101,11 @@ html {
 	margin-top: 2.5rem;
 }
 
-.page-faq__main {
+.page-faq-layout {
 	margin-top: 9.375rem;
 }
 
-.page-faq__main::before {
+.page-faq::before {
 	height: 8.625rem;
 	left: calc(50% - min(38.75rem, 48%));
 	top: -4.375rem;
