@@ -50,7 +50,9 @@
 .gallery__stack {
   display: grid;
   gap: rem(8);
-  grid-template-columns: repeat(1, 1fr);
+  @include mq("md"){
+    grid-template-rows: repeat(2, 1fr);
+  };
 }
 
 .gallery__item img{

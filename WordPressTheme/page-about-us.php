@@ -54,44 +54,56 @@
       <?php 
       $total = count($gallery);
       for ($i = 0; $i < $total; $i += 6):
+
+        $img1 = $gallery[$i]['image'] ?? null;
+        $img2 = $gallery[$i+1]['image'] ?? null;
+        $img3 = $gallery[$i+2]['image'] ?? null;
+        $img4 = $gallery[$i+3]['image'] ?? null;
+        $img5 = $gallery[$i+4]['image'] ?? null;
+        $img6 = $gallery[$i+5]['image'] ?? null;
+
       ?>
 
-      <?php if (isset($gallery[$i]) || isset($gallery[$i+1]) || isset($gallery[$i+2])): ?>
+      <?php if (!empty($img1)): ?>
         <div class="gallery__column">
           <div class="gallery__item gallery__item--single">
-            <img src="<?php echo esc_url(wp_get_attachment_url($gallery[$i]['image'])); ?>" 
+            <img src="<?php echo esc_url(wp_get_attachment_url($img1)); ?>" 
                  alt="<?php echo esc_attr($gallery[$i]['alt'] ?? ''); ?>">
           </div>
-          <?php if (isset($gallery[$i+1]) || isset($gallery[$i+2])): ?>
+          <?php if (!empty($img2)): ?>
           <div class="gallery__stack">
             <div class="gallery__item gallery__item--stacked">
-              <img src="<?php echo esc_url(wp_get_attachment_url($gallery[$i+1]['image'])); ?>"
+              <img src="<?php echo esc_url(wp_get_attachment_url($img2)); ?>"
                    alt="<?php echo esc_attr($gallery[$i+1]['alt'] ?? ''); ?>">
             </div>
+            <?php if (!empty($img3)): ?>
             <div class="gallery__item gallery__item--stacked">
-              <img src="<?php echo esc_url(wp_get_attachment_url($gallery[$i+2]['image'])); ?>"
+              <img src="<?php echo esc_url(wp_get_attachment_url($img3)); ?>"
                    alt="<?php echo esc_attr($gallery[$i+2]['alt'] ?? ''); ?>">
             </div>
+            <?php endif; ?>
           </div>
           <?php endif; ?>
         </div>
       <?php endif; ?>
 
-      <?php if (isset($gallery[$i+3]) || isset($gallery[$i+4]) || isset($gallery[$i+5])): ?>
+      <?php if (!empty($img4)): ?>
         <div class="gallery__column gallery__column--reverse">
           <div class="gallery__stack">
             <div class="gallery__item gallery__item--stacked">
-              <img src="<?php echo esc_url(wp_get_attachment_url($gallery[$i+3]['image'])); ?>"
+              <img src="<?php echo esc_url(wp_get_attachment_url($img4)); ?>"
               alt="<?php echo esc_attr($gallery[$i+3]['alt'] ?? ''); ?>">
             </div>
+            <?php if (!empty($img5)): ?>
             <div class="gallery__item gallery__item--stacked">
-              <img src="<?php echo esc_url(wp_get_attachment_url($gallery[$i+4]['image'])); ?>"
+              <img src="<?php echo esc_url(wp_get_attachment_url($img5)); ?>"
               alt="<?php echo esc_attr($gallery[$i+4]['alt'] ?? ''); ?>">
             </div>
+            <?php endif; ?>
           </div>
-          <?php if (isset($gallery[$i+5])): ?>
+          <?php if (!empty($img6)): ?>
           <div class="gallery__item gallery__item--single">
-            <img src="<?php echo esc_url(wp_get_attachment_url($gallery[$i+5]['image'])); ?>" 
+            <img src="<?php echo esc_url(wp_get_attachment_url($img6)); ?>" 
                  alt="<?php echo esc_attr($gallery[$i+5]['alt'] ?? ''); ?>">
           </div>
           <?php endif; ?>

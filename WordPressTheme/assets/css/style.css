@@ -1579,7 +1579,6 @@ a {
 	grid-gap: 0.5rem;
 	display: grid;
 	gap: 0.5rem;
-	grid-template-columns: repeat(1, 1fr);
 }
 
 .gallery__item img {
@@ -3677,6 +3676,10 @@ html {
 
 .gallery__column--reverse {
 	grid-template-columns: 580fr 492fr;
+}
+
+.gallery__stack {
+	grid-template-rows: repeat(2, 1fr);
 }
 
 .gallery__item--single {
