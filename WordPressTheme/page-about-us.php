@@ -117,4 +117,12 @@
 
 </div>
 
+<!-- モーダル -->
+<div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal__overlay"></div>
+  <div class="modal__background">
+    <div class="modal__background-inner inner"></div>
+  </div>
+  <div class="modal__content"></div>
+</div>
 <?php get_footer(); ?>

@@ -17,5 +17,7 @@
     </div>
 
     <!-- パンくずリスト -->
-    <?php get_template_part( 'template-parts/breadcrumb' ); ?>
+    <div class="page-header__breadcrumb">
+      <?php get_template_part( 'template-parts/breadcrumb' ); ?>
+    </div>
   </div> 
