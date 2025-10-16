@@ -5,10 +5,24 @@
             <div class="page-campaign__inner inner">
               <!-- カテゴリーボタン -->
               <div class="page-campaign__category-buttons category-buttons">
-                <button class="category-buttons__item category-button is-active" type="button" data-target="all">ALL</button>
-                <button class="category-buttons__item category-button" type="button" data-target="license">ライセンス講習</button>
-                <button class="category-buttons__item category-button" type="button" data-target="fun-diving">ファンダイビング</button>
-                <button class="category-buttons__item category-button" type="button" data-target="trial-diving">体験ダイビング</button>
+              <a class="category-buttons__item category-button <?php if(!is_tax()) echo 'is-active'; ?>" href="<?php echo get_post_type_archive_link('campaign'); ?>">ALL</a>
+              <?php
+    $taxonomy = 'campaign_category'; // ACFで紐づけたタクソノミー
+    $terms = get_terms([
+        'taxonomy' => $taxonomy,
+        'hide_empty' => true,
+    ]);
+
+    if($terms && !is_wp_error($terms)):
+        foreach($terms as $term):
+    ?>
+        <a class="category-buttons__item category-button <?php if(is_tax($taxonomy, $term->slug)) echo 'is-active'; ?>" href="<?php echo esc_url(get_term_link($term)); ?>">
+            <?php echo esc_html($term->name); ?>
+        </a>
+    <?php
+        endforeach;
+    endif;
+    ?>
               </div>
 
               <!-- campaignカード -->
