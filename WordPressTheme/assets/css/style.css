@@ -2170,7 +2170,8 @@ a {
 	gap: 5.125rem;
 }
 
-.pagination a {
+.pagination a,
+.pagination span {
 	border: 1px solid #408F95;
 	display: inline-block;
 	height: 2.375rem;
@@ -2209,19 +2210,14 @@ a {
 	transform: translate(-70%, -50%) rotate(45deg);
 }
 
-.pagination__prev:hover,
-.pagination__next:hover {
+a.pagination__prev:hover,
+a.pagination__next:hover {
 	background: #408F95;
 }
 
-.pagination__prev:hover::before,
-.pagination__next:hover::before {
+a.pagination__prev:hover::before,
+a.pagination__next:hover::before {
 	border-color: #fff;
-}
-
-.pagination__pages {
-	display: flex;
-	gap: 0.75rem;
 }
 
 .pagination a.pagination__page--pc {
@@ -2229,12 +2225,12 @@ a {
 }
 
 .pagination a:hover,
-.pagination__page.is-current {
+.pagination .current {
 	background: #408F95;
 	color: #fff;
 }
 
-.pagination__page.is-current:hover {
+.pagination .current:hover {
 	color: #fff;
 }
 
@@ -2931,6 +2927,16 @@ a {
 .voice__button {
 	margin-top: 2.5rem;
 	text-align: center;
+}
+
+.wp-pagenavi {
+	align-items: center;
+	color: #408F95;
+	display: flex;
+	font-family: "Lato", serif;
+	font-weight: 700;
+	gap: 0.75rem;
+	justify-content: center;
 }
 
 @media (min-width: 630px) {

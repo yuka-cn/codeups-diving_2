@@ -5,7 +5,7 @@
       <div class="page-campaign__inner inner">
         <!-- カテゴリーボタン -->
         <div class="page-campaign__category-buttons category-buttons">
-            <a class="category-buttons__item category-button <?php if(!is_tax()) echo 'is-active'; ?>" href="<?php echo get_post_type_archive_link('campaign'); ?>">ALL</a>
+            <a class="category-buttons__item category-button" href="<?php echo get_post_type_archive_link('campaign'); ?>">ALL</a>
             <?php
             $taxonomy = 'campaign_category';
             $terms = get_terms([

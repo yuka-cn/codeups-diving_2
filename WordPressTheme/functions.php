@@ -45,3 +45,59 @@ function codeups_enqueue_assets() {
   wp_enqueue_script('codeups-script', $theme_uri . '/assets/js/script.js', ['jquery'], null, true);
 }
 add_action('wp_enqueue_scripts', 'codeups_enqueue_assets');
+
+
+//アーカイブの表示件数変更
+function change_posts_per_page($query) {
+  if ( is_admin() || ! $query->is_main_query() )
+      return;
+  if ( $query->is_archive('campaign') ) { //カスタム投稿タイプを指定
+      $query->set( 'posts_per_page', '4' ); //表示件数を指定
+  }
+}
+add_action( 'pre_get_posts', 'change_posts_per_page' );
+
+
+//ページネーション
+function my_custom_pagenavi($html) {
+  global $wp_query;
+
+  $max_page = $wp_query->max_num_pages;
+  $paged = max(1, get_query_var('paged'));
+
+  // 前へボタンを常に表示
+  if ($paged > 1) {
+      $prev = get_previous_posts_link('前へ');
+      $prev = preg_replace('/<a /', '<a class="pagination__prev"', $prev, 1);
+  } else {
+      $prev = '<span class="pagination__prev"></span>'; // クリック不可
+  }
+
+  // 次へボタンを常に表示
+  if ($paged < $max_page) {
+      $next = get_next_posts_link('次へ', $max_page);
+      $next = preg_replace('/<a /', '<a class="pagination__next"', $next, 1);
+  } else {
+      $next = '<span class="pagination__next"></span>'; // クリック不可
+  }
+
+  // 5~6ページのリンクに pagination__page--pcを付与
+  $html = preg_replace_callback('/<a ([^>]+)>(\d+)<\/a>/', function($matches) {
+    $attrs = $matches[1];
+    $num = (int)$matches[2];
+
+    if ($num >= 5 && $num <= 6) {
+        if (preg_match('/class="([^"]+)"/', $attrs, $classMatch)) {
+            $newClass = $classMatch[1] . ' pagination__page--pc';
+            $attrs = preg_replace('/class="[^"]+"/', 'class="'.$newClass.'"', $attrs);
+        } else {
+            $attrs .= ' class="pagination__page--pc"';
+        }
+    }
+
+    return '<a ' . $attrs . '>' . $num . '</a>';
+  }, $html);
+
+  return $prev . $html . $next;
+}
+add_filter('wp_pagenavi', 'my_custom_pagenavi');

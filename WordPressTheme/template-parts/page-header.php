@@ -19,14 +19,14 @@ if ($template === 'home.php' || $post_type === 'post') {
 
 // ----------------------
 // campaignページ
-} elseif (is_post_type_archive('campaign')){
+} elseif (is_post_type_archive('campaign') || is_tax('campaign_category')){
   $header_pc = get_theme_file_uri('/assets/images/pages/campaign-fv-pc.jpg');
   $header_sp = get_theme_file_uri('/assets/images/pages/campaign-fv-sp.jpg');
   $header_title = 'Campaign';
 
 // ----------------------
 // voiceページ
-} elseif (is_post_type_archive('voice')) {
+} elseif (is_post_type_archive('voice') || is_tax('voice_category')) {
   $header_pc = get_theme_file_uri('/assets/images/pages/voice-fv-pc.jpg');
   $header_sp = get_theme_file_uri('/assets/images/pages/voice-fv-sp.jpg');
   $header_title = 'Voice';

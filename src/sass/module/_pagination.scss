@@ -14,7 +14,8 @@
   gap: rem(82);
 }
 
-.pagination a{
+.pagination a,
+.pagination span{
   display: inline-block;
   text-align: center;
   line-height: 1;
@@ -53,19 +54,14 @@
   transform: translate(-70%,-50%) rotate(45deg);
 }
 
-.pagination__prev:hover,
-.pagination__next:hover{
+a.pagination__prev:hover,
+a.pagination__next:hover{
   background: $ac-color;
 }
 
-.pagination__prev:hover::before,
-.pagination__next:hover::before {
+a.pagination__prev:hover::before,
+a.pagination__next:hover::before {
   border-color: $white;
-}
-
-.pagination__pages{
-  display: flex;
-  gap: rem(12);
 }
 
 .pagination a.pagination__page--pc{
@@ -76,11 +72,11 @@
 }
 
 .pagination a:hover,
-.pagination__page.is-current{
+.pagination .current{
   color: $white;
   background: $ac-color;
 }
 
-.pagination__page.is-current:hover{
+.pagination .current:hover{
   color: $white;
 }
