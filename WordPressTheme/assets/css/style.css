@@ -451,12 +451,15 @@ a {
 	margin-top: 5.75rem;
 }
 
-.page-voice__main {
+.page-voice-layout {
 	margin-top: 3.25rem;
+}
+
+.page-voice {
 	position: relative;
 }
 
-.page-voice__main::before {
+.page-voice::before {
 	background-image: url(../images/common/embellishment_3.png);
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -3182,11 +3185,11 @@ html {
 	margin-top: 8rem;
 }
 
-.page-voice__main {
+.page-voice-layout {
 	margin-top: 9.375rem;
 }
 
-.page-voice__main::before {
+.page-voice::before {
 	height: 8.625rem;
 	left: calc(50% - min(38.75rem, 48%));
 	top: -4.375rem;

@@ -49,14 +49,23 @@ add_action('wp_enqueue_scripts', 'codeups_enqueue_assets');
 
 //アーカイブの表示件数変更
 function change_posts_per_page($query) {
-  if ( is_admin() || ! $query->is_main_query() )
+  if ( is_admin() || ! $query->is_main_query() ) {
       return;
-  if ( $query->is_archive('campaign') ) { //カスタム投稿タイプを指定
-      $query->set( 'posts_per_page', '4' ); //表示件数を指定
+  }
+  if ( $query->is_post_type_archive('campaign') ) {
+      $query->set( 'posts_per_page', 4 );
+  }
+  if ( $query->is_post_type_archive('voice') ) {
+      $query->set( 'posts_per_page', 6 );
+  }
+  if ( is_tax('campaign_category') ) {
+      $query->set( 'posts_per_page', 4 );
+  }
+  if ( is_tax('voice_category') ) {
+      $query->set( 'posts_per_page', 6 );
   }
 }
 add_action( 'pre_get_posts', 'change_posts_per_page' );
-
 
 //ページネーション
 function my_custom_pagenavi($html) {

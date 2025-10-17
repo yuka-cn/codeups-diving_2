@@ -5,7 +5,7 @@
     <div class="page-voice__inner inner">
         <!-- カテゴリーボタン -->
         <div class="page-voice__category-buttons category-buttons">
-        <a class="category-buttons__item category-button <?php if(!is_tax()) echo 'is-active'; ?>" href="<?php echo get_post_type_archive_link('voice'); ?>">ALL</a>
+        <a class="category-buttons__item category-button" href="<?php echo get_post_type_archive_link('voice'); ?>">ALL</a>
               <?php
               $taxonomy = 'voice_category';
               $terms = get_terms([
