@@ -67,6 +67,36 @@ function change_posts_per_page($query) {
 }
 add_action( 'pre_get_posts', 'change_posts_per_page' );
 
+
+//投稿→ブログに変更
+function change_post_menu_label() {
+  global $menu, $submenu;
+  $menu[5][0] = 'ブログ';
+  $submenu['edit.php'][5][0]  = 'ブログ一覧';
+  $submenu['edit.php'][10][0] = '新規追加';
+}
+add_action( 'admin_menu', 'change_post_menu_label' );
+
+function change_post_object_label() {
+  global $wp_post_types;
+  $labels = &$wp_post_types['post']->labels;
+  $labels->name               = 'ブログ';
+  $labels->singular_name      = 'ブログ';
+  $labels->all_items          = 'ブログ一覧';
+  $labels->add_new_item       = '新規ブログを追加';
+  $labels->edit_item          = 'ブログを編集';
+  $labels->menu_name          = 'ブログ';
+}
+add_action( 'init', 'change_post_object_label' );
+
+
+// 自動抜粋の文末を表示しない
+function new_excerpt_more( $more ) {
+  return '' ;
+  }
+  add_filter( 'excerpt_more' , 'new_excerpt_more' );
+  
+
 //ページネーション
 function my_custom_pagenavi($html) {
   global $wp_query;
@@ -110,3 +140,5 @@ function my_custom_pagenavi($html) {
   return $prev . $html . $next;
 }
 add_filter('wp_pagenavi', 'my_custom_pagenavi');
+
+

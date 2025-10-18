@@ -225,12 +225,15 @@ a {
 	width: 100%;
 }
 
-.page-blog__main {
+.page-blog-layout {
 	margin-top: 3.25rem;
+}
+
+.page-blog {
 	position: relative;
 }
 
-.page-blog__main::before {
+.page-blog::before {
 	background-image: url(../images/common/embellishment_3.png);
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -3031,11 +3034,11 @@ html {
 	margin-top: 0;
 }
 
-.page-blog__main {
+.page-blog-layout {
 	margin-top: 9.375rem;
 }
 
-.page-blog__main::before {
+.page-blog::before {
 	height: 8.625rem;
 	left: calc(50% - min(38.75rem, 48%));
 	top: -4.375rem;
