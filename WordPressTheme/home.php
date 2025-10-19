@@ -19,7 +19,30 @@
                     <div class="blog-card__body">
                       <time datetime="<?php echo get_the_date('Y-m-d'); ?>" class="blog-card__date"><?php echo get_the_date('Y.m.d'); ?></time>
                       <h3 class="blog-card__title"><?php the_title(); ?></h3>
+                      
+                      <!-- 試したこと① -->
+                      <!-- <p class="blog-card__text">
+                          <?php
+                        $excerpt = get_the_excerpt();
+                        
+                        if ( empty( $excerpt ) ) {
+                            $content = get_post_field('post_content', get_the_ID());
+                            $excerpt = wp_trim_words($content, 85, '');
+                            
+                        }
+                        
+                        echo nl2br( $excerpt );
+                        ?>
+                      </p> -->
+                      
+                      <!-- 試したこと② -->
+                      <!-- <p class="blog-card__text">
+                        <?php echo wp_trim_words(get_the_content(), 85, ''); ?>
+                      </p> -->
+                        
+                      <!-- 試したこと③ -->
                       <p class="blog-card__text"><?php echo nl2br(get_the_excerpt()); ?></p>
+
                     </div>
                   </a>
                 </article>

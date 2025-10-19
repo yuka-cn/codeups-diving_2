@@ -90,11 +90,17 @@ function change_post_object_label() {
 add_action( 'init', 'change_post_object_label' );
 
 
-// 自動抜粋の文末を表示しない
+//自動抜粋の末尾に何も付けない
 function new_excerpt_more( $more ) {
   return '' ;
   }
   add_filter( 'excerpt_more' , 'new_excerpt_more' );
+
+// 抜粋の文字数を85語に変更
+function custom_excerpt_length( $length ) {
+  return 85;
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
   
 
 //ページネーション
