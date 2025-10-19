@@ -41,7 +41,34 @@
                       </p> -->
                         
                       <!-- 試したこと③ -->
-                      <p class="blog-card__text"><?php echo nl2br(get_the_excerpt()); ?></p>
+                      <!-- <p class="blog-card__text"><?php echo nl2br(get_the_excerpt()); ?></p> -->
+
+                      <!-- ひでかずさんに教えて頂いた方法＋改行反映 -->
+                      <p class="blog-card__text">
+                        <?php
+                        if ( has_excerpt() ) {
+                          $excerpt = get_the_excerpt();
+                        } else {
+                          $content = get_post_field( 'post_content', get_the_ID() );
+
+                          // 最初にある <br> または <p> タグを削除
+                          $content = preg_replace(
+                            '/^(?:\s|<!--.*?-->|<(?:br|p)[^>]*>)+/i',
+                            '',
+                            get_post_field( 'post_content', get_the_ID() )
+                          );
+
+                          $excerpt = $content;
+                        }
+                      
+                        $excerpt = str_replace( array("\r\n", "\r", "\n"), '[[BR]]', $excerpt );
+                        $excerpt = wp_trim_words( wp_strip_all_tags( $excerpt ), 85, '' );
+                        $excerpt = nl2br( str_replace( '[[BR]]', "\n", $excerpt ) );
+    
+                        echo $excerpt;
+                        ?>
+                      </p>
+
 
                     </div>
                   </a>
