@@ -90,23 +90,24 @@ function change_post_object_label() {
 add_action( 'init', 'change_post_object_label' );
 
 
-//自動抜粋の末尾に何も付けない
-// function new_excerpt_more( $more ) {
-//   return '' ;
-//   }
-//   add_filter( 'excerpt_more' , 'new_excerpt_more' );
+// 閲覧数を取得
+function get_post_views($postID){
+  $count_key = 'post_views_count';
+  $count = get_post_meta($postID, $count_key, true);
+  return $count ? $count : 0;
+}
 
-// // 抜粋の文字数を85語に変更
-// function custom_excerpt_length( $length ) {
-//   return 85;
-// }
-// add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
-
-// プラグイン：WP Multibyte Patchを使用
-// function change_excerpt_mblength($length) {
-//   return 85;
-// }
-// add_filter('excerpt_mblength', 'change_excerpt_mblength');
+// 閲覧数を1増やす
+function set_post_views($postID) {
+  $count_key = 'post_views_count';
+  $count = get_post_meta($postID, $count_key, true);
+  if($count==''){
+      add_post_meta($postID, $count_key, '1');
+  } else {
+      $count++;
+      update_post_meta($postID, $count_key, $count);
+  }
+}
   
 
 //ページネーション
@@ -152,5 +153,4 @@ function my_custom_pagenavi($html) {
   return $prev . $html . $next;
 }
 add_filter('wp_pagenavi', 'my_custom_pagenavi');
-
 

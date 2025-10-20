@@ -18,58 +18,20 @@
                     </div>
                     <div class="blog-card__body">
                       <time datetime="<?php echo get_the_date('Y-m-d'); ?>" class="blog-card__date"><?php echo get_the_date('Y.m.d'); ?></time>
-                      <h3 class="blog-card__title"><?php the_title(); ?></h3>
-                      
-                      <!-- 試したこと① -->
-                      <!-- <p class="blog-card__text">
-                          <?php
-                        $excerpt = get_the_excerpt();
-                        
-                        if ( empty( $excerpt ) ) {
-                            $content = get_post_field('post_content', get_the_ID());
-                            $excerpt = wp_trim_words($content, 85, '');
-                            
-                        }
-                        
-                        echo nl2br( $excerpt );
-                        ?>
-                      </p> -->
-                      
-                      <!-- 試したこと② -->
-                      <!-- <p class="blog-card__text">
-                        <?php echo wp_trim_words(get_the_content(), 85, ''); ?>
-                      </p> -->
-                        
-                      <!-- 試したこと③ -->
-                      <!-- <p class="blog-card__text"><?php echo nl2br(get_the_excerpt()); ?></p> -->
-
-                      <!-- ひでかずさんに教えて頂いた方法＋改行反映 -->
+                      <h3 class="blog-card__title"><?php the_title(); ?></h3>                      
                       <p class="blog-card__text">
-                        <?php
+                      <?php
                         if ( has_excerpt() ) {
                           $excerpt = get_the_excerpt();
+                          $excerpt = mb_strimwidth( $excerpt, 0, 172, '', 'UTF-8' );
+                          echo nl2br( esc_html( $excerpt ) );
                         } else {
-                          $content = get_post_field( 'post_content', get_the_ID() );
-
-                          // 最初にある <br> または <p> タグを削除
-                          $content = preg_replace(
-                            '/^(?:\s|<!--.*?-->|<(?:br|p)[^>]*>)+/i',
-                            '',
-                            get_post_field( 'post_content', get_the_ID() )
-                          );
-
-                          $excerpt = $content;
+                          $excerpt = wp_strip_all_tags( get_the_content() );
+                          $excerpt = mb_strimwidth( $excerpt, 0, 172, '', 'UTF-8' );
+                          echo esc_html( $excerpt );
                         }
-                      
-                        $excerpt = str_replace( array("\r\n", "\r", "\n"), '[[BR]]', $excerpt );
-                        $excerpt = wp_trim_words( wp_strip_all_tags( $excerpt ), 85, '' );
-                        $excerpt = nl2br( str_replace( '[[BR]]', "\n", $excerpt ) );
-    
-                        echo $excerpt;
-                        ?>
+                      ?>
                       </p>
-
-
                     </div>
                   </a>
                 </article>
@@ -90,52 +52,70 @@
               <span class="sidebar-box__title">人気記事</span>
             </h2>
             <div class="sidebar-box__body">
-              <div class="sidebar-box__popular-list popular-list">
-                <a href="single.html" class="popular-list__item">
+            <div class="sidebar-box__popular-list popular-list">
+              <?php
+                $popular = new WP_Query(array(
+                  'posts_per_page' => 3,
+                  'post_type'      => 'post',
+                  'meta_key'       => 'post_views_count',
+                  'orderby'        => 'meta_value_num',
+                  'order'          => 'DESC',
+                  'cache_results'  => false
+                ));
+
+                
+                if($popular->have_posts()): while($popular->have_posts()): $popular->the_post();
+                var_dump(get_post_meta(get_the_ID(), 'post_views_count', true));
+                ?>
+
+                <a href="<?php the_permalink(); ?>" class="popular-list__item">
                   <div class="popular-list__image">
-                    <img src="./assets/images/pages/blog_4.jpg" alt="ブログ画像4">
+                  <?php if (has_post_thumbnail()): ?>
+                    <?php the_post_thumbnail('medium'); ?>
+                  <?php else: ?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/noimage.png" alt="">
+                  <?php endif; ?>
                   </div>
                   <div class="popular-list__body">
-                    <time datetime="2023-11-17" class="popular-list__date">2023.11.17</time>
-                    <p class="popular-list__title">ライセンス取得</p>
+                    <time datetime="<?php echo get_the_date('Y-m-d'); ?>" class="popular-list__date">
+                      <?php echo get_the_date('Y.m.d'); ?>
+                    </time>
+                    <p class="popular-list__title"><?php the_title(); ?></p>
                   </div>
                   <span class="popular-list__mask"></span>
                 </a>
-                <a href="single.html" class="popular-list__item">
-                  <div class="popular-list__image">
-                    <img src="./assets/images/pages/blog_2.jpg" alt="ブログ画像2">
-                  </div>
-                  <div class="popular-list__body">
-                    <time datetime="2023-11-17" class="popular-list__date">2023.11.17</time>
-                    <p class="popular-list__title">ウミガメと泳ぐ</p>
-                  </div>
-                  <span class="popular-list__mask"></span>
-                </a>
-                <a href="single.html" class="popular-list__item">
-                  <div class="popular-list__image">
-                    <img src="./assets/images/pages/blog_3.jpg" alt="ブログ画像3">
-                  </div>
-                  <div class="popular-list__body">
-                    <time datetime="2023-11-17" class="popular-list__date">2023.11.17</time>
-                    <p class="popular-list__title">カクレクマノミ</p>
-                    <span class="popular-list__mask"></span>
-                  </div>
-                </a>
+
+              <?php endwhile; endif;?>
+              <?php wp_reset_postdata();?>
               </div>
             </div>
           </section>
+
           <section class="sidebar__box sidebar-box">
             <h2 class="sidebar-box__heading">
               <span class="sidebar-box__icon"></span>
               <span class="sidebar-box__title">口コミ</span>
             </h2>
             <div class="sidebar-box__body">
+            <?php
+              $voice = new WP_Query(array(
+                'posts_per_page' => 1,
+                'post_type'      => 'voice',
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+              ));
+
+            if($voice->have_posts()): while($voice->have_posts()): $voice->the_post();
+              $voice_img = get_post_meta(get_the_ID(), 'voice_image', true);
+              $voice_demographic = get_post_meta(get_the_ID(), 'voice_demographic', true);
+            ?>
+
               <div class="sidebar-box__voice-card voice-card-simple">
                 <div class="voice-card-simple__image">
-                  <img src="./assets/images/pages/voice_5-2.jpg" alt="30代(カップル)の写真">
+                <?php echo wp_get_attachment_image($voice_img, 'medium', false, array('alt' => $voice_demographic . 'の写真')); ?>
                 </div>
-                <p class="voice-card-simple__demographic">30代(カップル)</p>
-                <p class="voice-card-simple__title">ここにタイトルが入ります。ここにタイトル</p>
+                <p class="voice-card-simple__demographic"><?php echo esc_html($voice_demographic); ?></p>
+                <p class="voice-card-simple__title"><?php the_title(); ?></p>
               </div>
               <div class="sidebar-box__button">
                 <a href="archive-voice.html" class="button">
@@ -143,40 +123,51 @@
                   <span></span>
                 </a>
               </div>
+              <?php endwhile; endif;?>
+              <?php wp_reset_postdata();?>
             </div>
           </section>
+
           <section class="sidebar__box sidebar-box">
             <h2 class="sidebar-box__heading">
               <span class="sidebar-box__icon"></span>
               <span class="sidebar-box__title">キャンペーン</span>
             </h2>
             <div class="sidebar-box__body">
+            <?php
+              $campaign = new WP_Query(array(
+                'posts_per_page' => 2,
+                'post_type'      => 'campaign',
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+              ));
+
+            if($campaign->have_posts()): while($campaign->have_posts()): $campaign->the_post();
+              $campaign_img = get_post_meta(get_the_ID(), 'campaign_image', true);
+              $campaign_note = get_post_meta(get_the_ID(), 'campaign_note', true);
+              $campaign_selling = get_post_meta(get_the_ID(), 'campaign_price_selling', true);
+              $campaign_special = get_post_meta(get_the_ID(), 'campaign_price_special', true);
+            ?>
+
               <div class="sidebar-box__campaign-card campaign-card">
                 <div class="campaign-card__image campaign-card__image--side">
-                  <img src="./assets/images/common/campaign_1.jpg" alt="キャンペーン画像1">
+                <?php if ($campaign_img): ?>
+                  <?php echo wp_get_attachment_image($campaign_img, 'medium'); ?>
+                <?php else: ?>
+                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/noimage.png" alt="">
+                <?php endif; ?>
                 </div>
                 <div class="campaign-card__body campaign-card__body--side">
-                  <p class="campaign-card__title campaign-card__title--side">ライセンス取得</p>
-                  <p class="campaign-card__note campaign-card__note--side">全部コミコミ(お一人様)</p>
+                  <p class="campaign-card__title campaign-card__title--side"><?php the_title(); ?></p>
+                  <p class="campaign-card__note campaign-card__note--side"><?php echo esc_html($campaign_note); ?></p>
                   <div class="campaign-card__price campaign-card__price--side">
-                    <p class="campaign-card__selling campaign-card__selling--side">¥56,000</p>
-                    <p class="campaign-card__special campaign-card__special--side">¥46,000</p>
+                    <p class="campaign-card__selling campaign-card__selling--side"><?php echo esc_html($campaign_selling); ?></p>
+                    <p class="campaign-card__special campaign-card__special--side"><?php echo esc_html($campaign_special); ?></p>
                   </div>
                 </div>
               </div>
-              <div class="sidebar-box__campaign-card campaign-card">
-                <div class="campaign-card__image campaign-card__image--side">
-                  <img src="./assets/images/common/campaign_2.jpg" alt="キャンペーン画像2">
-                </div>
-                <div class="campaign-card__body campaign-card__body--side">
-                  <p class="campaign-card__title campaign-card__title--side">貸切体験ダイビング</p>
-                  <p class="campaign-card__note campaign-card__note--side">全部コミコミ(お一人様)</p>
-                  <div class="campaign-card__price campaign-card__price--side">
-                    <p class="campaign-card__selling campaign-card__selling--side">¥24,000</p>
-                    <p class="campaign-card__special campaign-card__special--side">¥18,000</p>
-                  </div>
-                </div>
-              </div>
+              <?php endwhile; endif;?>
+              <?php wp_reset_postdata();?>
               <div class="sidebar-box__button">
                 <a href="archive-campaign.html" class="button">
                   View more
@@ -185,6 +176,7 @@
               </div>
             </div>
           </section>
+
           <section class="sidebar__box sidebar-box">
             <h2 class="sidebar-box__heading">
               <span class="sidebar-box__icon"></span>
@@ -192,42 +184,45 @@
             </h2>
             <div class="sidebar-box__body">
               <ul class="sidebar-box__archive-list archive-list">
-                <li class="archive-list__year is-open">
-                  <button class="archive-list__year-button" type="button">2023</button>
+
+              <?php
+              global $wpdb;
+              $years = $wpdb->get_col("
+                  SELECT DISTINCT YEAR(post_date) 
+                  FROM $wpdb->posts 
+                  WHERE post_status='publish' AND post_type='post' 
+                  ORDER BY post_date DESC
+              ");
+
+              foreach($years as $year):
+              ?>
+                <li class="archive-list__year <?php echo $year === '2023' ? 'is-open' : ''; ?>">
+                  <button class="archive-list__year-button" type="button"><?php echo $year; ?></button>
                   <ul class="archive-list__months">
-                    <li class="archive-list__month"><a href="#">11月</a></li>
-                    <li class="archive-list__month"><a href="#">10月</a></li>
-                    <li class="archive-list__month"><a href="#">9月</a></li>
-                    <li class="archive-list__month"><a href="#">8月</a></li>
-                    <li class="archive-list__month"><a href="#">7月</a></li>
-                    <li class="archive-list__month"><a href="#">6月</a></li>
-                    <li class="archive-list__month"><a href="#">5月</a></li>
-                    <li class="archive-list__month"><a href="#">4月</a></li>
-                    <li class="archive-list__month"><a href="#">3月</a></li>
-                    <li class="archive-list__month"><a href="#">2月</a></li>
-                    <li class="archive-list__month"><a href="#">1月</a></li>
+
+                  <?php
+                  $months = $wpdb->get_col($wpdb->prepare(
+                    "SELECT DISTINCT MONTH(post_date) 
+                     FROM $wpdb->posts 
+                     WHERE post_status='publish' AND post_type='post' AND YEAR(post_date)=%d 
+                     ORDER BY post_date DESC",
+                    $year
+                  ));
+
+                  foreach($months as $month):
+                    $link = get_month_link($year, $month);
+                  ?>
+
+                    <li class="archive-list__month"><a href="<?php echo esc_url($link); ?>"><?php echo $month; ?>月</a></li>
+                  <?php endforeach; ?>
+                    
                   </ul>
                 </li>
-                <li class="archive-list__year">
-                  <button class="archive-list__year-button" type="button">2022</button>
-                  <ul class="archive-list__months">
-                    <li class="archive-list__month"><a href="#">12月</a></li>
-                    <li class="archive-list__month"><a href="#">11月</a></li>
-                    <li class="archive-list__month"><a href="#">10月</a></li>
-                    <li class="archive-list__month"><a href="#">9月</a></li>
-                    <li class="archive-list__month"><a href="#">8月</a></li>
-                    <li class="archive-list__month"><a href="#">7月</a></li>
-                    <li class="archive-list__month"><a href="#">6月</a></li>
-                    <li class="archive-list__month"><a href="#">5月</a></li>
-                    <li class="archive-list__month"><a href="#">4月</a></li>
-                    <li class="archive-list__month"><a href="#">3月</a></li>
-                    <li class="archive-list__month"><a href="#">2月</a></li>
-                    <li class="archive-list__month"><a href="#">1月</a></li>
-                  </ul>
-                </li>
+                <?php endforeach; ?>
               </ul>
             </div>
           </section>
+          
         </aside>
     </div>
   </div>
