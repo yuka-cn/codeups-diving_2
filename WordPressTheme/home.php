@@ -60,13 +60,11 @@
                   'meta_key'       => 'post_views_count',
                   'orderby'        => 'meta_value_num',
                   'order'          => 'DESC',
-                  'cache_results'  => false
+                  'ignore_custom_sort' => true,
                 ));
 
                 
-                if($popular->have_posts()): while($popular->have_posts()): $popular->the_post();
-                var_dump(get_post_meta(get_the_ID(), 'post_views_count', true));
-                ?>
+                if($popular->have_posts()): while($popular->have_posts()): $popular->the_post();?>
 
                 <a href="<?php the_permalink(); ?>" class="popular-list__item">
                   <div class="popular-list__image">
