@@ -36,11 +36,12 @@
 
         <!-- ページネーション -->
         <nav class="single-blog__pagination pagination pagination--simple">
-        <?php wp_pagenavi(); ?>
-        </nav>
-        <nav class="single-blog__pagination pagination pagination--simple">
-            <a href="#" class="pagination__prev">前へ</a>
-            <a href="#" class="pagination__next">次へ</a>
+          <div class="pagination__prev">
+            <?php previous_post_link('%link', '前へ'); ?>
+          </div>
+          <div class="pagination__next">
+            <?php next_post_link('%link', '次へ'); ?>
+          </div>
         </nav>
       </div>
 

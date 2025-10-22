@@ -38,7 +38,7 @@ if (is_home()) {
   <div class="breadcrumb__inner inner">
     <ol class="breadcrumb__list">
       <li class="breadcrumb__item"><a href="<?php echo home_url(); ?>">TOP</a></li>
-      <li class="breadcrumb__item"><a href="<?php echo home_url('/blog/'); ?>">ブログ一覧</a></li>
+      <li class="breadcrumb__item"><a href="<?php echo home_url('/home/'); ?>">ブログ一覧</a></li>
       <li class="breadcrumb__item" aria-current="page">ブログ詳細</li>
     </ol>
   </div>
