@@ -2224,13 +2224,13 @@ a {
 	transform: translate(-70%, -50%) rotate(45deg);
 }
 
-a.pagination__prev:hover,
-a.pagination__next:hover {
+.pagination__prev:hover,
+.pagination__next:hover {
 	background: #408F95;
 }
 
-a.pagination__prev:hover::before,
-a.pagination__next:hover::before {
+.pagination__prev:hover::before,
+.pagination__next:hover::before {
 	border-color: #fff;
 }
 
