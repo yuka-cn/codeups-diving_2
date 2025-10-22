@@ -1101,14 +1101,6 @@ a {
 	margin-top: 1rem;
 }
 
-.campaign-card--page {
-	display: none;
-}
-
-.campaign-card--page.is-active {
-	display: flex;
-}
-
 .campaign-card__image--side::before {
 	padding-top: 63.9455782313%;
 }

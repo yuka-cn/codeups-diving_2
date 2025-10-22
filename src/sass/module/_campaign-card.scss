@@ -166,14 +166,6 @@
   margin-top: rem(16);
 }
 
-.campaign-card--page{
-  display: none;
-}
-
-.campaign-card--page.is-active{
-  display: flex;
-}
-
 .campaign-card__image--page::before{
   @include mq("md"){
     padding-top: calc(347 / 520 * 100%);

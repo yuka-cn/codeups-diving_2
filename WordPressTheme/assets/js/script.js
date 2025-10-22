@@ -238,39 +238,6 @@ jQuery(function ($) {
     }
   }
 
-  //カテゴリーボタン
-  var buttons = document.querySelectorAll('.category-button');
-  var cards = document.querySelectorAll('.campaign-card, .voice-card');
-
-  // カード表示切り替え用の関数
-  function showCards(targetId) {
-    cards.forEach(function (card) {
-      var category = card.getAttribute("data-category");
-      if (targetId === "all" || category === targetId) {
-        card.classList.add("is-active");
-      } else {
-        card.classList.remove("is-active");
-      }
-    });
-  }
-
-  // 最初は全部表示（= ALL 選択状態）
-  showCards('all');
-  buttons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      var targetId = this.getAttribute("data-target");
-
-      // ボタンの active 切り替え
-      buttons.forEach(function (btn) {
-        return btn.classList.remove("is-active");
-      });
-      this.classList.add("is-active");
-
-      // カードの表示切り替え
-      showCards(targetId);
-    });
-  });
-
   // informationのタブ
   var tabButtons = document.querySelectorAll(".tab-button");
   var tabPanels = document.querySelectorAll(".tab-panel");
