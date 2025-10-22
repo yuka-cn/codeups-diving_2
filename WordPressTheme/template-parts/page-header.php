@@ -33,7 +33,7 @@ if ($template === 'home.php' || $post_type === 'post') {
 
 // ----------------------
 // contactページ
-} elseif (in_array($template, ['page-contact.php','page-contact-error.php','page-contact-thanks.php'])) {
+} elseif ($slug === 'contact') {
   $header_pc = get_theme_file_uri('/assets/images/pages/contact-fv-pc.jpg');
   $header_sp = get_theme_file_uri('/assets/images/pages/contact-fv-sp.jpg');
 

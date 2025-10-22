@@ -32,7 +32,7 @@
   background: #C94800;
 }
 
-.form__input {
+.form__input{
   padding: rem(8) rem(15) rem(14);
   width: 100%;
   height: rem(40);
@@ -52,7 +52,7 @@
   padding: rem(3) rem(16);
 }
 
-.form__input::placeholder {
+.form__input::placeholder{
   color: $bg-color;
 }
 
@@ -95,7 +95,8 @@
   }
 }
 
-.form__agreement label{
+.form__agreement label,
+.form__agreement-inner{
   display: flex;
   align-items: flex-start;
   justify-content: center;

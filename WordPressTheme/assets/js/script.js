@@ -296,60 +296,47 @@ jQuery(function ($) {
     }
   });
 
-  //contactフォーム
-  var form = document.getElementById("contactForm");
-  if (!form) return;
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var hasError = false;
-    form.querySelectorAll("[required]").forEach(function (input) {
-      if (!checkInput(input)) {
-        hasError = true;
-      }
+  // サイドバーのアーカイブ開閉
+  document.addEventListener('DOMContentLoaded', function () {
+    var archiveYears = document.querySelectorAll('.archive-list__year');
+    archiveYears.forEach(function (year) {
+      var button = year.querySelector('.archive-list__year-button');
+      var months = year.querySelector('.archive-list__months');
+      if (!button || !months) return;
+
+      // 初期ARIAセット
+      var isOpen = year.classList.contains('is-open');
+      var monthsId = months.id || "archive-months-".concat(Math.random().toString(36).slice(2, 9));
+      months.id = monthsId;
+      button.setAttribute('aria-controls', monthsId);
+      button.setAttribute('aria-expanded', String(isOpen));
+      months.hidden = !isOpen;
+
+      // クリックでトグル
+      button.addEventListener('click', function () {
+        var expanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', String(!expanded));
+        year.classList.toggle('is-open');
+        months.hidden = expanded;
+      });
     });
-    if (hasError) {
-      // エラーページへ
-      window.location.href = "page-contact-error.html";
-    } else {
-      // 完了ページへ
-      window.location.href = "page-contact-thanks.html";
-    }
   });
 
-  // 必須項目チェック
-  function checkInput(input) {
-    if (input.type === "checkbox" || input.type === "radio") {
-      var group = document.querySelectorAll("[name=\"".concat(input.name, "\"]"));
-      return Array.from(group).some(function (i) {
-        return i.checked;
-      });
-    }
-    return input.value.trim() !== "";
-  }
-});
-
-// サイドバーのアーカイブ開閉
-document.addEventListener('DOMContentLoaded', function () {
-  var archiveYears = document.querySelectorAll('.archive-list__year');
-  archiveYears.forEach(function (year) {
-    var button = year.querySelector('.archive-list__year-button');
-    var months = year.querySelector('.archive-list__months');
-    if (!button || !months) return;
-
-    // 初期ARIAセット
-    var isOpen = year.classList.contains('is-open');
-    var monthsId = months.id || "archive-months-".concat(Math.random().toString(36).slice(2, 9));
-    months.id = monthsId;
-    button.setAttribute('aria-controls', monthsId);
-    button.setAttribute('aria-expanded', String(isOpen));
-    months.hidden = !isOpen;
-
-    // クリックでトグル
-    button.addEventListener('click', function () {
-      var expanded = button.getAttribute('aria-expanded') === 'true';
-      button.setAttribute('aria-expanded', String(!expanded));
-      year.classList.toggle('is-open');
-      months.hidden = expanded;
+  //contact
+  //独自送信ボタン
+  document.getElementById('submit').addEventListener('click', function () {
+    var form = document.getElementById('my-cf7-form');
+    var submitEvent = new Event('submit', {
+      bubbles: true,
+      cancelable: true
     });
+    form.dispatchEvent(submitEvent);
+  });
+
+  //エラーメッセージ
+  document.addEventListener('wpcf7invalid', function (event) {
+    var errorContainer = document.getElementById('contact-error');
+    errorContainer.innerHTML = '※必須項目が入力されていません。<br>入力してください。';
+    errorContainer.style.display = 'block';
   });
 });

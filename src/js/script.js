@@ -298,40 +298,7 @@ jQuery(function ($) {
       }
 
   });
-  
 
-//contactフォーム
-  const form = document.getElementById("contactForm");
-  if (!form) return;
-
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-    let hasError = false;
-
-  form.querySelectorAll("[required]").forEach(input => {
-    if (!checkInput(input)) {
-      hasError = true;
-    }
-  });
-
-    if (hasError) {
-      // エラーページへ
-      window.location.href = "page-contact-error.html";
-    } else {
-      // 完了ページへ
-      window.location.href = "page-contact-thanks.html";
-    }
-  });
-
-  // 必須項目チェック
-  function checkInput(input) {
-    if (input.type === "checkbox" || input.type === "radio") {
-      const group = document.querySelectorAll(`[name="${input.name}"]`);
-      return Array.from(group).some(i => i.checked);
-    }
-    return input.value.trim() !== "";
-  }
-});
 
 // サイドバーのアーカイブ開閉
 document.addEventListener('DOMContentLoaded', function () {
@@ -357,4 +324,21 @@ document.addEventListener('DOMContentLoaded', function () {
       months.hidden = expanded;
     });
   });
+});
+
+//contact
+  //独自送信ボタン
+  document.getElementById('submit').addEventListener('click', function() {
+    const form = document.getElementById('my-cf7-form');
+    const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+    form.dispatchEvent(submitEvent);
+  });
+
+  //エラーメッセージ
+  document.addEventListener('wpcf7invalid', function(event) {
+    const errorContainer = document.getElementById('contact-error');
+    errorContainer.innerHTML = '※必須項目が入力されていません。<br>入力してください。';
+    errorContainer.style.display = 'block';
+  });
+
 });

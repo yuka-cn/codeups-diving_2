@@ -1,14 +1,10 @@
 @use "global" as *;
 
-.page-contact__main {
+.page-contact {
   position: relative;
-  margin-top: rem(54);
-  @include mq("md"){
-    margin-top: rem(150);
-  }
 }
 
-.page-contact__main::before {
+.page-contact::before {
   content: "";
   position: absolute;
   top: rem(-27);
@@ -56,7 +52,8 @@
   }
 }
 
-.page-contact__body{
+.page-contact__body,
+.wpcf7-form{
   @include mq("md"){
     margin: 0 auto;
     max-width: rem(700);
