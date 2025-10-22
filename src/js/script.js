@@ -296,6 +296,42 @@ jQuery(function ($) {
     });
   });
 
+// サイトマップからアクセス時のハッシュスクロール
+  window.addEventListener('load', function() {
+    const hash = window.location.hash;
+    if (!hash) return;
+
+
+      const headerOffset = document.querySelector('header').offsetHeight;
+
+      //informationページ
+      const targetTabButton = document.querySelector(`[data-target="${hash}"]`);
+      const targetPanel = document.querySelector(hash);
+  
+      if (targetTabButton && targetPanel) {
+        document.querySelectorAll('.tab-button.is-active, .tab-panel.is-active').forEach(el => {
+          el.classList.remove('is-active');
+        });
+        targetTabButton.classList.add('is-active');
+        targetPanel.classList.add('is-active');
+
+        const buttonTop = targetTabButton.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: buttonTop - headerOffset, behavior: 'smooth' });
+
+        return; 
+      }
+
+      //priceページ
+      const targetSection = document.querySelector(hash);
+
+      if (targetSection) {
+        const sectionTop = targetSection.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: sectionTop - headerOffset, behavior: 'smooth' });
+      }
+
+  });
+  
+
 //contactフォーム
   const form = document.getElementById("contactForm");
   if (!form) return;

@@ -7,16 +7,16 @@
         <?php
          $tables = [
             'ライセンス講習' => 'license',
-            '体験ダイビング' => 'trial', 
-            'ファンダイビング' => 'fun', 
-            'スペシャルダイビング' => 'special',
+            '体験ダイビング' => 'trial-diving', 
+            'ファンダイビング' => 'fun-diving', 
+            'スペシャルダイビング' => 'special-diving',
          ];
 
          foreach ($tables as $title => $field_name):
           $courses = SCF::get($field_name);
           if (!empty($courses)): ?>
 
-          <div class="price-tables__item price-table">
+          <div class="price-tables__item price-table" id="price-<?php echo esc_attr($field_name); ?>">
             <h2 class="price-table__heading">
               <span class="price-table__icon"></span>
               <span class="price-table__title"><?php echo esc_html($title); ?></span>
