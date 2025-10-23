@@ -333,10 +333,52 @@ jQuery(function ($) {
     form.dispatchEvent(submitEvent);
   });
 
-  //エラーメッセージ
-  document.addEventListener('wpcf7invalid', function (event) {
-    var errorContainer = document.getElementById('contact-error');
-    errorContainer.innerHTML = '※必須項目が入力されていません。<br>入力してください。';
-    errorContainer.style.display = 'block';
+  //エラー時の処理
+  document.addEventListener('wpcf7invalid', function () {
+    //エラーメッセージの表示
+    var errorContainer = document.querySelector('.page-contact__error');
+    if (errorContainer) {
+      errorContainer.innerHTML = '※必須項目が入力されていません。<br>入力してください。';
+      errorContainer.style.display = 'block';
+      var headerOffset = document.querySelector('header').offsetHeight;
+      var errorTop = errorContainer.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: errorTop - headerOffset,
+        behavior: 'smooth'
+      });
+    }
+
+    //エラー枠の強調
+    setTimeout(function () {
+      document.querySelectorAll('.wpcf7-not-valid').forEach(function (inputEl) {
+        var row = inputEl.closest('.form__row');
+        if (row) row.classList.add('form__row--error');
+      });
+
+      // acceptance チェックボックスの未チェックを直接判定
+      var acceptanceInput = document.querySelector('.form__agreement input[type="checkbox"]');
+      if (acceptanceInput && !acceptanceInput.checked) {
+        var agreement = acceptanceInput.closest('.form__agreement');
+        if (agreement) agreement.classList.add('form__agreement--error');
+      }
+    }, 10);
+  });
+
+  // 入力中にエラー枠の強調を外す
+  document.addEventListener('input', function (event) {
+    var _event$target$closest;
+    var row = event.target.closest('.form__row');
+    if (row && row.classList.contains('form__row--error')) {
+      row.classList.remove('form__row--error');
+    }
+    if (event.target.type === 'checkbox' && (_event$target$closest = event.target.closest('.form__agreement')) !== null && _event$target$closest !== void 0 && _event$target$closest.classList.contains('form__agreement--error')) {
+      var agreement = event.target.closest('.form__agreement');
+      agreement.classList.remove('form__agreement--error');
+    }
+  });
+
+  //送信成功時の処理
+  document.addEventListener('wpcf7mailsent', function (event) {
+    window.location.href = '/contact-thanks';
   });
 });

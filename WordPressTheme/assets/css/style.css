@@ -327,6 +327,7 @@ a {
 
 .page-contact__error {
 	color: #C94800;
+	display: none;
 	font-size: 0.875rem;
 	line-height: 1;
 	margin: 0 auto;
