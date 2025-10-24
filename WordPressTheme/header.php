@@ -19,7 +19,7 @@ $faq = esc_url( home_url( '/faq/' ) );
 $contact = esc_url( home_url( '/contact/' ) );
 $privacy_policy = esc_url( home_url( '/privacypolicy/' ) );
 $terms = esc_url( home_url( '/terms-of-service/' ) );
- ?>
+?>
 
   <body>
     <!-- ヘッダー -->
@@ -27,13 +27,13 @@ $terms = esc_url( home_url( '/terms-of-service/' ) );
       <div class="header__inner">
       <?php if ( is_front_page()) : ?>
         <h1 class="header__logo">
-          <a href="/codeups-diving/" class="header__logolink">
+          <a href="<?php echo home_url(); ?>" class="header__logolink">
             <img src="<?php echo get_theme_file_uri('/assets/images/common/codeups.svg'); ?>" alt="CodeUps">
           </a>
         </h1>
         <?php else : ?>
         <div class="header__logo">
-          <a href="/codeups-diving/" class="header__logolink">
+          <a href="<?php echo home_url(); ?>" class="header__logolink">
             <img src="<?php echo get_theme_file_uri('/assets/images/common/codeups.svg'); ?>" alt="CodeUps">
           </a>
         </div>
@@ -155,9 +155,9 @@ $terms = esc_url( home_url( '/terms-of-service/' ) );
       <?php wp_head(); ?>
     </header>
 
+    <?php if ( !is_front_page() && !is_404() ) :?>
+
     <main>
-    <?php 
-    if ( !is_front_page() && !is_404() ) :
-        get_template_part( 'template-parts/page-header' );
-    endif;
-    ?>
+    <?php get_template_part( 'template-parts/page-header' );?>
+
+    <?php endif;?>

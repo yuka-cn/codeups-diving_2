@@ -46,7 +46,7 @@
       </div>
 
       <!-- サイドバー -->
-      <aside class="page-blog__sidebar sidebar">
+      <aside class="single-blog__sidebar sidebar">
         <section class="sidebar__box sidebar-box">
           <h2 class="sidebar-box__heading">
             <span class="sidebar-box__icon"></span>

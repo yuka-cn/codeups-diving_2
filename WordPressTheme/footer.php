@@ -51,9 +51,9 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
           </div>
         </div>
       </section>
-      <?php endif; ?>
-
     </main>
+    <?php endif; ?>
+
 
     <!-- topへ戻るボタン -->
     <div class="to-top">
@@ -71,7 +71,7 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
       <div class="footer__inner inner">
         <div class="footer__header">
           <div class="footer__logo">
-            <a href="#" class="footer__logolink">
+            <a href="<?php echo home_url(); ?>" class="footer__logolink">
               <img src="<?php echo get_theme_file_uri('/assets/images/common/codeups.svg'); ?>" alt="CodeUps">
             </a>
           </div>
