@@ -159,3 +159,41 @@ add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
 function wpcf7_autop_return_false() {
   return false;
 }
+
+//
+function add_campaign_titles_to_cf7($tag) {
+  // 対象タグ名を確認
+  if ($tag['name'] !== 'campaign') {
+    return $tag;
+  }
+
+  // カスタム投稿「campaign」から投稿を取得
+  $args = array(
+    'post_type'      => 'campaign',
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+  );
+  $posts = get_posts($args);
+
+  if (!$posts) return $tag;
+
+  // 投稿タイトルを選択肢として追加
+  $titles = [];
+  foreach ($posts as $post) {
+    $titles[] = get_the_title($post->ID);
+  }
+
+  // 重複を除外して（もし同名タイトルがある場合）
+  $unique_titles = array_unique($titles);
+
+  // 先頭に「キャンペーン内容を選択」を追加
+  array_unshift($unique_titles, 'キャンペーン内容を選択');
+
+  // CF7に値を渡す
+  $tag['raw_values'] = $unique_titles;
+  $tag['values'] = $unique_titles;
+  $tag['labels'] = $unique_titles;
+
+  return $tag;
+}
+add_filter('wpcf7_form_tag', 'add_campaign_titles_to_cf7');
