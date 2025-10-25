@@ -37,8 +37,8 @@
 
         $image = get_field('campaign_image');
         $note = get_field('campaign_note');
-        $selling = get_field('campaign_selling');
-        $special = get_field('campaign_special');
+        $selling = get_field('campaign_price_selling');
+        $special = get_field('campaign_price_special');
         $text = get_field('campaign_text');
         $period = get_field('campaign_period');
         ?>
@@ -46,9 +46,9 @@
             <div class="campaign-cards__item campaign-card campaign-card--page">
                 <div class="campaign-card__image campaign-card__image--page">
                     <?php if ($image) : ?>
-                        <img src="<?php echo esc_url($image['url']); ?>" alt="">
+                        <img src="<?php echo esc_url($image); ?>" alt="">
                     <?php else: ?>
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/campaign_1.jpg" alt="">
+                        <img src="<?php echo get_theme_file_uri('/assets/images/common/campaign_1.jpg'); ?>" alt="">
                     <?php endif; ?>
                 </div>
                 <div class="campaign-card__body campaign-card__body--page">

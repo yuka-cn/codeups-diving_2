@@ -46,9 +46,9 @@
             <div class="campaign-cards__item campaign-card campaign-card--page">
                 <div class="campaign-card__image campaign-card__image--page">
                     <?php if ($image) : ?>
-                        <img src="<?php echo esc_url($image['url']); ?>" alt="">
+                        <img src="<?php echo esc_url($image); ?>" alt="">
                     <?php else: ?>
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/campaign_1.jpg" alt="">
+                        <img src="<?php echo get_theme_file_uri('/assets/images/common/campaign_1.jpg'); ?>" alt="">
                     <?php endif; ?>
                 </div>
                 <div class="campaign-card__body campaign-card__body--page">

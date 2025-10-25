@@ -2913,14 +2913,6 @@ a {
 	margin-top: 1rem;
 }
 
-.voice-card--page-voice {
-	display: none;
-}
-
-.voice-card--page-voice.is-active {
-	display: block;
-}
-
 .voice-cards {
 	grid-gap: 2.5rem;
 	display: grid;

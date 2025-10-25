@@ -14,7 +14,7 @@ add_action('after_setup_theme', 'codeups_theme_setup');
 
 // アセット読み込み
 function codeups_enqueue_assets() {
-  $theme_uri = get_template_directory_uri();
+  $theme_uri = get_theme_file_uri();
 
   // Google Fonts
   wp_enqueue_style('codeups-google-fonts-preconnect', 'https://fonts.googleapis.com', [], null);

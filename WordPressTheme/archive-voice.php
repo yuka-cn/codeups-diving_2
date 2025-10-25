@@ -50,7 +50,7 @@
               <h3 class="voice-card__title"><?php the_title(); ?></h3>
             </div>
             <div class="voice-card__image">
-            <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr( ($demographic ? $demographic . 'の写真' : 'お客様の写真') ); ?>">
+            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr( ($demographic ? $demographic . 'の写真' : 'お客様の写真') ); ?>">
             </div>
           </div>
           <p class="voice-card__text"><?php echo nl2br(esc_html($text)); ?></p>

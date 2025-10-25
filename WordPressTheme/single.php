@@ -71,7 +71,7 @@
                 <?php if (has_post_thumbnail()): ?>
                   <?php the_post_thumbnail('medium'); ?>
                 <?php else: ?>
-                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/noimage.png" alt="">
+                  <img src="<?php echo get_theme_file_uri('/assets/images/common/noimage.png'); ?>" alt="">
                 <?php endif; ?>
                 </div>
                 <div class="popular-list__body">
@@ -147,7 +147,7 @@
               <?php if ($campaign_img): ?>
                 <?php echo wp_get_attachment_image($campaign_img, 'medium'); ?>
               <?php else: ?>
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/noimage.png" alt="">
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/noimage.png'); ?>" alt="">
               <?php endif; ?>
               </div>
               <div class="campaign-card__body campaign-card__body--side">
