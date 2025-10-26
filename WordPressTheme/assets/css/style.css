@@ -3533,7 +3533,6 @@ html {
 	-moz-column-gap: 2rem;
 	column-gap: 2rem;
 	grid-template-columns: repeat(4, 10.125rem);
-	row-gap: 0;
 }
 
 .company__name {
@@ -4040,7 +4039,8 @@ html {
 }
 
 .tab-buttons {
-	gap: 5.625rem;
+	-moz-column-gap: 5.625rem;
+	column-gap: 5.625rem;
 }
 
 .tab-panel {
