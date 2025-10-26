@@ -101,7 +101,7 @@
         <img src="<?php echo get_theme_file_uri('/assets/images/common/next.png'); ?>" alt="次へ">
       </div>
       <div class="campaign__button">
-        <a href="archive-campaign.html" class="button">
+        <a href="<?php echo esc_url( home_url( '/campaign/' ) );?>" class="button">
           View more
           <span></span>
         </a>
@@ -133,7 +133,7 @@
             ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキスト
           </p>
           <div class="about__button">
-            <a href="page-about.html" class="button">
+            <a href="<?php echo esc_url( home_url( '/about-us/' ) );?>" class="button">
               View more
               <span></span>
             </a>
@@ -162,7 +162,7 @@
             正規登録店として、安心安全に初めての方でも安心安全にライセンス取得をサポート致します。
           </p>
           <div class="information__button">
-            <a href="page-information.html" class="button">
+            <a href="<?php echo esc_url( home_url( '/information/' ) );?>" class="button">
               View more
               <span></span>
             </a>
@@ -226,7 +226,7 @@
         ?>
       </div>
       <div class="blog__button">
-        <a href="home.html" class="button">
+        <a href="<?php echo esc_url( home_url( '/blog/' ) );?>" class="button">
           View more
           <span></span>
         </a>
@@ -284,7 +284,7 @@
         ?>
       </div>
       <div class="voice__button">
-        <a href="archive-voice.html" class="button">
+        <a href="<?php echo esc_url( home_url( '/voice/' ) );?>" class="button">
           View more
           <span></span>
         </a>
@@ -332,7 +332,7 @@
         </div>
       </div>
       <div class="price__button">
-        <a href="page-price.html" class="button">
+        <a href="<?php echo esc_url( home_url( '/price/' ) );?>" class="button">
           View more
           <span></span>
         </a>

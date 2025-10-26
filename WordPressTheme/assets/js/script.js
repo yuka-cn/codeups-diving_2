@@ -266,8 +266,8 @@ jQuery(function ($) {
     });
   });
 
-  // サイトマップからアクセス時のハッシュスクロール
-  window.addEventListener('load', function () {
+  //ハッシュリンク対応スクロール
+  function scrollToHash() {
     var hash = window.location.hash;
     if (!hash) return;
     var headerOffset = document.querySelector('header').offsetHeight;
@@ -286,19 +286,26 @@ jQuery(function ($) {
         top: buttonTop - headerOffset,
         behavior: 'smooth'
       });
-      return;
+    } else {
+      //priceページ
+      var targetSection = document.querySelector(hash);
+      if (targetSection) {
+        var sectionTop = targetSection.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: sectionTop - headerOffset,
+          behavior: 'smooth'
+        });
+      }
     }
 
-    //priceページ
-    var targetSection = document.querySelector(hash);
-    if (targetSection) {
-      var sectionTop = targetSection.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top: sectionTop - headerOffset,
-        behavior: 'smooth'
-      });
+    //sp-navが開いていたら閉じる
+    if ($(".js-sp-nav").hasClass("is-active")) {
+      $(".js-hamburger, .header, .js-sp-nav").removeClass("is-active");
+      $("body").css("overflow", "auto");
     }
-  });
+  }
+  window.addEventListener('load', scrollToHash);
+  window.addEventListener('hashchange', scrollToHash);
 
   // サイドバーのアーカイブ開閉
   document.addEventListener('DOMContentLoaded', function () {
@@ -383,6 +390,6 @@ jQuery(function ($) {
 
   //送信成功時の処理
   document.addEventListener('wpcf7mailsent', function (event) {
-    window.location.href = '/contact-thanks';
+    window.location.href = '/thanks';
   });
 });

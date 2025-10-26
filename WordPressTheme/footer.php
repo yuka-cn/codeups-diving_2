@@ -1,8 +1,12 @@
 <?php 
 $campaign = esc_url( home_url( '/campaign/' ) );
+$campaign_license = esc_url( home_url( '/campaign_category/license/' ) );
+$campaign_trial = esc_url( home_url( '/campaign_category/trial-diving/' ) );
+$campaign_fun = esc_url( home_url( '/campaign_category/fun-diving/' ) );
+
 $about = esc_url( home_url( '/about-us/' ) );
 $information = esc_url( home_url( '/information/' ) );
-$blog = esc_url( home_url( '/home/' ) );
+$blog = esc_url( home_url( '/blog/' ) );
 $voice = esc_url( home_url( '/voice/' ) );
 $price = esc_url( home_url( '/price/' ) );
 $faq = esc_url( home_url( '/faq/' ) );
@@ -10,7 +14,7 @@ $contact = esc_url( home_url( '/contact/' ) );
 $privacy_policy = esc_url( home_url( '/privacypolicy/' ) );
 $terms = esc_url( home_url( '/terms-of-service/' ) );
 
-$exclude_pages = array( 'contact', 'contact-error', 'contact-thanks' );
+$exclude_pages = array( 'contact', 'thanks' );
 
 if ( ! is_page( $exclude_pages ) && ! is_404() ) :
 ?>
@@ -42,7 +46,7 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
               </div>
               <p class="contact__text">ご予約・お問い合わせはコチラ</p>
               <div class="contact__button">
-                <a href="page-contact.html" class="button">
+                <a href="<?php echo esc_url( home_url( '/contact/' ) );?>" class="button">
                   Contact us
                   <span></span>
                 </a>
@@ -89,9 +93,9 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
             <div class="nav__block">
               <ul class="nav__items">
                 <li class="nav__item"><a href="<?php echo $campaign; ?>">キャンペーン</a></li>
-                <li class="nav__item"><a href="<?php echo $campaign; ?>">ライセンス取得</a></li>
-                <li class="nav__item"><a href="<?php echo $campaign; ?>">貸切体験ダイビング</a></li>
-                <li class="nav__item"><a href="<?php echo $campaign; ?>">ナイトダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $campaign_license; ?>">ライセンス講習</a></li>
+                <li class="nav__item"><a href="<?php echo $campaign_trial; ?>">体験ダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $campaign_fun; ?>">ファンダイビング</a></li>
               </ul>
               <ul class="nav__items">
                 <li class="nav__item"><a href="<?php echo $about; ?>">私たちについて</a></li>
@@ -100,9 +104,9 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
             <div class="nav__block">
               <ul class="nav__items">
                 <li class="nav__item"><a href="<?php echo $information; ?>">ダイビング情報</a></li>
-                <li class="nav__item"><a href="<?php echo $information; ?>">ライセンス講習</a></li>
-                <li class="nav__item"><a href="<?php echo $information; ?>">体験ダイビング</a></li>
-                <li class="nav__item"><a href="<?php echo $information; ?>">ファンダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $information; ?>#tab-license">ライセンス講習</a></li>
+                <li class="nav__item"><a href="<?php echo $information; ?>#tab-trial-diving">体験ダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $information; ?>#tab-fun-diving">ファンダイビング</a></li>
               </ul>
               <ul class="nav__items">
               <li class="sp-nav__item"><a href="<?php echo $blog; ?>">ブログ</a></li>
@@ -116,9 +120,9 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
               </ul>
               <ul class="nav__items">
                 <li class="nav__item"><a href="<?php echo $price; ?>">料金一覧</a></li>
-                <li class="nav__item"><a href="<?php echo $price; ?>">ライセンス講習</a></li>
-                <li class="nav__item"><a href="<?php echo $price; ?>">体験ダイビング</a></li>
-                <li class="nav__item"><a href="<?php echo $price; ?>">ファンダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $price; ?>#price-license">ライセンス講習</a></li>
+                <li class="nav__item"><a href="<?php echo $price; ?>#price-trial-diving">体験ダイビング</a></li>
+                <li class="nav__item"><a href="<?php echo $price; ?>#price-fun-diving">ファンダイビング</a></li>
               </ul>
             </div>
             <div class="nav__block">

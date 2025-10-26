@@ -128,6 +128,10 @@ jQuery(function ($) {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
+      autoplay: {
+        delay: 2000,
+        disableOnInteraction: false
+      }
     });
 
   }
@@ -264,39 +268,46 @@ jQuery(function ($) {
     });
   });
 
-// サイトマップからアクセス時のハッシュスクロール
-  window.addEventListener('load', function() {
+  //ハッシュリンク対応スクロール
+  function scrollToHash() {
     const hash = window.location.hash;
     if (!hash) return;
 
-      const headerOffset = document.querySelector('header').offsetHeight;
+    const headerOffset = document.querySelector('header').offsetHeight;
 
-      //informationページ
-      const targetTabButton = document.querySelector(`[data-target="${hash}"]`);
-      const targetPanel = document.querySelector(hash);
-  
-      if (targetTabButton && targetPanel) {
-        document.querySelectorAll('.tab-button.is-active, .tab-panel.is-active').forEach(el => {
-          el.classList.remove('is-active');
-        });
-        targetTabButton.classList.add('is-active');
-        targetPanel.classList.add('is-active');
+    //informationページ
+    const targetTabButton = document.querySelector(`[data-target="${hash}"]`);
+    const targetPanel = document.querySelector(hash);
 
-        const buttonTop = targetTabButton.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: buttonTop - headerOffset, behavior: 'smooth' });
+    if (targetTabButton && targetPanel) {
+      document.querySelectorAll('.tab-button.is-active, .tab-panel.is-active').forEach(el => {
+        el.classList.remove('is-active');
+      });
+      targetTabButton.classList.add('is-active');
+      targetPanel.classList.add('is-active');
 
-        return; 
-      }
+      const buttonTop = targetTabButton.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: buttonTop - headerOffset, behavior: 'smooth' });
+    } else{
 
-      //priceページ
+    //priceページ
       const targetSection = document.querySelector(hash);
 
       if (targetSection) {
         const sectionTop = targetSection.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: sectionTop - headerOffset, behavior: 'smooth' });
       }
+    }
+    
+    //sp-navが開いていたら閉じる
+    if ($(".js-sp-nav").hasClass("is-active")) {
+      $(".js-hamburger, .header, .js-sp-nav").removeClass("is-active");
+      $("body").css("overflow", "auto");
+    }
+  }
 
-  });
+  window.addEventListener('load', scrollToHash);
+  window.addEventListener('hashchange', scrollToHash);
 
 
 // サイドバーのアーカイブ開閉
@@ -379,6 +390,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   //送信成功時の処理
   document.addEventListener('wpcf7mailsent', function(event) {
-    window.location.href = '/contact-thanks';
+    window.location.href = '/thanks';
   });
 });

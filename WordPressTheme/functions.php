@@ -197,3 +197,4 @@ function add_campaign_titles_to_cf7($tag) {
   return $tag;
 }
 add_filter('wpcf7_form_tag', 'add_campaign_titles_to_cf7');
+

@@ -844,12 +844,16 @@ a {
 	display: flex;
 }
 
-.breadcrumb__item:not(:first-child) {
+.breadcrumb__item:not(:first-child),
+.post,
+.archive {
 	padding-left: 1.25rem;
 	position: relative;
 }
 
-.breadcrumb__item:not(:first-child)::before {
+.breadcrumb__item:not(:first-child)::before,
+.post::before,
+.archive::before {
 	border-bottom: 1px solid currentColor;
 	border-right: 1px solid currentColor;
 	content: "";

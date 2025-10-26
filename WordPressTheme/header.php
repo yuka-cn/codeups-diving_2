@@ -10,9 +10,13 @@
 
 <?php 
 $campaign = esc_url( home_url( '/campaign/' ) );
+$campaign_license = esc_url( home_url( '/campaign_category/license/' ) );
+$campaign_trial = esc_url( home_url( '/campaign_category/trial-diving/' ) );
+$campaign_fun = esc_url( home_url( '/campaign_category/fun-diving/' ) );
+
 $about = esc_url( home_url( '/about-us/' ) );
 $information = esc_url( home_url( '/information/' ) );
-$blog = esc_url( home_url( '/home/' ) );
+$blog = esc_url( home_url( '/blog/' ) );
 $voice = esc_url( home_url( '/voice/' ) );
 $price = esc_url( home_url( '/price/' ) );
 $faq = esc_url( home_url( '/faq/' ) );
@@ -50,18 +54,18 @@ $terms = esc_url( home_url( '/terms-of-service/' ) );
             <div class="sp-nav__left">
               <ul class="sp-nav__items">
                 <li class="sp-nav__item"><a href="<?php echo $campaign; ?>">キャンペーン</a></li>
-                <li class="sp-nav__item"><a href="<?php echo $campaign; ?>">ライセンス取得</a></li>
-                <li class="sp-nav__item"><a href="<?php echo $campaign; ?>">貸切体験ダイビング</a></li>
-                <li class="sp-nav__item"><a href="<?php echo $campaign; ?>">ナイトダイビング</a></li>
+                <li class="sp-nav__item"><a href="<?php echo $campaign_license; ?>">ライセンス講習</a></li>
+                <li class="sp-nav__item"><a href="<?php echo $campaign_trial; ?>">体験ダイビング</a></li>
+                <li class="sp-nav__item"><a href="<?php echo $campaign_fun; ?>">ファンダイビング</a></li>
               </ul>
               <ul class="sp-nav__items">
                 <li class="sp-nav__item"><a href="<?php echo $about; ?>">私たちについて</a></li>
               </ul>
               <ul class="sp-nav__items">
                 <li class="sp-nav__item"><a href="<?php echo $information; ?>">ダイビング情報</a></li>
-                <li class="sp-nav__item"><a href="<?php echo $information; ?>">ライセンス講習</a></li>
-                <li class="sp-nav__item"><a href="<?php echo $information; ?>">体験ダイビング</a></li>
-                <li class="sp-nav__item"><a href="<?php echo $information; ?>">ファンダイビング</a></li>
+                <li class="sp-nav__item"><a href="<?php echo $information; ?>#tab-license">ライセンス講習</a></li>
+                <li class="sp-nav__item"><a href="<?php echo $information; ?>#tab-trial-diving">体験ダイビング</a></li>
+                <li class="sp-nav__item"><a href="<?php echo $information; ?>#tab-fun-diving">ファンダイビング</a></li>
               </ul>
               <ul class="sp-nav__items">
                 <li class="sp-nav__item"><a href="<?php echo $blog; ?>">ブログ</a></li>
@@ -73,9 +77,9 @@ $terms = esc_url( home_url( '/terms-of-service/' ) );
               </ul>
               <ul class="sp-nav__items">
                 <li class="sp-nav__item"><a href="<?php echo $price; ?>">料金一覧</a></li>
-                <li class="sp-nav__item"><a href="<?php echo $price; ?>">ライセンス講習</a></li>
-                <li class="sp-nav__item"><a href="<?php echo $price; ?>">体験ダイビング</a></li>
-                <li class="sp-nav__item"><a href="<?php echo $price; ?>">ファンダイビング</a></li>
+                <li class="sp-nav__item"><a href="<?php echo $price; ?>#price-license">ライセンス講習</a></li>
+                <li class="sp-nav__item"><a href="<?php echo $price; ?>#price-trial-diving">体験ダイビング</a></li>
+                <li class="sp-nav__item"><a href="<?php echo $price; ?>#price-fun-diving">ファンダイビング</a></li>
               </ul>
               <ul class="sp-nav__items">
                 <li class="sp-nav__item"><a href="<?php echo $faq; ?>">よくある質問</a></li>

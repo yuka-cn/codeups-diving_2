@@ -33,39 +33,49 @@ if ($template === 'home.php' || $post_type === 'post') {
 
 // ----------------------
 // contactページ
-} elseif ($slug === 'contact' || $slug === 'contact-thanks') {
+} elseif ($slug === 'contact' || $slug === 'thanks') {
   $header_pc = get_theme_file_uri('/assets/images/pages/contact-fv-pc.jpg');
   $header_sp = get_theme_file_uri('/assets/images/pages/contact-fv-sp.jpg');
+  $header_title = 'Contact';
 
 // ----------------------
-// ポリシー・規約ページ
-} elseif ($template === 'page.php') {
-  $header_pc = get_theme_file_uri('/assets/images/pages/policy-fv-pc.jpg');
-  $header_sp = get_theme_file_uri('/assets/images/pages/policy-fv-sp.jpg');
-
-  // ----------------------
 // その他ページ
 } else {
     switch ($slug) {
       case 'about-us':
           $header_pc = get_theme_file_uri('/assets/images/pages/about-fv-pc.jpg');
           $header_sp = get_theme_file_uri('/assets/images/pages/about-fv-sp.jpg');
+          $header_title = 'About us';
           break;
       case 'information':
           $header_pc = get_theme_file_uri('/assets/images/pages/information-fv-pc.jpg');
           $header_sp = get_theme_file_uri('/assets/images/pages/information-fv-sp.jpg');
+          $header_title = 'Information';
           break;
       case 'price':
           $header_pc = get_theme_file_uri('/assets/images/pages/price-fv-pc.jpg');
           $header_sp = get_theme_file_uri('/assets/images/pages/price-fv-sp.jpg');
+          $header_title = 'Price';
           break;
       case 'faq':
           $header_pc = get_theme_file_uri('/assets/images/pages/faq-fv-pc.jpg');
           $header_sp = get_theme_file_uri('/assets/images/pages/faq-fv-sp.jpg');
+          $header_title = 'FAQ';
           break;
       case 'sitemap':
           $header_pc = get_theme_file_uri('/assets/images/pages/policy-fv-pc.jpg');
           $header_sp = get_theme_file_uri('/assets/images/pages/policy-fv-sp.jpg');
+          $header_title = 'SiteMAP';
+          break;
+      case 'privacypolicy':
+          $header_pc = get_theme_file_uri('/assets/images/pages/policy-fv-pc.jpg');
+          $header_sp = get_theme_file_uri('/assets/images/pages/policy-fv-sp.jpg');
+          $header_title = 'Privacy Policy';
+          break;
+      case 'terms-of-service':
+          $header_pc = get_theme_file_uri('/assets/images/pages/policy-fv-pc.jpg');
+          $header_sp = get_theme_file_uri('/assets/images/pages/policy-fv-sp.jpg');
+          $header_title = 'Terms of Service';
           break;
       default:
           break;

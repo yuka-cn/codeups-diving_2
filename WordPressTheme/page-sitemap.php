@@ -48,7 +48,7 @@ $terms = esc_url( home_url( '/terms-of-service/' ) );
         <div class="nav__right">
           <div class="nav__block">
             <ul class="nav__items">
-              <li class="nav__item"><a href="archive-voice.html">お客様の声</a></li>
+              <li class="nav__item"><a href="<?php echo $voice; ?>">お客様の声</a></li>
             </ul>
             <ul class="nav__items">
               <li class="nav__item"><a href="<?php echo $price; ?>">料金一覧</a></li>
