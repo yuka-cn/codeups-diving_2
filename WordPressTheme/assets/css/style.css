@@ -3532,7 +3532,7 @@ html {
 .category-buttons {
 	-moz-column-gap: 2rem;
 	column-gap: 2rem;
-	grid-template-columns: repeat(4, 10.125rem);
+	grid-template-columns: repeat(auto-fit, 10.125rem);
 }
 
 .company__name {
