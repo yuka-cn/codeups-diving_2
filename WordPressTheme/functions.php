@@ -198,3 +198,32 @@ function add_campaign_titles_to_cf7($tag) {
 }
 add_filter('wpcf7_form_tag', 'add_campaign_titles_to_cf7');
 
+add_filter('ssp_output_title', function($title){
+  $seo_page = get_page_by_path('seo-settings');
+  if (!$seo_page) return $title;
+
+  if (is_post_type_archive('campaign')) {
+    $new_title = get_field('campaign_meta_title', $seo_page->ID);
+    if ($new_title) return $new_title;
+  } elseif (is_post_type_archive('voice')) {
+    $new_title = get_field('voice_meta_title', $seo_page->ID);
+    if ($new_title) return $new_title;
+  }
+
+  return $title;
+});
+
+add_filter('ssp_output_description', function($desc){
+  $seo_page = get_page_by_path('seo-settings');
+  if (!$seo_page) return $desc;
+
+  if (is_post_type_archive('campaign')) {
+    $new_desc = get_field('campaign_meta_description', $seo_page->ID);
+    if ($new_desc) return $new_desc;
+  } elseif (is_post_type_archive('voice')) {
+    $new_desc = get_field('voice_meta_description', $seo_page->ID);
+    if ($new_desc) return $new_desc;
+  }
+
+  return $desc;
+});

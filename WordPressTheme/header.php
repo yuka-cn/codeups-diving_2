@@ -4,7 +4,34 @@
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta name="format-detection" content="telephone=no">
-  <meta name="robots" content="noindex">
+
+  <?php
+function output_archive_meta($group_name, $post_type) {
+    // アーカイブページかどうか
+    if (!is_post_type_archive($post_type)) return;
+
+    // SEO設定ページを取得
+    $seo_page = get_page_by_path('seo-settings');
+    if (!$seo_page || !isset($seo_page->ID)) return;
+
+    $group = get_field($group_name, $seo_page->ID);
+    if (!$group) return;
+
+    if (!empty($group['title'])) {
+        echo '<title>' . esc_html($group['title']) . '</title>' . "\n";
+    }
+    if (!empty($group['description'])) {
+        echo '<meta name="description" content="' . esc_attr($group['description']) . '">' . "\n";
+    }
+    if (!empty($group['noindex']) && $group['noindex'] === true) {
+        echo '<meta name="robots" content="noindex">' . "\n";
+    }
+}
+
+// 出力
+output_archive_meta('campaign', 'campaign');
+output_archive_meta('voice', 'voice');
+?>
   <?php wp_head(); ?>
 </head>
 
