@@ -6,32 +6,28 @@
   <meta name="format-detection" content="telephone=no">
 
   <?php
-function output_archive_meta($group_name, $post_type) {
-    // アーカイブページかどうか
-    if (!is_post_type_archive($post_type)) return;
-
-    // SEO設定ページを取得
-    $seo_page = get_page_by_path('seo-settings');
-    if (!$seo_page || !isset($seo_page->ID)) return;
-
-    $group = get_field($group_name, $seo_page->ID);
-    if (!$group) return;
-
-    if (!empty($group['title'])) {
-        echo '<title>' . esc_html($group['title']) . '</title>' . "\n";
+  $seo_page = get_page_by_path('seo-settings');
+  if ($seo_page && (is_post_type_archive('campaign') || is_post_type_archive('voice'))) {
+    if (is_post_type_archive('campaign')) {
+      $meta_title = get_field('campaign_meta_title', $seo_page->ID);
+      $meta_desc  = get_field('campaign_meta_description', $seo_page->ID);
+      $noindex    = get_field('campaign_meta_noindex', $seo_page->ID);
+    } elseif (is_post_type_archive('voice')) {
+      $meta_title = get_field('voice_meta_title', $seo_page->ID);
+      $meta_desc  = get_field('voice_meta_description', $seo_page->ID);
+      $noindex    = get_field('voice_meta_noindex', $seo_page->ID);
     }
-    if (!empty($group['description'])) {
-        echo '<meta name="description" content="' . esc_attr($group['description']) . '">' . "\n";
+    if (!empty($meta_title)) {
+      echo '<title>' . esc_html($meta_title) . '</title>' . "\n";
+    } 
+    if (!empty($meta_desc)) {
+      echo '<meta name="description" content="' . esc_attr($meta_desc) . '">' . "\n";
     }
-    if (!empty($group['noindex']) && $group['noindex'] === true) {
-        echo '<meta name="robots" content="noindex">' . "\n";
+    if (!empty($noindex)) {
+      echo '<meta name="robots" content="noindex">' . "\n";
     }
-}
-
-// 出力
-output_archive_meta('campaign', 'campaign');
-output_archive_meta('voice', 'voice');
-?>
+  }
+  ?>
   <?php wp_head(); ?>
 </head>
 
