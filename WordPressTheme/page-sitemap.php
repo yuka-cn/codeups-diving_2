@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <?php 
-$campaign = esc_url( home_url( '/campaign/' ) );
+$campaign = esc_url( get_post_type_archive_link( '/campaign/' ) );
 $campaign_license = esc_url( home_url( '/campaign_category/license/' ) );
 $campaign_trial = esc_url( home_url( '/campaign_category/trial-diving/' ) );
 $campaign_fun = esc_url( home_url( '/campaign_category/fun-diving/' ) );
@@ -9,7 +9,7 @@ $campaign_fun = esc_url( home_url( '/campaign_category/fun-diving/' ) );
 $about = esc_url( home_url( '/about-us/' ) );
 $information = esc_url( home_url( '/information/' ) );
 $blog = esc_url( home_url( '/home/' ) );
-$voice = esc_url( home_url( '/voice/' ) );
+$voice = esc_url( get_post_type_archive_link( '/voice/' ) );
 $price = esc_url( home_url( '/price/' ) );
 $faq = esc_url( home_url( '/faq/' ) );
 $contact = esc_url( home_url( '/contact/' ) );
