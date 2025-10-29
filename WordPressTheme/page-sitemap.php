@@ -1,22 +1,9 @@
 <?php get_header(); ?>
 
-<?php 
-$campaign = esc_url( get_post_type_archive_link( '/campaign/' ) );
-$campaign_license = esc_url( home_url( '/campaign_category/license/' ) );
-$campaign_trial = esc_url( home_url( '/campaign_category/trial-diving/' ) );
-$campaign_fun = esc_url( home_url( '/campaign_category/fun-diving/' ) );
-
-$about = esc_url( home_url( '/about-us/' ) );
-$information = esc_url( home_url( '/information/' ) );
-$blog = esc_url( home_url( '/home/' ) );
-$voice = esc_url( get_post_type_archive_link( 'voice' ) );
-$price = esc_url( home_url( '/price/' ) );
-$faq = esc_url( home_url( '/faq/' ) );
-$contact = esc_url( home_url( '/contact/' ) );
-$privacy_policy = esc_url( home_url( '/privacypolicy/' ) );
-$terms = esc_url( home_url( '/terms-of-service/' ) );
+<?php
+$links = theme_get_links();
+extract($links, EXTR_SKIP);
 ?>
-
 <div class="page-site-map__main">
   <div class="page-site-map__body">
     <div class="page-site-map__inner inner">
@@ -63,12 +50,12 @@ $terms = esc_url( home_url( '/terms-of-service/' ) );
             </ul>
             <ul class="nav__items u-mobile">
               <li class="nav__item nav__item--multiline">
-                <a href="<?php echo $privacy_policy; ?>">プライバシー<br>ポリシー</a>
+                <a href="<?php echo $privacy; ?>">プライバシー<br>ポリシー</a>
               </li>
             </ul>
             <ul class="nav__items u-desktop">
               <li class="nav__item">
-                <a href="<?php echo $privacy_policy; ?>">プライバシーポリシー</a>
+                <a href="<?php echo $privacy; ?>">プライバシーポリシー</a>
               </li>
             </ul>
             <ul class="nav__items">

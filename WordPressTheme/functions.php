@@ -47,7 +47,43 @@ function codeups_enqueue_assets() {
 add_action('wp_enqueue_scripts', 'codeups_enqueue_assets');
 
 
-//アーカイブの表示件数変更
+//　　リンクの設定
+function theme_get_links() {
+  // カスタム投稿タイプのアーカイブ
+  $campaign = esc_url( get_post_type_archive_link( 'campaign' ) );
+  $voice    = esc_url( get_post_type_archive_link( 'voice' ) );
+
+  // タクソノミー（キャンペーンカテゴリ）
+  $license_term = get_term_by( 'slug', 'license', 'campaign_category' );
+  $trial_term   = get_term_by( 'slug', 'trial-diving', 'campaign_category' );
+  $fun_term     = get_term_by( 'slug', 'fun-diving', 'campaign_category' );
+
+  $campaign_license = $license_term ? esc_url( get_term_link( $license_term ) ) : '#';
+  $campaign_trial   = $trial_term   ? esc_url( get_term_link( $trial_term ) )   : '#';
+  $campaign_fun     = $fun_term     ? esc_url( get_term_link( $fun_term ) )     : '#';
+
+  // 固定ページ
+  $home        = esc_url( home_url( '/' ) );
+  $about       = esc_url( home_url( '/about-us/' ) );
+  $information = esc_url( home_url( '/information/' ) );
+  $blog        = esc_url( home_url( '/blog/' ) );
+  $price       = esc_url( home_url( '/price/' ) );
+  $faq         = esc_url( home_url( '/faq/' ) );
+  $contact     = esc_url( home_url( '/contact/' ) );
+  $privacy     = esc_url( home_url( '/privacypolicy/' ) );
+  $terms       = esc_url( home_url( '/terms-of-service/' ) );
+
+  // 配列でまとめる
+  $links = compact(
+      'home', 'campaign', 'campaign_license', 'campaign_trial', 'campaign_fun',
+      'about', 'information', 'blog', 'voice', 'price', 'faq', 'contact', 'privacy', 'terms'
+  );
+
+  return $links;
+}
+
+
+//　　アーカイブの表示件数変更
 function change_posts_per_page($query) {
   if ( is_admin() || ! $query->is_main_query() ) {
       return;
@@ -68,7 +104,7 @@ function change_posts_per_page($query) {
 add_action( 'pre_get_posts', 'change_posts_per_page' );
 
 
-//投稿→ブログに変更
+//　　投稿→ブログに変更
 function change_post_menu_label() {
   global $menu, $submenu;
   $menu[5][0] = 'ブログ';
@@ -110,7 +146,7 @@ function set_post_views($postID) {
 }
   
 
-//ページネーション
+//　　ページネーション
 function my_custom_pagenavi($html) {
   global $wp_query;
 
@@ -119,38 +155,53 @@ function my_custom_pagenavi($html) {
 
   // 前へボタンを常に表示
   if ($paged > 1) {
-      $prev = get_previous_posts_link('前へ');
-      $prev = preg_replace('/<a /', '<a class="pagination__prev"', $prev, 1);
+    $prev = get_previous_posts_link('前へ');
+    $prev = preg_replace('/<a /', '<a class="pagination__prev"', $prev, 1);
   } else {
-      $prev = '<span class="pagination__prev"></span>'; // クリック不可
+    $prev = '<span class="pagination__prev pagination__disabled"></span>';
   }
 
   // 次へボタンを常に表示
   if ($paged < $max_page) {
-      $next = get_next_posts_link('次へ', $max_page);
-      $next = preg_replace('/<a /', '<a class="pagination__next"', $next, 1);
+    $next = get_next_posts_link('次へ', $max_page);
+    $next = preg_replace('/<a /', '<a class="pagination__next"', $next, 1);
   } else {
-      $next = '<span class="pagination__next"></span>'; // クリック不可
+    $next = '<span class="pagination__next pagination__disabled"></span>';
   }
 
-  // 5~6ページのリンクに pagination__page--pcを付与
-  $html = preg_replace_callback('/<a ([^>]+)>(\d+)<\/a>/', function($matches) {
-    $attrs = $matches[1];
-    $num = (int)$matches[2];
+  // 5ページ以降のリンクに pagination__page--pcを付与
+  $dom = new DOMDocument();
 
-    if ($num >= 5 && $num <= 6) {
-        if (preg_match('/class="([^"]+)"/', $attrs, $classMatch)) {
-            $newClass = $classMatch[1] . ' pagination__page--pc';
-            $attrs = preg_replace('/class="[^"]+"/', 'class="'.$newClass.'"', $attrs);
-        } else {
-            $attrs .= ' class="pagination__page--pc"';
+    // エラー抑制（HTML5のタグや文字化け対策）
+    libxml_use_internal_errors(true);
+    $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+    libxml_clear_errors();
+
+    // すべての <a> タグを取得
+    $links = $dom->getElementsByTagName('a');
+
+    foreach ($links as $link) {
+        // リンクのテキストを数字として取得（ページ番号）
+        $pageNum = (int)$link->nodeValue;
+
+        // 5ページ以降ならクラスを追加
+        if ($pageNum >= 5) {
+            // 既存の class 属性を取得
+            $existingClass = $link->getAttribute('class');
+
+            // 新しいクラスを追加（既存クラスがあればスペースでつなぐ）
+            $link->setAttribute('class', trim($existingClass . ' pagination__page--pc'));
         }
     }
 
-    return '<a ' . $attrs . '>' . $num . '</a>';
-  }, $html);
+    // DOMDocument は HTML 全体を出力するので body の中身だけ取り出す
+    $body = $dom->getElementsByTagName('body')->item(0);
+    $newHtml = '';
+    foreach ($body->childNodes as $child) {
+        $newHtml .= $dom->saveHTML($child);
+    }
 
-  return $prev . $html . $next;
+  return $prev . $newHtml . $next;
 }
 add_filter('wp_pagenavi', 'my_custom_pagenavi');
 

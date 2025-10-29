@@ -1,24 +1,11 @@
-<?php 
-$campaign = esc_url( get_post_type_archive_link( '/campaign/' ) );
-$campaign_license = esc_url( home_url( '/campaign_category/license/' ) );
-$campaign_trial = esc_url( home_url( '/campaign_category/trial-diving/' ) );
-$campaign_fun = esc_url( home_url( '/campaign_category/fun-diving/' ) );
-
-$about = esc_url( home_url( '/about-us/' ) );
-$information = esc_url( home_url( '/information/' ) );
-$blog = esc_url( home_url( '/blog/' ) );
-$voice = esc_url( get_post_type_archive_link( 'voice' ) );
-$price = esc_url( home_url( '/price/' ) );
-$faq = esc_url( home_url( '/faq/' ) );
-$contact = esc_url( home_url( '/contact/' ) );
-$privacy_policy = esc_url( home_url( '/privacypolicy/' ) );
-$terms = esc_url( home_url( '/terms-of-service/' ) );
+<?php
+$links = theme_get_links();
+extract($links, EXTR_SKIP);
 
 $exclude_pages = array( 'contact', 'thanks' );
 
-if ( ! is_page( $exclude_pages ) && ! is_404() ) :
+if ( !(is_page($exclude_pages[0]) || is_page($exclude_pages[1])) && !is_404() ) :
 ?>
-
       <!-- contactセクション -->
       <section class="contact contact-layout <?php echo is_page() ? 'contact-page-layout' : ''; ?>">
         <div class="contact__inner inner">
@@ -46,7 +33,7 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
               </div>
               <p class="contact__text">ご予約・お問い合わせはコチラ</p>
               <div class="contact__button">
-                <a href="<?php echo esc_url( home_url( '/contact/' ) );?>" class="button">
+                <a href="<?php echo $contact; ?>" class="button">
                   Contact us
                   <span></span>
                 </a>
@@ -63,7 +50,6 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
     <div class="to-top">
       <a href="#top">
         <picture>
-          <source media="(max-width: 767px)" srcset="<?php echo get_theme_file_uri('./assets/images/common/to-top-sp.png'); ?>">
           <source media="(min-width: 768px)" srcset="<?php echo get_theme_file_uri('./assets/images/common/to-top-pc.png'); ?>">
           <img src="<?php echo get_theme_file_uri('/assets/images/common/to-top-sp.png'); ?>" alt="topへ戻る">
         </picture>
@@ -75,7 +61,7 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
       <div class="footer__inner inner">
         <div class="footer__header">
           <div class="footer__logo">
-            <a href="<?php echo home_url(); ?>" class="footer__logolink">
+            <a href="<?php echo $home ?>" class="footer__logolink">
               <img src="<?php echo get_theme_file_uri('/assets/images/common/codeups.svg'); ?>" alt="CodeUps">
             </a>
           </div>
@@ -130,10 +116,10 @@ if ( ! is_page( $exclude_pages ) && ! is_404() ) :
                 <li class="nav__item"><a href="<?php echo $faq; ?>">よくある質問</a></li>
               </ul>
               <ul class="nav__items u-mobile">
-                <li class="nav__item nav__item--multiline"><a href="<?php echo $privacy_policy; ?>">プライバシー<br>ポリシー</a></li>
+                <li class="nav__item nav__item--multiline"><a href="<?php echo $privacy; ?>">プライバシー<br>ポリシー</a></li>
               </ul>
               <ul class="nav__items u-desktop">
-                <li class="nav__item"><a href="<?php echo $privacy_policy; ?>">プライバシーポリシー</a></li>
+                <li class="nav__item"><a href="<?php echo $privacy; ?>">プライバシーポリシー</a></li>
               </ul>
               <ul class="nav__items">
                 <li class="nav__item"><a href="<?php echo $terms; ?>">利用規約</a></li>
