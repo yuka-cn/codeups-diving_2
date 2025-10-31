@@ -3,16 +3,18 @@ jQuery(function ($) {
 
 // メインビューのスライダー
   function mvSwiper() {
-    new Swiper(".js-mvSwiper", {
-      effect: "fade",
-      fadeEffect: { crossFade: true },
-      speed: 3000,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-      loop: true,
-    });
+    if (document.querySelector(".js-mvSwiper")) {
+      new Swiper(".js-mvSwiper", {
+        effect: "fade",
+        fadeEffect: { crossFade: true },
+        speed: 3000,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        loop: true,
+      });
+    }
   }
 
 // pcの初回表示のみローディングアニメーション
@@ -53,10 +55,11 @@ jQuery(function ($) {
     }
   }
 
-// MVとヘッダーの下ラインが重なった時に、ヘッダーに背景色をつける
+// MVやページヘッダーとヘッダーの下ラインが重なった時に、ヘッダーに背景色をつける
   let header = $(".header");
   let headerHeight = $(".header").height();
-  let height = $(".mv").height();
+  let target = $(".mv").length ? $(".mv") : $(".page-header__image");
+  let height = target.height();
 
   $(window).scroll(function () {
     if ($(this).scrollTop() > height - headerHeight) {
@@ -109,6 +112,7 @@ jQuery(function ($) {
   let campaignSwiper;
 
   function initSwiper() {
+    if (!document.querySelector(".js-campaignSwiper")) return;
     // 既存のSwiperを削除
     if (campaignSwiper) {
       campaignSwiper.destroy(true, true);
@@ -148,32 +152,34 @@ jQuery(function ($) {
     speed = 700;
 
   // ..information__image, .voice-card__image, .price__image の付いた全ての要素に対して処理を行う
-  imageAnimation.each(function () {
-    let $this = $(this);
+  if (imageAnimation.length) {
+    imageAnimation.each(function () {
+      let $this = $(this);
 
-    // <div class="color"></div> を追加
-    $this.append('<div class="color"></div>');
+      // <div class="color"></div> を追加
+      $this.append('<div class="color"></div>');
 
-    let color = $this.find(".color"),
-      image = $this.find("img"),
-      counter = 0;
+      let color = $this.find(".color"),
+        image = $this.find("img"),
+        counter = 0;
 
-    // 初期スタイル設定
-    image.css("opacity", "0");
-    color.css("width", "0%");
+      // 初期スタイル設定
+      image.css("opacity", "0");
+      color.css("width", "0%");
 
-    // inviewイベントを適用（背景色が画面に現れたら処理をする）
-    $this.on("inview", function (event, isInView) {
-      if (isInView && counter === 0) {
-        color.delay(200).animate({ width: "100%" }, speed, function () {
-          image.css("opacity", "1");
-          $(this).css({ left: "0", right: "auto" });
-          $(this).animate({ width: "0%" }, speed);
-        });
-        counter = 1; // 2回目の起動を制御
-      }
+      // inviewイベントを適用（背景色が画面に現れたら処理をする）
+      $this.on("inview", function (event, isInView) {
+        if (isInView && counter === 0) {
+          color.delay(200).animate({ width: "100%" }, speed, function () {
+            image.css("opacity", "1");
+            $(this).css({ left: "0", right: "auto" });
+            $(this).animate({ width: "0%" }, speed);
+          });
+          counter = 1; // 2回目の起動を制御
+        }
+      });
     });
-  });
+  }
 
 // topへ戻るボタン
   let topBtn = $(".c-to-top");
@@ -251,22 +257,24 @@ jQuery(function ($) {
   const tabButtons = document.querySelectorAll(".tab-button");
   const tabPanels = document.querySelectorAll(".tab-panel");
   
-  tabButtons.forEach(button => {
-    button.addEventListener("click", function () {
-      const targetId = this.getAttribute("data-target");
-      const targetPanel = document.querySelector(targetId);
+  if (tabButtons.length && tabPanels.length) {
+    tabButtons.forEach(button => {
+      button.addEventListener("click", function () {
+        const targetId = this.getAttribute("data-target");
+        const targetPanel = document.querySelector(targetId);
 
-      // ボタンのactive切り替え
-      tabButtons.forEach(btn => btn.classList.remove("is-active"));
-      this.classList.add("is-active");
+        // ボタンのactive切り替え
+        tabButtons.forEach(btn => btn.classList.remove("is-active"));
+        this.classList.add("is-active");
 
-      // パネルの表示切り替え
-      tabPanels.forEach(panel => panel.classList.remove("is-active"));
-      if (targetPanel) {
-        targetPanel.classList.add("is-active");
-      }
+        // パネルの表示切り替え
+        tabPanels.forEach(panel => panel.classList.remove("is-active"));
+        if (targetPanel) {
+          targetPanel.classList.add("is-active");
+        }
+      });
     });
-  });
+  }
 
   //ハッシュリンク対応スクロール
   function scrollToHash() {
@@ -339,11 +347,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //contact
   //独自送信ボタン
-  document.getElementById('submit').addEventListener('click', function() {
-    const form = document.getElementById('my-cf7-form');
-    const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
-    form.dispatchEvent(submitEvent);
-  });
+  const submitBtn = document.getElementById('submit');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function() {
+      const form = document.getElementById('my-cf7-form');
+      if (form) {
+        const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+        form.dispatchEvent(submitEvent);
+      }
+    });
+  }
 
   //エラー時の処理
   document.addEventListener('wpcf7invalid', function() {
