@@ -403,6 +403,6 @@ jQuery(function ($) {
 
   //送信成功時の処理
   document.addEventListener('wpcf7mailsent', function (event) {
-    window.location.href = '/thanks';
+    window.location.href = mySite.homeUrl + '/thanks/';
   });
 });

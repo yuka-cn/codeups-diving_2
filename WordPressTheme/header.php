@@ -4,32 +4,6 @@
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta name="format-detection" content="telephone=no">
-
-  <?php
-  $seo_page = get_page_by_path('seo-settings');
-  if ($seo_page && is_front_page()) {
-    $noindex = get_field('front_meta_noindex', $seo_page->ID);
-  }elseif ($seo_page && (is_post_type_archive('campaign') || is_post_type_archive('voice'))) {
-    if (is_post_type_archive('campaign')) {
-      $meta_title = get_field('campaign_meta_title', $seo_page->ID);
-      $meta_desc  = get_field('campaign_meta_description', $seo_page->ID);
-      $noindex    = get_field('campaign_meta_noindex', $seo_page->ID);
-    } elseif (is_post_type_archive('voice')) {
-      $meta_title = get_field('voice_meta_title', $seo_page->ID);
-      $meta_desc  = get_field('voice_meta_description', $seo_page->ID);
-      $noindex    = get_field('voice_meta_noindex', $seo_page->ID);
-    }
-  }
-  if (!empty($meta_title)) {
-    echo '<title>' . esc_html($meta_title) . '</title>' . "\n";
-  } 
-  if (!empty($meta_desc)) {
-    echo '<meta name="description" content="' . esc_attr($meta_desc) . '">' . "\n";
-  }
-  if (!empty($noindex)) {
-    echo '<meta name="robots" content="noindex">' . "\n";
-  }
-  ?>
   <?php wp_head(); ?>
 </head>
 
@@ -39,7 +13,7 @@ $links = theme_get_links();
 extract($links, EXTR_SKIP);
 ?>
     <!-- ヘッダー -->
-  <header class="header header-layout">
+  <header class="header header--top header-layout">
     <div class="header__inner">
     <?php if ( is_front_page()) : ?>
       <h1 class="header__logo">

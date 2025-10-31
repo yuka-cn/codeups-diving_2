@@ -154,14 +154,14 @@ function my_custom_pagenavi($html) {
 
   if ($paged > 1) {
     $prev = get_previous_posts_link('前へ');
-    $prev = preg_replace('/<a /', '<a class="pagination__prev"', $prev, 1);
+    $prev = preg_replace('/<a /', '<a class="pagination__prev" ', $prev, 1);
   } else {
     $prev = '<span class="pagination__prev pagination__disabled"></span>';
   }
 
   if ($paged < $max_page) {
     $next = get_next_posts_link('次へ', $max_page);
-    $next = preg_replace('/<a /', '<a class="pagination__next"', $next, 1);
+    $next = preg_replace('/<a /', '<a class="pagination__next" ', $next, 1);
   } else {
     $next = '<span class="pagination__next pagination__disabled"></span>';
   }
@@ -269,3 +269,80 @@ add_filter('ssp_output_description', function($desc){
 
   return $desc;
 });
+
+
+// タイトルの上書き（アーカイブページのみ）
+add_filter('pre_get_document_title', function($title) {
+  $seo_page = get_page_by_path('seo-settings');
+  if (!$seo_page) return $title;
+
+  if (is_post_type_archive('campaign')) {
+      $meta_title = get_field('campaign_meta_title', $seo_page->ID);
+      if (!empty($meta_title)) return $meta_title;
+  } elseif (is_post_type_archive('voice')) {
+      $meta_title = get_field('voice_meta_title', $seo_page->ID);
+      if (!empty($meta_title)) return $meta_title;
+  }
+
+  return $title;
+});
+
+// descriptionの上書き（アーカイブページのみ）
+add_filter('ssp_meta_description', function($description) {
+  $seo_page = get_page_by_path('seo-settings');
+  if (!$seo_page) return $description;
+
+  if (is_post_type_archive('campaign')) {
+      $meta_desc = get_field('campaign_meta_description', $seo_page->ID);
+      if (!empty($meta_desc)) return $meta_desc;
+  } elseif (is_post_type_archive('voice')) {
+      $meta_desc = get_field('voice_meta_description', $seo_page->ID);
+      if (!empty($meta_desc)) return $meta_desc;
+  }
+
+  return $description;
+});
+
+// noindexの出力（トップページ・アーカイブページ）
+add_action('wp_head', function() {
+  $seo_page = get_page_by_path('seo-settings');
+  if (!$seo_page) return;
+
+  // トップページ
+  if (is_front_page()) {
+      $noindex = get_field('front_meta_noindex', $seo_page->ID);
+      if (!empty($noindex)) {
+          echo '<meta name="robots" content="noindex">' . "\n";
+      }
+      return;
+  }
+
+  // アーカイブページ
+  if (is_post_type_archive('campaign')) {
+      $noindex   = get_field('campaign_meta_noindex', $seo_page->ID);
+  } elseif (is_post_type_archive('voice')) {
+      $noindex   = get_field('voice_meta_noindex', $seo_page->ID);
+  } else {
+      return;
+  }
+
+  if (!empty($noindex)) {
+      echo '<meta name="robots" content="noindex">' . "\n";
+  }
+});
+
+// CF7送信後リダイレクト用のカスタムJSを読み込み
+function enqueue_my_cf7_script() {
+  wp_enqueue_script(
+      'my-cf7-script',
+      get_template_directory_uri() . '/js/contact.js',
+      array('jquery'),
+      '1.0',
+      true
+  );
+
+  wp_localize_script('my-cf7-script', 'mySite', array(
+      'homeUrl' => get_site_url()
+  ));
+}
+add_action('wp_enqueue_scripts', 'enqueue_my_cf7_script');

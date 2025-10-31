@@ -66,10 +66,10 @@ if ( !(is_page($exclude_pages[0]) || is_page($exclude_pages[1])) && !is_404() ) 
             </a>
           </div>
           <div class="footer__sns">
-            <a href="#" class="footer__facebooklink">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="footer__facebooklink">
               <img src="<?php echo get_theme_file_uri('/assets/images/common/facebook.png'); ?>" alt="facebook">
             </a>
-            <a href="#" class="footer__instagramlink">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="footer__instagramlink">
               <img src="<?php echo get_theme_file_uri('/assets/images/common/instagram.png'); ?>" alt="instagram">
             </a>
           </div>

@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <!-- ページコンテンツ -->
- <div class="page-voice page-voice-layout">
+<div class="page-voice page-voice-layout">
   <div class="page-voice__body">
     <div class="page-voice__inner inner">
         <!-- カテゴリーボタン -->
@@ -64,5 +64,5 @@
       </nav>
     </div>
   </div>
-
+</div>
 <?php get_footer(); ?>
