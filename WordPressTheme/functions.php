@@ -148,12 +148,12 @@ function set_post_views($postID) {
 
 //　　ページネーション
 function my_custom_pagenavi($html) {
+  // 前後ボタンの生成
   global $wp_query;
 
   $max_page = $wp_query->max_num_pages;
   $paged = max(1, get_query_var('paged'));
 
-  // 前へボタンを常に表示
   if ($paged > 1) {
     $prev = get_previous_posts_link('前へ');
     $prev = preg_replace('/<a /', '<a class="pagination__prev"', $prev, 1);
@@ -161,7 +161,6 @@ function my_custom_pagenavi($html) {
     $prev = '<span class="pagination__prev pagination__disabled"></span>';
   }
 
-  // 次へボタンを常に表示
   if ($paged < $max_page) {
     $next = get_next_posts_link('次へ', $max_page);
     $next = preg_replace('/<a /', '<a class="pagination__next"', $next, 1);
@@ -169,37 +168,31 @@ function my_custom_pagenavi($html) {
     $next = '<span class="pagination__next pagination__disabled"></span>';
   }
 
-  // 5ページ以降のリンクに pagination__page--pcを付与
-  $dom = new DOMDocument();
+  // 5ページ以降にクラス付与
+  $dom = new DOMDocument('1.0', 'UTF-8');
+  libxml_use_internal_errors(true);
 
-    // エラー抑制（HTML5のタグや文字化け対策）
-    libxml_use_internal_errors(true);
-    $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
-    libxml_clear_errors();
+  $dom->loadHTML('<?xml encoding="UTF-8"><body>' . $html . '</body>');
+  libxml_clear_errors();
 
-    // すべての <a> タグを取得
-    $links = $dom->getElementsByTagName('a');
+  $links = $dom->getElementsByTagName('a');
 
-    foreach ($links as $link) {
-        // リンクのテキストを数字として取得（ページ番号）
-        $pageNum = (int)$link->nodeValue;
+  foreach ($links as $link) {
+    $pageNum = (int)$link->nodeValue;
 
-        // 5ページ以降ならクラスを追加
-        if ($pageNum >= 5) {
-            // 既存の class 属性を取得
-            $existingClass = $link->getAttribute('class');
-
-            // 新しいクラスを追加（既存クラスがあればスペースでつなぐ）
-            $link->setAttribute('class', trim($existingClass . ' pagination__page--pc'));
-        }
+    if ($pageNum >= 5) {
+      $existingClass = $link->getAttribute('class');
+      $link->setAttribute('class', trim($existingClass . ' pagination__page--pc'));
     }
+  }
 
-    // DOMDocument は HTML 全体を出力するので body の中身だけ取り出す
-    $body = $dom->getElementsByTagName('body')->item(0);
-    $newHtml = '';
+  $body = $dom->getElementsByTagName('body')->item(0);
+  $newHtml = '';
+  if ($body) {
     foreach ($body->childNodes as $child) {
-        $newHtml .= $dom->saveHTML($child);
+      $newHtml .= $dom->saveHTML($child);
     }
+  }
 
   return $prev . $newHtml . $next;
 }

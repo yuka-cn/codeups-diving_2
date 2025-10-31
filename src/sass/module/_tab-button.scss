@@ -27,8 +27,12 @@
     display: block;
     flex-shrink: 0;
     width: rem(64);
-    height: rem(64);
+    aspect-ratio: 1;
     align-self: center;
+    background: currentColor;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
   }
 }
 
@@ -46,32 +50,20 @@
 }
 
 .tab-button:nth-child(1) .tab-button__icon{
-  background: url(../images/pages/information_4-green.png) center center /contain no-repeat;
+  mask-image: url(../images/pages/information_4-green.png);
 }
 
 .tab-button:nth-child(2) .tab-button__icon{
-  background: url(../images/pages/information_5-green.png) center center /contain no-repeat;
+  mask-image: url(../images/pages/information_5-green.png);
 }
 
 .tab-button:nth-child(3) .tab-button__icon{
-  background: url(../images/pages/information_6-green.png) center center /contain no-repeat;
+  mask-image: url(../images/pages/information_6-green.png);
 }
 
 .tab-button.is-active{
   color: $white;
   background: $ac-color;
-}
-
-.tab-button.is-active:nth-child(1) .tab-button__icon{
-  background: url(../images/pages/information_4-white.png) center center /contain no-repeat;
-}
-
-.tab-button.is-active:nth-child(2) .tab-button__icon{
-  background: url(../images/pages/information_5-white.png) center center /contain no-repeat;
-}
-
-.tab-button.is-active:nth-child(3) .tab-button__icon{
-  background: url(../images/pages/information_6-white.png) center center /contain no-repeat;
 }
 
 .tab-button:hover{

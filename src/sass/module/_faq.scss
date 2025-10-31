@@ -27,7 +27,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: $white;
+  background: currentColor;
 }
 
 .faq__item summary::before{

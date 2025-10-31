@@ -46,7 +46,7 @@
   font-size: rem(12);
   line-height: 1.7;
   color: $ac-color;
-  border: 1px solid $ac-color;
+  border: 1px solid;
   @include mq(md) {
     padding: rem(6) rem(15);
   }

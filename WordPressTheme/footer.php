@@ -95,7 +95,7 @@ if ( !(is_page($exclude_pages[0]) || is_page($exclude_pages[1])) && !is_404() ) 
                 <li class="nav__item"><a href="<?php echo $information; ?>#tab-fun-diving">ファンダイビング</a></li>
               </ul>
               <ul class="nav__items">
-              <li class="sp-nav__item"><a href="<?php echo $blog; ?>">ブログ</a></li>
+              <li class="nav__item"><a href="<?php echo $blog; ?>">ブログ</a></li>
               </ul>
             </div>
           </div>

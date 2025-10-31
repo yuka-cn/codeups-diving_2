@@ -25,11 +25,10 @@
 .price-table__icon{
   flex-shrink: 0;
   width: rem(24);
-  height: rem(24);
+  aspect-ratio: 1;
   background: url(../images/pages/information_4-white.png) center center /contain no-repeat;
   @include mq("md"){
     width: rem(64);
-    height: rem(64);
   }
 }
 
