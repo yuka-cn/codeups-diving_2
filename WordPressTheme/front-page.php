@@ -94,12 +94,12 @@
           </div>
         </div>
       </div>
-      <div class="campaign__swiper-button-prev swiper-button-prev">
+      <button class="campaign__swiper-button-prev swiper-button-prev">
         <img src="<?php echo get_theme_file_uri('/assets/images/common/prev.png'); ?>" alt="前へ">
-      </div>
-      <div class="campaign__swiper-button-next swiper-button-next">
+      </button>
+      <button class="campaign__swiper-button-next swiper-button-next">
         <img src="<?php echo get_theme_file_uri('/assets/images/common/next.png'); ?>" alt="次へ">
-      </div>
+      </button>
       <div class="campaign__button">
         <a href="<?php echo esc_url( home_url( '/campaign/' ) );?>" class="button">
           View more
@@ -190,7 +190,7 @@
           while ($posts->have_posts()): $posts->the_post();
       ?>
         <article class="blog-cards__item blog-card">
-          <a href="single.html">
+          <a href="<?php the_permalink(); ?>">
             <div class="blog-card__image">
             <?php if ( has_post_thumbnail() ): ?>
                 <?php the_post_thumbnail('medium'); ?>

@@ -29,11 +29,11 @@ extract($links, EXTR_SKIP);
       </div>
       <?php endif;?>
       <!-- ハンバーガー -->
-      <div class="header__drawer hamburger js-hamburger">
+      <button class="header__drawer hamburger js-hamburger">
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </button>
       <!-- sp-nav -->
       <nav class="header__sp-nav sp-nav js-sp-nav">
         <div class="sp-nav__flex">
