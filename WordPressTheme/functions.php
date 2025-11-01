@@ -334,15 +334,7 @@ add_action('wp_head', function() {
 
 // CF7送信後リダイレクト用のカスタムJSを読み込み
 function enqueue_my_cf7_script() {
-  wp_enqueue_script(
-      'my-cf7-script',
-      get_template_directory_uri() . '/assets/js/script.js',
-      array('jquery'),
-      '1.0',
-      true
-  );
-
-  wp_localize_script('my-cf7-script', 'mySite', array(
+  wp_localize_script('codeups-script', 'mySite', array(
       'homeUrl' => get_site_url()
   ));
 }
