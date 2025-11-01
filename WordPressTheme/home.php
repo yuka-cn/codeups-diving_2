@@ -20,7 +20,7 @@
                 <time datetime="<?php echo get_the_date('Y-m-d'); ?>" class="blog-card__date">
                   <?php echo get_the_date('Y.m.d'); ?>
                 </time>
-                <h3 class="blog-card__title"><?php the_title(); ?></h3>                      
+                <h2 class="blog-card__title"><?php the_title(); ?></h2>                      
                 <p class="blog-card__text">
                 <?php
                   if ( has_excerpt() ) {
@@ -108,7 +108,7 @@
           ?>
             <div class="sidebar-box__voice-card voice-card-simple">
               <div class="voice-card-simple__image">
-              <?php echo wp_get_attachment_image($voice_img, 'medium', false, array('alt' => $voice_demographic . 'の写真')); ?>
+              <?php echo wp_get_attachment_image($voice_img, 'medium', false, array('alt' => '')); ?>
               </div>
               <p class="voice-card-simple__demographic"><?php echo esc_html($voice_demographic); ?></p>
               <p class="voice-card-simple__title"><?php the_title(); ?></p>

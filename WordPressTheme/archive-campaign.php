@@ -53,7 +53,7 @@
                 </div>
                 <div class="campaign-card__body campaign-card__body--page">
                     <p class="campaign-card__category"><?php echo esc_html($term_name); ?></p>
-                    <p class="campaign-card__title campaign-card__title--page"><?php the_title(); ?></p>
+                    <h2 class="campaign-card__title campaign-card__title--page"><?php the_title(); ?></h2>
                     <p class="campaign-card__note campaign-card__note--page"><?php echo esc_html($note); ?></p>
                     <div class="campaign-card__price campaign-card__price--page">
                         <p class="campaign-card__selling"><?php echo esc_html($selling); ?></p>

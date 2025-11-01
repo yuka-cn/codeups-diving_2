@@ -47,10 +47,10 @@
                 <p class="voice-card__demographic"><?php echo esc_html($demographic); ?></p>
                 <p class="voice-card__category"><?php echo esc_html($term_name); ?></p>
               </div>
-              <h3 class="voice-card__title"><?php the_title(); ?></h3>
+              <h2 class="voice-card__title"><?php the_title(); ?></h2>
             </div>
             <div class="voice-card__image">
-            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr( ($demographic ? $demographic . 'の写真' : 'お客様の写真') ); ?>">
+            <img src="<?php echo esc_url($image); ?>" alt="">
             </div>
           </div>
           <p class="voice-card__text"><?php echo nl2br(esc_html($text)); ?></p>

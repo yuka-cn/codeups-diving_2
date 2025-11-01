@@ -29,7 +29,7 @@
                 </p>
               </div>
               <div class="tab-panel__image">
-                <img src="<?php echo get_theme_file_uri('/assets/images/pages/information_1.jpg'); ?>" alt="ライセンス講習イメージ画像">
+                <img src="<?php echo get_theme_file_uri('/assets/images/pages/information_1.jpg'); ?>" alt="">
               </div>
             </div>
             <div class="tab-panels__item tab-panel" id="tab-fun-diving">
@@ -40,7 +40,7 @@
                 </p>
               </div>
               <div class="tab-panel__image">
-                <img src="<?php echo get_theme_file_uri('/assets/images/pages/information_2.jpg'); ?>" alt="ファンダイビングイメージ画像">
+                <img src="<?php echo get_theme_file_uri('/assets/images/pages/information_2.jpg'); ?>" alt="">
               </div>
             </div>
             <div class="tab-panels__item tab-panel" id="tab-trial-diving">
@@ -51,7 +51,7 @@
                 </p>
               </div>
               <div class="tab-panel__image">
-                <img src="<?php echo get_theme_file_uri('/assets/images/pages/information_3.jpg'); ?>" alt="体験ダイビングイメージ画像">
+                <img src="<?php echo get_theme_file_uri('/assets/images/pages/information_3.jpg'); ?>" alt="">
               </div>
             </div>
           </div>

@@ -331,11 +331,12 @@ add_action('wp_head', function() {
   }
 });
 
+
 // CF7送信後リダイレクト用のカスタムJSを読み込み
 function enqueue_my_cf7_script() {
   wp_enqueue_script(
       'my-cf7-script',
-      get_template_directory_uri() . '/js/contact.js',
+      get_template_directory_uri() . '/assets/js/script.js',
       array('jquery'),
       '1.0',
       true

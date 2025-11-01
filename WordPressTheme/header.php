@@ -13,7 +13,7 @@ $links = theme_get_links();
 extract($links, EXTR_SKIP);
 ?>
     <!-- ヘッダー -->
-  <header class="header header--top header-layout">
+  <header class="header header-layout <?php echo is_front_page() ? 'header--top' : ''; ?>">
     <div class="header__inner">
     <?php if ( is_front_page()) : ?>
       <h1 class="header__logo">
