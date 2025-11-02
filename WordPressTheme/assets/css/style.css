@@ -2391,7 +2391,7 @@ a {
 
 .price-table__icon {
 	aspect-ratio: 1;
-	background: url(../images/pages/information_4-white.png) center center/contain no-repeat;
+	background: url(../images/pages/information_4.png) center center/contain no-repeat;
 	flex-shrink: 0;
 	width: 1.5rem;
 }
@@ -2684,18 +2684,18 @@ a {
 }
 
 .tab-button:nth-child(1) .tab-button__icon {
-	-webkit-mask-image: url(../images/pages/information_4-green.png);
-	mask-image: url(../images/pages/information_4-green.png);
+	-webkit-mask-image: url(../images/pages/information_4.png);
+	mask-image: url(../images/pages/information_4.png);
 }
 
 .tab-button:nth-child(2) .tab-button__icon {
-	-webkit-mask-image: url(../images/pages/information_5-green.png);
-	mask-image: url(../images/pages/information_5-green.png);
+	-webkit-mask-image: url(../images/pages/information_5.png);
+	mask-image: url(../images/pages/information_5.png);
 }
 
 .tab-button:nth-child(3) .tab-button__icon {
-	-webkit-mask-image: url(../images/pages/information_6-green.png);
-	mask-image: url(../images/pages/information_6-green.png);
+	-webkit-mask-image: url(../images/pages/information_6.png);
+	mask-image: url(../images/pages/information_6.png);
 }
 
 .tab-button.is-active {
