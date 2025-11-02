@@ -287,7 +287,7 @@ jQuery(function ($) {
     // priceページ
     var targetSection = document.querySelector(hash);
 
-    // campaignページ
+    // campaignページ・voiceページ
     var categoryButtons = document.querySelector(hash);
 
     if (targetTabButton && targetPanel) {
@@ -310,7 +310,7 @@ jQuery(function ($) {
       behavior: 'smooth'
       });
     } else if (categoryButtons) {
-    // campaignページ処理
+    // campaignページ・voiceページ処理
       var catTop = categoryButtons.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({
         top: catTop - headerOffset,
