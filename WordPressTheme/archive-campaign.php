@@ -2,7 +2,7 @@
 <!-- ページコンテンツ -->
 <div class="page-campaign page-campaign-layout">
     <div class="page-campaign__body">
-      <div class="page-campaign__inner inner">
+        <div class="page-campaign__inner inner">
         <!-- カテゴリーボタン -->
         <div id="category-top"></div>
         <div class="page-campaign__category-buttons category-buttons">

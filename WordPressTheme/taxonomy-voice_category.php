@@ -3,9 +3,9 @@
  <div class="page-voice page-voice-layout">
   <div class="page-voice__body">
     <div class="page-voice__inner inner">
-        <!-- カテゴリーボタン -->
-        <div id="category-top"></div>
-        <div class="page-voice__category-buttons category-buttons">
+      <!-- カテゴリーボタン -->
+      <div id="category-top"></div>
+      <div class="page-voice__category-buttons category-buttons">
         <a class="category-buttons__item category-button" href="<?php echo get_post_type_archive_link('voice'); ?>#category-top">ALL</a>
               <?php
               $taxonomy = 'voice_category';
