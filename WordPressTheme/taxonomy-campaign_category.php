@@ -4,8 +4,9 @@
     <div class="page-campaign__body">
       <div class="page-campaign__inner inner">
         <!-- カテゴリーボタン -->
+        <div id="category-top"></div>
         <div class="page-campaign__category-buttons category-buttons">
-            <a class="category-buttons__item category-button" href="<?php echo get_post_type_archive_link('campaign'); ?>">ALL</a>
+            <a class="category-buttons__item category-button" href="<?php echo get_post_type_archive_link('campaign'); ?>#category-top">ALL</a>
             <?php
             $taxonomy = 'campaign_category';
             $terms = get_terms([
@@ -17,7 +18,7 @@
             if($terms && !is_wp_error($terms)):
                 foreach($terms as $term):
             ?>
-            <a class="category-buttons__item category-button <?php if(is_tax($taxonomy, $term->slug)) echo 'is-active'; ?>" href="<?php echo esc_url(get_term_link($term)); ?>">
+            <a class="category-buttons__item category-button <?php if(is_tax($taxonomy, $term->slug)) echo 'is-active'; ?>" href="<?php echo esc_url(get_term_link($term)); ?>#category-top">
                 <?php echo esc_html($term->name); ?>
             </a>
             <?php endforeach; endif;?>
