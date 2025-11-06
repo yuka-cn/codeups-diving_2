@@ -693,10 +693,6 @@ a {
 	transform: rotate(-90deg) translateY(0.25rem);
 }
 
-.archive-list__year:not(.is-open) .archive-list__months {
-	display: none;
-}
-
 .blog-article__date {
 	display: block;
 	font-family: "Gotu", serif;
@@ -2067,6 +2063,10 @@ a {
 
 .nav--site-map .nav__left {
 	width: 57%;
+}
+
+.no-post {
+	text-align: center;
 }
 
 .not-found {

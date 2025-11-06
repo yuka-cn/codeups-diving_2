@@ -56,7 +56,3 @@ content: "";
 .archive-list__year:not(.is-open) .archive-list__year-button::before{
   transform: rotate(-90deg) translateY(rem(4));
 }
-
-.archive-list__year:not(.is-open) .archive-list__months{
-  display: none;
-}

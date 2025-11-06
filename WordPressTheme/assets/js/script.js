@@ -283,39 +283,27 @@ jQuery(function ($) {
     //informationページ
     var targetTabButton = document.querySelector("[data-target=\"".concat(hash, "\"]"));
     var targetPanel = document.querySelector(hash);
-
-    // priceページ
-    var targetSection = document.querySelector(hash);
-
-    // campaignページ・voiceページ
-    var categoryButtons = document.querySelector(hash);
-
     if (targetTabButton && targetPanel) {
-      // informationページ処理
       document.querySelectorAll('.tab-button.is-active, .tab-panel.is-active').forEach(function (el) {
         el.classList.remove('is-active');
       });
       targetTabButton.classList.add('is-active');
       targetPanel.classList.add('is-active');
-      var tabTop = targetTabButton.getBoundingClientRect().top + window.scrollY;
+      var buttonTop = targetTabButton.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({
-        top: tabTop - headerOffset,
+        top: buttonTop - headerOffset,
         behavior: 'smooth'
       });
-    } else if (targetSection){
-      // priceページ処理
-      var sectionTop = targetSection.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-      top: sectionTop - headerOffset,
-      behavior: 'smooth'
-      });
-    } else if (categoryButtons) {
-    // campaignページ・voiceページ処理
-      var catTop = categoryButtons.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top: catTop - headerOffset,
-        behavior: 'smooth'
-      });
+    } else {
+      //priceページ
+      var targetSection = document.querySelector(hash);
+      if (targetSection) {
+        var sectionTop = targetSection.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: sectionTop - headerOffset,
+          behavior: 'smooth'
+        });
+      }
     }
 
     //sp-navが開いていたら閉じる
@@ -328,8 +316,8 @@ jQuery(function ($) {
   window.addEventListener('hashchange', scrollToHash);
 
   // サイドバーのアーカイブ開閉
-  document.addEventListener('DOMContentLoaded', function () {
     var archiveYears = document.querySelectorAll('.archive-list__year');
+    if(archiveYears.length){
     archiveYears.forEach(function (year) {
       var button = year.querySelector('.archive-list__year-button');
       var months = year.querySelector('.archive-list__months');
@@ -351,9 +339,8 @@ jQuery(function ($) {
         months.hidden = expanded;
       });
     });
-  });
-
-  //contact
+  }
+ 
   //独自送信ボタン
   var submitBtn = document.getElementById('submit');
   if (submitBtn) {

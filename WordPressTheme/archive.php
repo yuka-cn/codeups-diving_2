@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<!-- ページコンテンツ -->
+  <!-- ページコンテンツ -->
 <div class="page-blog page-blog-layout">
   <div class="page-blog__content">
     <div class="page-blog__inner inner">
@@ -188,17 +188,17 @@
             <span class="sidebar-box__title">アーカイブ</span>
           </h2>
           <div class="sidebar-box__body">
+            <ul class="sidebar-box__archive-list archive-list">
             <?php
             global $wpdb;
             $years = $wpdb->get_col("
-            SELECT DISTINCT YEAR(post_date) 
-            FROM $wpdb->posts 
-            WHERE post_status='publish' AND post_type='post' 
-            ORDER BY post_date DESC
+                SELECT DISTINCT YEAR(post_date) 
+                FROM $wpdb->posts 
+                WHERE post_status='publish' AND post_type='post' 
+                ORDER BY post_date DESC
             ");
-            if($years):?>
-            <ul class="sidebar-box__archive-list archive-list">
-              <?php foreach($years as $year): ?>
+            foreach($years as $year):
+            ?>
               <li class="archive-list__year">
                 <button class="archive-list__year-button" type="button"><?php echo $year; ?></button>
                 <ul class="archive-list__months">
@@ -215,13 +215,11 @@
                 ?>
                   <li class="archive-list__month"><a href="<?php echo esc_url($link); ?>"><?php echo $month; ?>月</a></li>
                 <?php endforeach; ?>
+                  
                 </ul>
               </li>
               <?php endforeach; ?>
             </ul>
-            <?php else: ?>
-              <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
-            <?php endif; ?>
           </div>
         </section>
         
