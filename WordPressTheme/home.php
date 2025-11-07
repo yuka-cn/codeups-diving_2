@@ -19,7 +19,7 @@ extract($links, EXTR_SKIP);
                 <?php if (has_post_thumbnail()): ?>
                     <?php the_post_thumbnail('medium'); ?>
                 <?php else: ?>
-                    <img src="<?php echo get_theme_file_uri('/assets/images/common/noimage.png'); ?>" alt="">
+                    <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
                 <?php endif; ?>
                 </div>
                 <div class="blog-card__body">
@@ -81,7 +81,7 @@ extract($links, EXTR_SKIP);
                 <?php if (has_post_thumbnail()): ?>
                   <?php the_post_thumbnail('medium'); ?>
                 <?php else: ?>
-                  <img src="<?php echo get_theme_file_uri('/assets/images/common/noimage.png'); ?>" alt="">
+                  <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
                 <?php endif; ?>
                 </div>
                 <div class="popular-list__body">
@@ -108,20 +108,24 @@ extract($links, EXTR_SKIP);
           </h2>
           <div class="sidebar-box__body">
           <?php
-            $voice = new WP_Query(array(
+            $voice_query = new WP_Query(array(
               'posts_per_page' => 1,
               'post_type'      => 'voice',
               'orderby'        => 'date',
               'order'          => 'DESC'
             ));
-          if($voice->have_posts()):?>
-            <?php while($voice->have_posts()): $voice->the_post();
+          if($voice_query->have_posts()):?>
+            <?php while($voice_query->have_posts()): $voice_query->the_post();
               $voice_img = get_post_meta(get_the_ID(), 'voice_image', true);
               $voice_demographic = get_post_meta(get_the_ID(), 'voice_demographic', true);
             ?>
             <div class="sidebar-box__voice-card voice-card-simple">
               <div class="voice-card-simple__image">
-              <?php echo wp_get_attachment_image($voice_img, 'medium', false, array('alt' => '')); ?>
+              <?php if ($voice_img): ?>
+                <?php echo wp_get_attachment_image($voice_img, 'medium'); ?>
+              <?php else: ?>
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-user.png'); ?>" alt="">
+              <?php endif; ?>
               </div>
               <p class="voice-card-simple__demographic"><?php echo esc_html($voice_demographic); ?></p>
               <p class="voice-card-simple__title"><?php the_title(); ?></p>
@@ -147,14 +151,14 @@ extract($links, EXTR_SKIP);
           </h2>
           <div class="sidebar-box__body">
           <?php
-            $campaign = new WP_Query(array(
+            $campaign_query = new WP_Query(array(
               'posts_per_page' => 2,
               'post_type'      => 'campaign',
               'orderby'        => 'date',
               'order'          => 'DESC'
             ));
-          if($campaign->have_posts()):?>
-            <?php while($campaign->have_posts()): $campaign->the_post();
+          if($campaign_query->have_posts()):?>
+            <?php while($campaign_query->have_posts()): $campaign_query->the_post();
             $campaign_img = get_post_meta(get_the_ID(), 'campaign_image', true);
             $campaign_note = get_post_meta(get_the_ID(), 'campaign_note', true);
             $campaign_selling = get_post_meta(get_the_ID(), 'campaign_price_selling', true);
@@ -165,7 +169,7 @@ extract($links, EXTR_SKIP);
               <?php if ($campaign_img): ?>
                 <?php echo wp_get_attachment_image($campaign_img, 'medium'); ?>
               <?php else: ?>
-                <img src="<?php echo get_theme_file_uri('/assets/images/common/noimage.png'); ?>" alt="">
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
               <?php endif; ?>
               </div>
               <div class="campaign-card__body campaign-card__body--side">

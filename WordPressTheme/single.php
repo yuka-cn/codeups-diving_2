@@ -76,7 +76,7 @@ extract($links, EXTR_SKIP);
                 <?php if (has_post_thumbnail()): ?>
                   <?php the_post_thumbnail('medium'); ?>
                 <?php else: ?>
-                  <img src="<?php echo get_theme_file_uri('/assets/images/common/noimage.png'); ?>" alt="">
+                  <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
                 <?php endif; ?>
                 </div>
                 <div class="popular-list__body">
@@ -113,7 +113,11 @@ extract($links, EXTR_SKIP);
             ?>
             <div class="sidebar-box__voice-card voice-card-simple">
               <div class="voice-card-simple__image">
-              <?php echo wp_get_attachment_image($voice_img, 'medium', false, array('alt' => '')); ?>
+              <?php if ($voice_img): ?>
+                <?php echo wp_get_attachment_image($voice_img, 'medium'); ?>
+              <?php else: ?>
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-user.png'); ?>" alt="">
+              <?php endif; ?>
               </div>
               <p class="voice-card-simple__demographic"><?php echo esc_html($voice_demographic); ?></p>
               <p class="voice-card-simple__title"><?php the_title(); ?></p>
@@ -157,7 +161,7 @@ extract($links, EXTR_SKIP);
               <?php if ($campaign_img): ?>
                 <?php echo wp_get_attachment_image($campaign_img, 'medium'); ?>
               <?php else: ?>
-                <img src="<?php echo get_theme_file_uri('/assets/images/common/noimage.png'); ?>" alt="">
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
               <?php endif; ?>
               </div>
               <div class="campaign-card__body campaign-card__body--side">

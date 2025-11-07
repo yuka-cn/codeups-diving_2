@@ -75,7 +75,7 @@ extract($links, EXTR_SKIP);
                 <?php if ($image) : ?>
                     <img src="<?php echo esc_url($image); ?>" alt="">
                 <?php else: ?>
-                    <img src="<?php echo get_theme_file_uri('/assets/images/common/campaign_1.jpg'); ?>" alt="">
+                    <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
                 <?php endif; ?>
                 </div>
                 <div class="campaign-card__body">
@@ -198,7 +198,7 @@ extract($links, EXTR_SKIP);
             <?php if ( has_post_thumbnail() ): ?>
                 <?php the_post_thumbnail('medium'); ?>
             <?php else: ?>
-                <img src="<?php echo get_theme_file_uri('/assets/images/common/noimage.png'); ?>" alt="">
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
             <?php endif; ?>
             </div>
             <div class="blog-card__body">

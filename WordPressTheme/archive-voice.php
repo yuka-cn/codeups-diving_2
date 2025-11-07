@@ -62,7 +62,11 @@ extract($links, EXTR_SKIP);
               <h2 class="voice-card__title"><?php the_title(); ?></h2>
             </div>
             <div class="voice-card__image">
-            <img src="<?php echo esc_url($image); ?>" alt="">
+              <?php if ($image) : ?>
+                <?php echo wp_get_attachment_image($image, 'medium'); ?>
+              <?php else: ?>
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-user.png'); ?>" alt="">
+              <?php endif; ?>
             </div>
           </div>
           <p class="voice-card__text"><?php echo nl2br(esc_html($text)); ?></p>
