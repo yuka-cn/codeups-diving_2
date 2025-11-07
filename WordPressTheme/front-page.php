@@ -45,7 +45,7 @@ extract($links, EXTR_SKIP);
   <?php
     $args = array(
       'post_type'      => 'campaign',
-      'posts_per_page' => 2,
+      'posts_per_page' => -1,
     );
     $campaigns = new WP_Query($args);
   if ($campaigns->have_posts()): ?>
