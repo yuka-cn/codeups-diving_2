@@ -2066,6 +2066,7 @@ a {
 }
 
 .no-post {
+	padding-top: 2.5rem;
 	text-align: center;
 }
 
@@ -3808,6 +3809,10 @@ html {
 
 .nav--site-map .nav__right .nav__block:first-child {
 	width: 82%;
+}
+
+.no-post {
+	padding-top: 0rem;
 }
 
 .not-found {

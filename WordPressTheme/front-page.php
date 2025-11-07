@@ -1,5 +1,10 @@
 <?php get_header(); ?>
 
+<?php
+$links = theme_get_links();
+extract($links, EXTR_SKIP);
+?>
+
 <!-- ローディングアニメーション -->
 <div class="loading">
   <div class="loading__header section-header">
@@ -37,6 +42,13 @@
   </section>
 
   <!-- campaignセクション -->
+  <?php
+    $args = array(
+      'post_type'      => 'campaign',
+      'posts_per_page' => 2,
+    );
+    $campaigns = new WP_Query($args);
+  if ($campaigns->have_posts()): ?>
   <section class="campaign campaign-layout">
     <div class="campaign__inner inner">
       <div class="campaign__header section-header">
@@ -46,25 +58,16 @@
       <div class="campaign__body">
         <div class="campaign__cards swiper js-campaignSwiper">
           <div class="campaign__flex swiper-wrapper">
-            <?php
-            $args = array(
-                'post_type'      => 'campaign',
-                'posts_per_page' => -1,
-            );
-            $campaigns = new WP_Query($args);
-            if ($campaigns->have_posts()): 
-                while ($campaigns->have_posts()): $campaigns->the_post();
-
-                $terms = get_the_terms(get_the_ID(), 'campaign_category');
-                $term_name = '';
-                if ($terms && !is_wp_error($terms)) {
-                    $term_name = $terms[0]->name;
-                }
-
-                $image = get_field('campaign_image');
-                $note = get_field('campaign_note');
-                $selling = get_field('campaign_price_selling');
-                $special = get_field('campaign_price_special');
+            <?php while ($campaigns->have_posts()): $campaigns->the_post();
+              $terms = get_the_terms(get_the_ID(), 'campaign_category');
+              $term_name = '';
+              if ($terms && !is_wp_error($terms)) {
+                  $term_name = $terms[0]->name;
+              }
+              $image = get_field('campaign_image');
+              $note = get_field('campaign_note');
+              $selling = get_field('campaign_price_selling');
+              $special = get_field('campaign_price_special');
             ?>
             <div class="campaign__slide swiper-slide">
               <div class="campaign__card campaign-card">
@@ -86,11 +89,7 @@
                 </div>
               </div>
             </div>
-            <?php
-                endwhile;
-                wp_reset_postdata();
-            endif;
-            ?>
+            <?php endwhile; ?>
           </div>
         </div>
       </div>
@@ -101,13 +100,16 @@
         <img src="<?php echo get_theme_file_uri('/assets/images/common/next.png'); ?>" alt="次へ">
       </button>
       <div class="campaign__button">
-        <a href="<?php echo esc_url( home_url( '/campaign/' ) );?>" class="button">
+        <a href="<?php echo $campaign; ?>" class="button">
           View more
           <span></span>
         </a>
       </div>
     </div>
   </section>
+  <?php endif; ?>
+  <?php wp_reset_postdata();?>
+
 
   <!-- aboutセクション -->
   <section class="about about-layout">
@@ -133,7 +135,7 @@
             ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキスト
           </p>
           <div class="about__button">
-            <a href="<?php echo esc_url( home_url( '/about-us/' ) );?>" class="button">
+            <a href="<?php echo $about; ?>" class="button">
               View more
               <span></span>
             </a>
@@ -162,7 +164,7 @@
             正規登録店として、安心安全に初めての方でも安心安全にライセンス取得をサポート致します。
           </p>
           <div class="information__button">
-            <a href="<?php echo esc_url( home_url( '/information/' ) );?>" class="button">
+            <a href="<?php echo $information ;?>" class="button">
               View more
               <span></span>
             </a>
@@ -173,6 +175,15 @@
   </section>   
 
   <!-- blogセクション -->
+  <?php
+  $args = array(
+      'post_type'      => 'post',
+      'posts_per_page' => 3,
+  );
+  $posts = new WP_Query($args);
+  $has_blog = $posts->have_posts();
+  if ($has_blog): 
+  ?>
   <section class="blog blog-layout">
     <div class="blog__inner inner">
       <div class="blog__header section-header">
@@ -180,15 +191,7 @@
         <h2 class="section-header__jatitle section-header__jatitle--white">ブログ</h2>
       </div>
       <div class="blog__cards blog-cards">
-      <?php
-      $args = array(
-          'post_type'      => 'post',
-          'posts_per_page' => 3,
-      );
-      $posts = new WP_Query($args);
-      if ($posts->have_posts()): 
-          while ($posts->have_posts()): $posts->the_post();
-      ?>
+      <?php while ($posts->have_posts()): $posts->the_post();?>
         <article class="blog-cards__item blog-card">
           <a href="<?php the_permalink(); ?>">
             <div class="blog-card__image">
@@ -219,22 +222,29 @@
             </div>
           </a>
         </article>
-        <?php
-            endwhile;
-            wp_reset_postdata();
-        endif;
-        ?>
+        <?php endwhile; ?>
       </div>
       <div class="blog__button">
-        <a href="<?php echo esc_url( home_url( '/blog/' ) );?>" class="button">
+        <a href="<?php echo $blog ;?>" class="button">
           View more
           <span></span>
         </a>
       </div>
     </div>
-  </section>  
+  </section>
+  <?php endif; ?>
+  <?php wp_reset_postdata();?>
 
   <!-- voiceセクション -->
+  <?php
+  $args = array(
+      'post_type'      => 'voice',
+      'posts_per_page' => 2,
+  );
+  $voices = new WP_Query($args);
+  $has_voice = $voices->have_posts();
+  if ($has_voice): 
+  ?>
   <section class="voice voice-layout">
     <div class="voice__inner inner">
       <div class="voice__header section-header">
@@ -242,25 +252,16 @@
         <h2 class="section-header__jatitle">お客様の声</h2>
       </div>
       <div class="voice__cards voice-cards">
-        <?php
-        $args = array(
-            'post_type'      => 'voice',
-            'posts_per_page' => 2,
-        );
-        $voices = new WP_Query($args);
-        if ($voices->have_posts()): 
-            while ($voices->have_posts()): $voices->the_post();
-            
-            $terms = get_the_terms(get_the_ID(), 'voice_category');
-            $term_name = '';
-            if ($terms && !is_wp_error($terms)) {
-                $term = $terms[0];
-                $term_name = $term->name;
-            }
-          
-            $demographic = get_field('voice_demographic');
-            $image = get_field('voice_image');
-            $text = get_field('voice_text');
+        <?php while ($voices->have_posts()): $voices->the_post();           
+          $terms = get_the_terms(get_the_ID(), 'voice_category');
+          $term_name = '';
+          if ($terms && !is_wp_error($terms)) {
+              $term = $terms[0];
+              $term_name = $term->name;
+          }
+          $demographic = get_field('voice_demographic');
+          $image = get_field('voice_image');
+          $text = get_field('voice_text');
         ?>
         <div class="voice-cards__item voice-card">
           <div class="voice-card__header">
@@ -277,23 +278,22 @@
           </div>
           <p class="voice-card__text"><?php echo nl2br(esc_html($text)); ?></p>
         </div>
-        <?php
-            endwhile;
-            wp_reset_postdata();
-        endif;
-        ?>
+        <?php endwhile; ?>
       </div>
       <div class="voice__button">
-        <a href="<?php echo esc_url( home_url( '/voice/' ) );?>" class="button">
+        <a href="<?php echo $voice ;?>" class="button">
           View more
           <span></span>
         </a>
       </div>
     </div>
   </section>
+  <?php endif; ?>
+  <?php wp_reset_postdata();?>
 
   <!-- priceセクション -->
-  <section class="price price-layout">
+  <?php $price_class = ($has_blog || $has_voice) ? 'price price-layout' : 'price'; ?>
+  <section class="<?php echo $price_class; ?>">
     <div class="price__inner inner">
       <div class="price__header section-header">
         <p class="section-header__entitle">Price</p>
@@ -332,11 +332,12 @@
         </div>
       </div>
       <div class="price__button">
-        <a href="<?php echo esc_url( home_url( '/price/' ) );?>" class="button">
+        <a href="<?php echo $price ;?>" class="button">
           View more
           <span></span>
         </a>
       </div>
     </div>
   </section>
+
 <?php get_footer(); ?>

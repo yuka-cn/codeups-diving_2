@@ -1,12 +1,24 @@
 <?php get_header(); ?>
+
+<?php
+$links = theme_get_links();
+extract($links, EXTR_SKIP);
+?>
+
 <!-- ページコンテンツ -->
 <div class="page-campaign page-campaign-layout">
     <div class="page-campaign__body">
         <div class="page-campaign__inner inner">
         <!-- カテゴリーボタン -->
         <div id="category-top"></div>
+        <?php if (have_posts()): ?>
         <div class="page-campaign__category-buttons category-buttons">
-            <a class="category-buttons__item category-button <?php if(!is_tax()) echo 'is-active'; ?>" href="<?php echo get_post_type_archive_link('campaign'); ?>#category-top">ALL</a>
+            <a
+              class="category-buttons__item category-button <?php if(!is_tax()) echo 'is-active'; ?>" 
+              href="<?php echo $campaign ;?>#category-top"
+            >
+              ALL
+            </a>
             <?php
             $taxonomy = 'campaign_category';
             $terms = get_terms([
@@ -18,15 +30,18 @@
             if($terms && !is_wp_error($terms)):
                 foreach($terms as $term):
             ?>
-            <a class="category-buttons__item category-button <?php if(is_tax($taxonomy, $term->slug)) echo 'is-active'; ?>" href="<?php echo esc_url(get_term_link($term)); ?>#category-top">
-                <?php echo esc_html($term->name); ?>
+            <a 
+              class="category-buttons__item category-button <?php if(is_tax($taxonomy, $term->slug)) echo 'is-active'; ?>" 
+              href="<?php echo esc_url(get_term_link($term)); ?>#category-top"
+            >
+              <?php echo esc_html($term->name); ?>
             </a>
             <?php endforeach; endif;?>
         </div>
 
         <!-- campaignカード -->
         <div class="page-campaign__cards campaign-cards">
-        <?php if (have_posts()): while (have_posts()): the_post(); ?>
+        <?php while (have_posts()): the_post(); ?>
 
         <?php
         $terms = get_the_terms(get_the_ID(), 'campaign_category');
@@ -73,8 +88,11 @@
                     </div>
                 </div>
             </div>
-        <?php endwhile; endif; ?>
+        <?php endwhile; ?>
         </div>
+        <?php else: ?>
+          <p class="page-campaign__no-post no-post">現在、実施中のキャンペーンはありません。</p>
+        <?php endif; ?>
 
         <!-- ページネーション -->
         <nav class="page-campaign__pagination pagination">

@@ -39,9 +39,12 @@
       </div>
     </div>
   </section>
-  
-  <?php $gallery = SCF::get('gallery');
-  if ($gallery): ?>
+
+  <?php
+  $gallery = array_filter(SCF::get('gallery'), function($item){
+    return !empty($item['gallery']);
+  });
+  ?>
   <!-- Gallery -->
   <div class="page-about__gallery gallery">
     <div class="gallery__inner inner">
@@ -50,6 +53,7 @@
         <h2 class="section-header__jatitle">フォト</h2>
       </div>
       <div class="gallery__body">
+      <?php if (!empty($gallery)): ?>
 
       <?php 
       $total = count($gallery);
@@ -113,8 +117,9 @@
       </div>
     </div>
   </div>
+  <?php else: ?>
+    <p class="page-about__no-post no-post">ただいま準備中です。<br>掲載までしばらくお待ちください。</p>
   <?php endif; ?>
-
 </div>
 
 <!-- モーダル -->

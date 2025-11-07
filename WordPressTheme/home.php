@@ -1,5 +1,10 @@
 <?php get_header(); ?>
 
+<?php
+$links = theme_get_links();
+extract($links, EXTR_SKIP);
+?>
+
 <!-- ページコンテンツ -->
 <div class="page-blog page-blog-layout">
   <div class="page-blog__content">
@@ -121,17 +126,17 @@
               <p class="voice-card-simple__demographic"><?php echo esc_html($voice_demographic); ?></p>
               <p class="voice-card-simple__title"><?php the_title(); ?></p>
             </div>
+            <?php endwhile; ?>
             <div class="sidebar-box__button">
-              <a href="archive-voice.html" class="button">
+              <a href="<?php echo $voice; ?>" class="button">
                 View more
                 <span></span>
               </a>
             </div>
-            <?php endwhile; ?>
           <?php else: ?>
-            <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
+            <p class="sidebar-box__no-post no-post">ただいま準備中です。</p>
           <?php endif; ?>
-            <?php wp_reset_postdata();?>
+          <?php wp_reset_postdata();?>
           </div>
         </section>
 
@@ -148,12 +153,13 @@
               'orderby'        => 'date',
               'order'          => 'DESC'
             ));
-          if($campaign->have_posts()): while($campaign->have_posts()): $campaign->the_post();
+          if($campaign->have_posts()):?>
+            <?php while($campaign->have_posts()): $campaign->the_post();
             $campaign_img = get_post_meta(get_the_ID(), 'campaign_image', true);
             $campaign_note = get_post_meta(get_the_ID(), 'campaign_note', true);
             $campaign_selling = get_post_meta(get_the_ID(), 'campaign_price_selling', true);
             $campaign_special = get_post_meta(get_the_ID(), 'campaign_price_special', true);
-          ?>
+            ?>
             <div class="sidebar-box__campaign-card campaign-card">
               <div class="campaign-card__image campaign-card__image--side">
               <?php if ($campaign_img): ?>
@@ -171,14 +177,17 @@
                 </div>
               </div>
             </div>
-            <?php endwhile; endif;?>
-            <?php wp_reset_postdata();?>
+            <?php endwhile; ?>
             <div class="sidebar-box__button">
-              <a href="archive-campaign.html" class="button">
+              <a href="<?php echo $campaign ;?>" class="button">
                 View more
                 <span></span>
               </a>
             </div>
+          <?php else: ?>
+            <p class="sidebar-box__no-post no-post">実施中のキャンペーンはありません。</p>
+          <?php endif; ?>
+          <?php wp_reset_postdata();?>
           </div>
         </section>
 
