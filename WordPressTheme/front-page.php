@@ -19,17 +19,22 @@ extract($links, EXTR_SKIP);
 
 <main>
   <!-- ファーストビュー -->
+  <?php
+  $mv_pc_slides = get_field('mv_pc_slides');
+  $mv_sp_slides = get_field('mv_sp_slides');
+  ?>
+
   <section class="mv">
     <div class="mv__slider swiper js-mvSwiper">
       <div class="swiper-wrapper">
       <?php for ($i = 1; $i <= 4; $i++): 
-        $mv_pc = get_field("mv_pc_{$i}");
-        $mv_sp = get_field("mv_sp_{$i}");
-        if ($mv_pc && $mv_sp): ?>
+        $pc = $mv_pc_slides["slide_{$i}"] ?? null;
+        $sp = $mv_sp_slides["slide_{$i}"] ?? null;
+        if ($pc && $sp): ?>
         <div class="swiper-slide mv__slide">
           <picture>
-            <source srcset="<?php echo esc_url($mv_pc); ?>" media="(min-width: 768px)">
-            <img src="<?php echo esc_url($mv_sp); ?>" alt="メインビジュアル">
+            <source srcset="<?php echo esc_url(wp_get_attachment_image_url($pc, 'full')); ?>" media="(min-width: 768px)">
+            <?php echo wp_get_attachment_image($sp, 'full', false, ['alt' => '']); ?>
           </picture>
         </div>
         <?php endif; endfor; ?>
@@ -73,9 +78,9 @@ extract($links, EXTR_SKIP);
               <div class="campaign__card campaign-card">
                 <div class="campaign-card__image">
                 <?php if ($image) : ?>
-                    <img src="<?php echo esc_url($image); ?>" alt="">
+                  <?php echo wp_get_attachment_image($image, 'medium'); ?>
                 <?php else: ?>
-                    <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
+                  <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
                 <?php endif; ?>
                 </div>
                 <div class="campaign-card__body">
@@ -273,7 +278,11 @@ extract($links, EXTR_SKIP);
               <h3 class="voice-card__title"><?php the_title(); ?></h3>
             </div>
             <div class="voice-card__image">
-              <img src="<?php echo esc_url($image); ?>" alt="">
+              <?php if ($image) : ?>
+                <?php echo wp_get_attachment_image($image, 'medium'); ?>
+              <?php else: ?>
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-user.png'); ?>" alt="">
+              <?php endif; ?>
             </div>
           </div>
           <p class="voice-card__text"><?php echo nl2br(esc_html($text)); ?></p>
