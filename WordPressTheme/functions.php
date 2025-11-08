@@ -320,29 +320,3 @@ add_action('wp_head', function() {
       echo '<meta name="robots" content="noindex">' . "\n";
   }
 });
-
-// ① SSP の noindex を出さない（アーカイブページ限定）
-// add_filter('ssp_meta_robots', function($robots) {
-//   if (is_post_type_archive('campaign') || is_post_type_archive('voice')) {
-//       return ''; // SSP の noindexを出さない
-//   }
-//   return $robots;
-// }, 0);
-
-// ② plugins_loaded で同じフィルターを追加（タイミング違いで試す）
-// add_action('plugins_loaded', function() {
-//   add_filter('ssp_meta_robots', function($robots) {
-//       if (is_post_type_archive('campaign') || is_post_type_archive('voice')) {
-//           return '';
-//       }
-//       return $robots;
-//   });
-// }, 20);
-
-// ③ wp_head で出力済みの noindex をバッファで削除
-// add_action('wp_head', function() {
-//   ob_start(function($buffer) {
-//       $buffer = preg_replace('/<meta name="robots" content="noindex">/', '', $buffer);
-//       return $buffer;
-//   });
-// }, 0);
