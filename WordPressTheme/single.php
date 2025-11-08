@@ -114,7 +114,7 @@ extract($links, EXTR_SKIP);
             <div class="sidebar-box__voice-card voice-card-simple">
               <div class="voice-card-simple__image">
               <?php if ($voice_img): ?>
-                <?php echo wp_get_attachment_image($voice_img, 'medium'); ?>
+                <?php echo wp_get_attachment_image($voice_img, 'medium', false, ['alt' => '']); ?>
               <?php else: ?>
                 <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-user.png'); ?>" alt="">
               <?php endif; ?>
@@ -159,7 +159,7 @@ extract($links, EXTR_SKIP);
             <div class="sidebar-box__campaign-card campaign-card">
               <div class="campaign-card__image campaign-card__image--side">
               <?php if ($campaign_img): ?>
-                <?php echo wp_get_attachment_image($campaign_img, 'medium'); ?>
+                <?php echo wp_get_attachment_image($campaign_img, 'medium', false, ['alt' => '']); ?>
               <?php else: ?>
                 <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
               <?php endif; ?>

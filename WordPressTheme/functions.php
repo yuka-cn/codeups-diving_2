@@ -196,13 +196,13 @@ function my_custom_pagenavi($html) {
 }
 add_filter('wp_pagenavi', 'my_custom_pagenavi');
 
-// Contact Form 7で自動挿入されるPタグ、brタグを削除
+// CF7で自動挿入されるPタグ、brタグを削除
 add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
 function wpcf7_autop_return_false() {
   return false;
 }
 
-//
+// CF7のドロップダウンメニューの選択肢を「キャンペーン」から挿入
 function add_campaign_titles_to_cf7($tag) {
   // 対象タグ名を確認
   if ($tag['name'] !== 'campaign') {
@@ -240,98 +240,6 @@ function add_campaign_titles_to_cf7($tag) {
 }
 add_filter('wpcf7_form_tag', 'add_campaign_titles_to_cf7');
 
-add_filter('ssp_output_title', function($title){
-  $seo_page = get_page_by_path('seo-settings');
-  if (!$seo_page) return $title;
-
-  if (is_post_type_archive('campaign')) {
-    $new_title = get_field('campaign_meta_title', $seo_page->ID);
-    if ($new_title) return $new_title;
-  } elseif (is_post_type_archive('voice')) {
-    $new_title = get_field('voice_meta_title', $seo_page->ID);
-    if ($new_title) return $new_title;
-  }
-
-  return $title;
-});
-
-add_filter('ssp_output_description', function($desc){
-  $seo_page = get_page_by_path('seo-settings');
-  if (!$seo_page) return $desc;
-
-  if (is_post_type_archive('campaign')) {
-    $new_desc = get_field('campaign_meta_description', $seo_page->ID);
-    if ($new_desc) return $new_desc;
-  } elseif (is_post_type_archive('voice')) {
-    $new_desc = get_field('voice_meta_description', $seo_page->ID);
-    if ($new_desc) return $new_desc;
-  }
-
-  return $desc;
-});
-
-
-// タイトルの上書き（アーカイブページのみ）
-add_filter('pre_get_document_title', function($title) {
-  $seo_page = get_page_by_path('seo-settings');
-  if (!$seo_page) return $title;
-
-  if (is_post_type_archive('campaign')) {
-      $meta_title = get_field('campaign_meta_title', $seo_page->ID);
-      if (!empty($meta_title)) return $meta_title;
-  } elseif (is_post_type_archive('voice')) {
-      $meta_title = get_field('voice_meta_title', $seo_page->ID);
-      if (!empty($meta_title)) return $meta_title;
-  }
-
-  return $title;
-});
-
-// descriptionの上書き（アーカイブページのみ）
-add_filter('ssp_meta_description', function($description) {
-  $seo_page = get_page_by_path('seo-settings');
-  if (!$seo_page) return $description;
-
-  if (is_post_type_archive('campaign')) {
-      $meta_desc = get_field('campaign_meta_description', $seo_page->ID);
-      if (!empty($meta_desc)) return $meta_desc;
-  } elseif (is_post_type_archive('voice')) {
-      $meta_desc = get_field('voice_meta_description', $seo_page->ID);
-      if (!empty($meta_desc)) return $meta_desc;
-  }
-
-  return $description;
-});
-
-// noindexの出力（トップページ・アーカイブページ）
-add_action('wp_head', function() {
-  $seo_page = get_page_by_path('seo-settings');
-  if (!$seo_page) return;
-
-  // トップページ
-  if (is_front_page()) {
-      $noindex = get_field('front_meta_noindex', $seo_page->ID);
-      if (!empty($noindex)) {
-          echo '<meta name="robots" content="noindex">' . "\n";
-      }
-      return;
-  }
-
-  // アーカイブページ
-  if (is_post_type_archive('campaign')) {
-      $noindex   = get_field('campaign_meta_noindex', $seo_page->ID);
-  } elseif (is_post_type_archive('voice')) {
-      $noindex   = get_field('voice_meta_noindex', $seo_page->ID);
-  } else {
-      return;
-  }
-
-  if (!empty($noindex)) {
-      echo '<meta name="robots" content="noindex">' . "\n";
-  }
-});
-
-
 // CF7送信後リダイレクト用のカスタムJSを読み込み
 function enqueue_my_cf7_script() {
   wp_localize_script('codeups-script', 'mySite', array(
@@ -339,3 +247,102 @@ function enqueue_my_cf7_script() {
   ));
 }
 add_action('wp_enqueue_scripts', 'enqueue_my_cf7_script');
+
+
+// タイトルタグの上書き（アーカイブページ）
+add_filter('ssp_output_title', function($title){
+  $seo_page = get_page_by_path('seo-settings');
+  if (!$seo_page) return $title;
+
+  if (is_post_type_archive('campaign')) {
+    $data = get_field('campaign_settings', $seo_page->ID);
+    if (!empty($data['title'])) return $data['title'];
+  } elseif (is_post_type_archive('voice')) {
+    $data = get_field('voice_settings', $seo_page->ID);
+    if (!empty($data['title'])) return $data['title'];
+  }
+
+  return $title;
+});
+
+// descriptionの上書き（アーカイブページ）
+add_filter('ssp_output_description', function($desc){
+  $seo_page = get_page_by_path('seo-settings');
+  if (!$seo_page) return $desc;
+
+  if (is_post_type_archive('campaign')) {
+    $data = get_field('campaign_settings', $seo_page->ID);
+    if (!empty($data['description'])) return $data['description'];
+  } elseif (is_post_type_archive('voice')) {
+    $data = get_field('voice_settings', $seo_page->ID);
+    if (!empty($data['description'])) return $data['description'];
+  }
+
+  return $desc;
+});
+
+
+// WP標準タイトルタグの上書き（アーカイブページ）
+add_filter('pre_get_document_title', function($title) {
+  $seo_page = get_page_by_path('seo-settings');
+  if (!$seo_page) return $title;
+
+  if (is_post_type_archive('campaign')) {
+    $data = get_field('campaign_settings', $seo_page->ID);
+    if (!empty($data['title'])) return $data['title'];
+  } elseif (is_post_type_archive('voice')) {
+    $data = get_field('voice_settings', $seo_page->ID);
+    if (!empty($data['title'])) return $data['title'];
+  }
+
+  return $title;
+});
+
+// noindexの出力（トップページ・アーカイブページ）
+add_action('wp_head', function() {
+  $seo_page = get_page_by_path('seo-settings');
+  if (!$seo_page) return;
+
+  $noindex = false;
+
+  if (is_front_page()) {
+      $data = get_field('front_settings', $seo_page->ID);
+      $noindex = $data['noindex'] ?? null;
+  } elseif (is_post_type_archive('campaign')) {
+      $data = get_field('campaign_settings', $seo_page->ID);
+      $noindex = $data['noindex'] ?? null;
+  } elseif (is_post_type_archive('voice')) {
+      $data = get_field('voice_settings', $seo_page->ID);
+      $noindex = $data['noindex'] ?? null;
+  }
+
+  if (!empty($noindex)) {
+      echo '<meta name="robots" content="noindex">' . "\n";
+  }
+});
+
+// ① SSP の noindex を出さない（アーカイブページ限定）
+// add_filter('ssp_meta_robots', function($robots) {
+//   if (is_post_type_archive('campaign') || is_post_type_archive('voice')) {
+//       return ''; // SSP の noindexを出さない
+//   }
+//   return $robots;
+// }, 0);
+
+// ② plugins_loaded で同じフィルターを追加（タイミング違いで試す）
+// add_action('plugins_loaded', function() {
+//   add_filter('ssp_meta_robots', function($robots) {
+//       if (is_post_type_archive('campaign') || is_post_type_archive('voice')) {
+//           return '';
+//       }
+//       return $robots;
+//   });
+// }, 20);
+
+// ③ wp_head で出力済みの noindex をバッファで削除
+// add_action('wp_head', function() {
+//   ob_start(function($buffer) {
+//       $buffer = preg_replace('/<meta name="robots" content="noindex">/', '', $buffer);
+//       return $buffer;
+//   });
+// }, 0);
