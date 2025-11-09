@@ -301,7 +301,29 @@ extract($links, EXTR_SKIP);
   <?php wp_reset_postdata();?>
 
   <!-- priceセクション -->
-  <?php $price_class = ($has_blog || $has_voice) ? 'price price-layout' : 'price'; ?>
+  <?php
+  $tables = [
+      'ライセンス講習'      => 'license',
+      '体験ダイビング'      => 'trial-diving',
+      'ファンダイビング'    => 'fun-diving',
+      'スペシャルダイビング' => 'special-diving',
+  ];
+
+  // 料金データがあるか確認
+  $has_price = false;
+  foreach ($tables as $title => $field_name) {
+      $courses = SCF::get($field_name, 57) ?: [];
+      foreach ($courses as $course) {
+          if (!empty($course[$field_name . '_course']) && !empty($course[$field_name . '_price'])) {
+              $has_price = true;
+              break 2; // 1つでもあればOK、二重ループを抜ける
+          }
+      }
+  }
+
+  if ($has_price):
+      $price_class = ($has_blog || $has_voice) ? 'price price-layout' : 'price';
+  ?>
   <section class="<?php echo $price_class; ?>">
     <div class="price__inner inner">
       <div class="price__header section-header">
@@ -348,5 +370,6 @@ extract($links, EXTR_SKIP);
       </div>
     </div>
   </section>
+  <?php endif; ?>
 
 <?php get_footer(); ?>
