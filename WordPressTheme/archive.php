@@ -5,7 +5,9 @@
   <div class="page-blog__content">
     <div class="page-blog__inner inner">
       <div class="page-blog__body">
-        <?php if (have_posts()): ?>
+        <?php if (!have_posts()): ?>
+          <p class="page-blog__no-post no-post">現在、投稿はありません。</p>
+        <?php else: ?>
           <div class="page-blog__cards blog-cards blog-cards--page">
           <?php while (have_posts()): the_post(); ?>
           <article class="blog-cards__item blog-card">
@@ -40,14 +42,12 @@
             </article>
             <?php endwhile; ?>
           </div>
-        <?php else: ?>
-          <p class="page-blog__no-post no-post">現在、投稿はありません。</p>
-        <?php endif; ?>
-        
-        <!-- ページネーション -->
-        <nav class="page-blog__pagination pagination">
-        <?php wp_pagenavi(); ?>
-        </nav>
+          
+          <!-- ページネーション -->
+          <nav class="page-blog__pagination pagination">
+            <?php wp_pagenavi(); ?>
+          </nav>
+          <?php endif; ?>
       </div>
 
       <!-- サイドバー -->
@@ -68,7 +68,9 @@
               'ignore_custom_sort' => true,
             ));
             
-            if($popular->have_posts()):?>
+            if(!$popular->have_posts()):?>
+            <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
+            <?php else: ?>
             <div class="sidebar-box__popular-list popular-list">
             <?php while($popular->have_posts()): $popular->the_post(); ?>
               <a href="<?php the_permalink(); ?>" class="popular-list__item">
@@ -89,8 +91,6 @@
               </a>
               <?php endwhile; ?>
             </div>
-          <?php else: ?>
-            <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
           <?php endif; ?>
           <?php wp_reset_postdata();?>
           </div>
@@ -109,7 +109,9 @@
               'orderby'        => 'date',
               'order'          => 'DESC'
             ));
-          if($voice->have_posts()):?>
+          if(!$voice->have_posts()):?>
+            <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
+          <?php else: ?>
             <?php while($voice->have_posts()): $voice->the_post();
               $voice_img = get_post_meta(get_the_ID(), 'voice_image', true);
               $voice_demographic = get_post_meta(get_the_ID(), 'voice_demographic', true);
@@ -126,14 +128,12 @@
               <p class="voice-card-simple__title"><?php the_title(); ?></p>
             </div>
             <div class="sidebar-box__button">
-              <a href="archive-voice.html" class="button">
+              <a href="<?php echo $voice; ?>" class="button">
                 View more
                 <span></span>
               </a>
             </div>
             <?php endwhile; ?>
-          <?php else: ?>
-            <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
           <?php endif; ?>
             <?php wp_reset_postdata();?>
           </div>
@@ -152,12 +152,15 @@
               'orderby'        => 'date',
               'order'          => 'DESC'
             ));
-          if($campaign->have_posts()): while($campaign->have_posts()): $campaign->the_post();
-            $campaign_img = get_post_meta(get_the_ID(), 'campaign_image', true);
-            $campaign_note = get_post_meta(get_the_ID(), 'campaign_note', true);
-            $campaign_selling = get_post_meta(get_the_ID(), 'campaign_price_selling', true);
-            $campaign_special = get_post_meta(get_the_ID(), 'campaign_price_special', true);
-          ?>
+            if(!$campaign_query->have_posts()):?>
+              <p class="sidebar-box__no-post no-post">実施中のキャンペーンはありません。</p>
+            <?php else: ?>
+              <?php while($campaign_query->have_posts()): $campaign_query->the_post();
+              $campaign_img = get_post_meta(get_the_ID(), 'campaign_image', true);
+              $campaign_note = get_post_meta(get_the_ID(), 'campaign_note', true);
+              $campaign_selling = get_post_meta(get_the_ID(), 'campaign_price_selling', true);
+              $campaign_special = get_post_meta(get_the_ID(), 'campaign_price_special', true);
+              ?>
             <div class="sidebar-box__campaign-card campaign-card">
               <div class="campaign-card__image campaign-card__image--side">
               <?php if ($campaign_img): ?>
@@ -175,14 +178,15 @@
                 </div>
               </div>
             </div>
-            <?php endwhile; endif;?>
-            <?php wp_reset_postdata();?>
+            <?php endwhile; ?>
             <div class="sidebar-box__button">
-              <a href="archive-campaign.html" class="button">
+              <a href="<?php echo $campaign ;?>" class="button">
                 View more
                 <span></span>
               </a>
             </div>
+          <?php endif; ?>
+          <?php wp_reset_postdata();?>
           </div>
         </section>
 
@@ -192,17 +196,19 @@
             <span class="sidebar-box__title">アーカイブ</span>
           </h2>
           <div class="sidebar-box__body">
-            <ul class="sidebar-box__archive-list archive-list">
             <?php
             global $wpdb;
             $years = $wpdb->get_col("
-                SELECT DISTINCT YEAR(post_date) 
-                FROM $wpdb->posts 
-                WHERE post_status='publish' AND post_type='post' 
-                ORDER BY post_date DESC
+            SELECT DISTINCT YEAR(post_date) 
+            FROM $wpdb->posts 
+            WHERE post_status='publish' AND post_type='post' 
+            ORDER BY post_date DESC
             ");
-            foreach($years as $year):
-            ?>
+            if(!$years):?>
+              <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
+            <?php else: ?>
+            <ul class="sidebar-box__archive-list archive-list">
+              <?php foreach($years as $year): ?>
               <li class="archive-list__year">
                 <button class="archive-list__year-button" type="button"><?php echo $year; ?></button>
                 <ul class="archive-list__months">
@@ -219,11 +225,11 @@
                 ?>
                   <li class="archive-list__month"><a href="<?php echo esc_url($link); ?>"><?php echo $month; ?>月</a></li>
                 <?php endforeach; ?>
-                  
                 </ul>
               </li>
               <?php endforeach; ?>
             </ul>
+            <?php endif; ?>
           </div>
         </section>
         

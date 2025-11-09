@@ -10,7 +10,9 @@ extract($links, EXTR_SKIP);
   <div class="page-blog__content">
     <div class="page-blog__inner inner">
       <div class="page-blog__body">
-        <?php if (have_posts()): ?>
+        <?php if (!have_posts()): ?>
+          <p class="page-blog__no-post no-post">現在、投稿はありません。</p>
+        <?php else: ?>
           <div class="page-blog__cards blog-cards blog-cards--page">
           <?php while (have_posts()): the_post(); ?>
           <article class="blog-cards__item blog-card">
@@ -45,14 +47,12 @@ extract($links, EXTR_SKIP);
             </article>
             <?php endwhile; ?>
           </div>
-        <?php else: ?>
-          <p class="page-blog__no-post no-post">現在、投稿はありません。</p>
+          
+          <!-- ページネーション -->
+          <nav class="page-blog__pagination pagination">
+            <?php wp_pagenavi(); ?>
+          </nav>
         <?php endif; ?>
-        
-        <!-- ページネーション -->
-        <nav class="page-blog__pagination pagination">
-        <?php wp_pagenavi(); ?>
-        </nav>
       </div>
 
       <!-- サイドバー -->
@@ -73,7 +73,9 @@ extract($links, EXTR_SKIP);
               'ignore_custom_sort' => true,
             ));
             
-            if($popular->have_posts()):?>
+            if(!$popular->have_posts()):?>
+            <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
+            <?php else: ?>
             <div class="sidebar-box__popular-list popular-list">
             <?php while($popular->have_posts()): $popular->the_post(); ?>
               <a href="<?php the_permalink(); ?>" class="popular-list__item">
@@ -94,8 +96,6 @@ extract($links, EXTR_SKIP);
               </a>
               <?php endwhile; ?>
             </div>
-          <?php else: ?>
-            <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
           <?php endif; ?>
           <?php wp_reset_postdata();?>
           </div>
@@ -114,7 +114,9 @@ extract($links, EXTR_SKIP);
               'orderby'        => 'date',
               'order'          => 'DESC'
             ));
-          if($voice_query->have_posts()):?>
+          if(!$voice_query->have_posts()):?>
+            <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
+          <?php else: ?>
             <?php while($voice_query->have_posts()): $voice_query->the_post();
               $voice_img = get_post_meta(get_the_ID(), 'voice_image', true);
               $voice_demographic = get_post_meta(get_the_ID(), 'voice_demographic', true);
@@ -137,8 +139,6 @@ extract($links, EXTR_SKIP);
                 <span></span>
               </a>
             </div>
-          <?php else: ?>
-            <p class="sidebar-box__no-post no-post">ただいま準備中です。</p>
           <?php endif; ?>
           <?php wp_reset_postdata();?>
           </div>
@@ -157,7 +157,9 @@ extract($links, EXTR_SKIP);
               'orderby'        => 'date',
               'order'          => 'DESC'
             ));
-          if($campaign_query->have_posts()):?>
+          if(!$campaign_query->have_posts()):?>
+            <p class="sidebar-box__no-post no-post">実施中のキャンペーンはありません。</p>
+          <?php else: ?>
             <?php while($campaign_query->have_posts()): $campaign_query->the_post();
             $campaign_img = get_post_meta(get_the_ID(), 'campaign_image', true);
             $campaign_note = get_post_meta(get_the_ID(), 'campaign_note', true);
@@ -188,8 +190,6 @@ extract($links, EXTR_SKIP);
                 <span></span>
               </a>
             </div>
-          <?php else: ?>
-            <p class="sidebar-box__no-post no-post">実施中のキャンペーンはありません。</p>
           <?php endif; ?>
           <?php wp_reset_postdata();?>
           </div>
@@ -209,7 +209,9 @@ extract($links, EXTR_SKIP);
             WHERE post_status='publish' AND post_type='post' 
             ORDER BY post_date DESC
             ");
-            if($years):?>
+            if(!$years):?>
+              <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
+            <?php else: ?>
             <ul class="sidebar-box__archive-list archive-list">
               <?php foreach($years as $year): ?>
               <li class="archive-list__year">
@@ -232,8 +234,6 @@ extract($links, EXTR_SKIP);
               </li>
               <?php endforeach; ?>
             </ul>
-            <?php else: ?>
-              <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
             <?php endif; ?>
           </div>
         </section>

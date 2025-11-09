@@ -11,7 +11,9 @@ extract($links, EXTR_SKIP);
         <div class="page-campaign__inner inner">
         <!-- カテゴリーボタン -->
         <div id="category-top"></div>
-        <?php if (have_posts()): ?>
+        <?php if (!have_posts()): ?>
+          <p class="page-campaign__no-post no-post">現在、実施中のキャンペーンはありません。</p>
+        <?php else: ?>
         <div class="page-campaign__category-buttons category-buttons">
             <a
               class="category-buttons__item category-button <?php if(!is_tax()) echo 'is-active'; ?>" 
@@ -90,14 +92,12 @@ extract($links, EXTR_SKIP);
             </div>
         <?php endwhile; ?>
         </div>
-        <?php else: ?>
-          <p class="page-campaign__no-post no-post">現在、実施中のキャンペーンはありません。</p>
-        <?php endif; ?>
-
+        
         <!-- ページネーション -->
         <nav class="page-campaign__pagination pagination">
-        <?php wp_pagenavi(); ?>
+            <?php wp_pagenavi(); ?>
         </nav>
+        <?php endif; ?>
 
       </div>
     </div>

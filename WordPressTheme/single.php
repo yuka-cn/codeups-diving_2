@@ -58,19 +58,21 @@ extract($links, EXTR_SKIP);
             <span class="sidebar-box__title">人気記事</span>
           </h2>
           <div class="sidebar-box__body">
-          <div class="sidebar-box__popular-list popular-list">
-            <?php
-              $popular = new WP_Query(array(
-                'posts_per_page' => 3,
-                'post_type'      => 'post',
-                'meta_key'       => 'post_views_count',
-                'orderby'        => 'meta_value_num',
-                'order'          => 'DESC',
-                'ignore_custom_sort' => true,
-              ));
-              
-            if($popular->have_posts()): while($popular->have_posts()): $popular->the_post();
-            ?>
+          <?php
+            $popular = new WP_Query(array(
+              'posts_per_page' => 3,
+              'post_type'      => 'post',
+              'meta_key'       => 'post_views_count',
+              'orderby'        => 'meta_value_num',
+              'order'          => 'DESC',
+              'ignore_custom_sort' => true,
+            ));
+            
+            if(!$popular->have_posts()):?>
+            <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
+            <?php else: ?>
+            <div class="sidebar-box__popular-list popular-list">
+            <?php while($popular->have_posts()): $popular->the_post(); ?>
               <a href="<?php the_permalink(); ?>" class="popular-list__item">
                 <div class="popular-list__image">
                 <?php if (has_post_thumbnail()): ?>
@@ -87,9 +89,10 @@ extract($links, EXTR_SKIP);
                 </div>
                 <span class="popular-list__mask"></span>
               </a>
-            <?php endwhile; endif;?>
-            <?php wp_reset_postdata();?>
+              <?php endwhile; ?>
             </div>
+            <?php endif; ?>
+            <?php wp_reset_postdata();?>
           </div>
         </section>
 
@@ -100,14 +103,16 @@ extract($links, EXTR_SKIP);
           </h2>
           <div class="sidebar-box__body">
           <?php
-            $voice = new WP_Query(array(
+            $voice_query = new WP_Query(array(
               'posts_per_page' => 1,
               'post_type'      => 'voice',
               'orderby'        => 'date',
               'order'          => 'DESC'
             ));
-          if($voice->have_posts()):?>
-            <?php while($voice->have_posts()): $voice->the_post();
+          if(!$voice_query->have_posts()):?>
+            <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
+          <?php else: ?>
+            <?php while($voice_query->have_posts()): $voice_query->the_post();
               $voice_img = get_post_meta(get_the_ID(), 'voice_image', true);
               $voice_demographic = get_post_meta(get_the_ID(), 'voice_demographic', true);
             ?>
@@ -124,13 +129,11 @@ extract($links, EXTR_SKIP);
             </div>
             <?php endwhile; ?>
             <div class="sidebar-box__button">
-              <a href="<?php echo $voice ;?>" class="button">
+              <a href="<?php echo $voice; ?>" class="button">
                 View more
                 <span></span>
               </a>
             </div>
-          <?php else: ?>
-            <p class="sidebar-box__no-post no-post">ただいま準備中です。</p>
           <?php endif; ?>
           <?php wp_reset_postdata();?>
           </div>
@@ -143,14 +146,16 @@ extract($links, EXTR_SKIP);
           </h2>
           <div class="sidebar-box__body">
           <?php
-            $campaign = new WP_Query(array(
+            $campaign_query = new WP_Query(array(
               'posts_per_page' => 2,
               'post_type'      => 'campaign',
               'orderby'        => 'date',
               'order'          => 'DESC'
             ));
-          if($campaign->have_posts()):?>
-            <?php while($campaign->have_posts()): $campaign->the_post();
+          if(!$campaign_query->have_posts()):?>
+            <p class="sidebar-box__no-post no-post">実施中のキャンペーンはありません。</p>
+          <?php else: ?>
+            <?php while($campaign_query->have_posts()): $campaign_query->the_post();
             $campaign_img = get_post_meta(get_the_ID(), 'campaign_image', true);
             $campaign_note = get_post_meta(get_the_ID(), 'campaign_note', true);
             $campaign_selling = get_post_meta(get_the_ID(), 'campaign_price_selling', true);
@@ -180,8 +185,6 @@ extract($links, EXTR_SKIP);
                 <span></span>
               </a>
             </div>
-          <?php else: ?>
-            <p class="sidebar-box__no-post no-post">実施中のキャンペーンはありません。</p>
           <?php endif; ?>
           <?php wp_reset_postdata();?>
           </div>
@@ -193,18 +196,20 @@ extract($links, EXTR_SKIP);
             <span class="sidebar-box__title">アーカイブ</span>
           </h2>
           <div class="sidebar-box__body">
-            <ul class="sidebar-box__archive-list archive-list">
             <?php
             global $wpdb;
             $years = $wpdb->get_col("
-                SELECT DISTINCT YEAR(post_date) 
-                FROM $wpdb->posts 
-                WHERE post_status='publish' AND post_type='post' 
-                ORDER BY post_date DESC
+            SELECT DISTINCT YEAR(post_date) 
+            FROM $wpdb->posts 
+            WHERE post_status='publish' AND post_type='post' 
+            ORDER BY post_date DESC
             ");
-            foreach($years as $year):
-            ?>
-              <li class="archive-list__year <?php echo $year === '2023' ? 'is-open' : ''; ?>">
+            if(!$years):?>
+              <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
+            <?php else: ?>
+            <ul class="sidebar-box__archive-list archive-list">
+              <?php foreach($years as $year): ?>
+              <li class="archive-list__year">
                 <button class="archive-list__year-button" type="button"><?php echo $year; ?></button>
                 <ul class="archive-list__months">
                 <?php
@@ -220,11 +225,11 @@ extract($links, EXTR_SKIP);
                 ?>
                   <li class="archive-list__month"><a href="<?php echo esc_url($link); ?>"><?php echo $month; ?>月</a></li>
                 <?php endforeach; ?>
-                  
                 </ul>
               </li>
               <?php endforeach; ?>
             </ul>
+            <?php endif; ?>
           </div>
         </section>
         

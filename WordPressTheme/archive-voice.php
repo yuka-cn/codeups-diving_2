@@ -11,7 +11,9 @@ extract($links, EXTR_SKIP);
     <div class="page-voice__inner inner">
       <!-- カテゴリーボタン -->
       <div id="category-top"></div>
-      <?php if (have_posts()): ?>
+      <?php if (!have_posts()): ?>
+        <p class="page-voice__no-post no-post">ただいま準備中です。<br>掲載までしばらくお待ちください。</p>
+      <?php else: ?>
       <div class="page-voice__category-buttons category-buttons">
         <a 
           class="category-buttons__item category-button <?php if(!is_tax()) echo 'is-active'; ?>" 
@@ -73,14 +75,13 @@ extract($links, EXTR_SKIP);
         </div>   
         <?php endwhile; ?>
       </div>
-      <?php else: ?>
-        <p class="page-voice__no-post no-post">ただいま準備中です。<br>掲載までしばらくお待ちください。</p>
-      <?php endif; ?>
         
       <!-- ページネーション -->
       <nav class="page-voice__pagination pagination">
       <?php wp_pagenavi(); ?>
       </nav>
+      <?php endif; ?>
+      
     </div>
   </div>
 </div>
