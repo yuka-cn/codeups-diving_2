@@ -309,14 +309,13 @@ extract($links, EXTR_SKIP);
       'スペシャルダイビング' => 'special-diving',
   ];
 
-  // 料金データがあるか確認
   $has_price = false;
   foreach ($tables as $title => $field_name) {
       $courses = SCF::get($field_name, 57) ?: [];
       foreach ($courses as $course) {
           if (!empty($course[$field_name . '_course']) && !empty($course[$field_name . '_price'])) {
               $has_price = true;
-              break 2; // 1つでもあればOK、二重ループを抜ける
+              break 2;
           }
       }
   }
@@ -338,16 +337,10 @@ extract($links, EXTR_SKIP);
           </picture>
         </div>
         <div class="price__lists price-lists">
-          <?php
-          $tables = [
-             'ライセンス講習' => 'license',
-             '体験ダイビング' => 'trial-diving', 
-             'ファンダイビング' => 'fun-diving', 
-             'スペシャルダイビング' => 'special-diving',
-          ];
-
-          foreach ($tables as $title => $field_name):
-            $courses = SCF::get($field_name,57);
+          <?php foreach ($tables as $title => $field_name):
+            $courses = array_filter(SCF::get($field_name, 57) ?: [], function($course) use ($field_name) {
+              return !empty($course[$field_name . '_course']) && !empty($course[$field_name . '_price']);
+            });
             if (!empty($courses)):
           ?>
           <div class="price-lists__item price-list">
