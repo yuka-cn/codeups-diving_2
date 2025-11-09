@@ -58,7 +58,7 @@
               <?php if ($image) : ?>
                 <?php echo wp_get_attachment_image($image, 'medium', false, ['alt' => '']); ?>
               <?php else: ?>
-                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-user.png'); ?>" alt="">
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-user.jpg'); ?>" alt="">
               <?php endif; ?>
             </div>
           </div>

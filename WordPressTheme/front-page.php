@@ -80,7 +80,7 @@ extract($links, EXTR_SKIP);
                 <?php if ($image) : ?>
                   <?php echo wp_get_attachment_image($image, 'medium', false, ['alt' => '']); ?>
                 <?php else: ?>
-                  <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
+                  <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.jpg'); ?>" alt="">
                 <?php endif; ?>
                 </div>
                 <div class="campaign-card__body">
@@ -203,7 +203,7 @@ extract($links, EXTR_SKIP);
             <?php if ( has_post_thumbnail() ): ?>
                 <?php the_post_thumbnail('medium'); ?>
             <?php else: ?>
-                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.jpg'); ?>" alt="">
             <?php endif; ?>
             </div>
             <div class="blog-card__body">
@@ -281,7 +281,7 @@ extract($links, EXTR_SKIP);
               <?php if ($image) : ?>
                 <?php echo wp_get_attachment_image($image, 'medium', false, ['alt' => '']); ?>
               <?php else: ?>
-                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-user.png'); ?>" alt="">
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-user.jpg'); ?>" alt="">
               <?php endif; ?>
             </div>
           </div>
