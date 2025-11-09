@@ -62,11 +62,11 @@ extract($links, EXTR_SKIP);
         ?>
         <div class="campaign-cards__item campaign-card campaign-card--page">
           <div class="campaign-card__image campaign-card__image--page">
-              <?php if ($image) : ?>
-                  <img src="<?php echo esc_url($image); ?>" alt="">
-              <?php else: ?>
-                  <img src="<?php echo get_theme_file_uri('/assets/images/common/campaign_1.jpg'); ?>" alt="">
-              <?php endif; ?>
+            <?php if ($image) : ?>
+                <?php echo wp_get_attachment_image($image, 'medium', false, ['alt' => '']); ?>
+            <?php else: ?>
+                <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.png'); ?>" alt="">
+            <?php endif; ?>
           </div>
           <div class="campaign-card__body campaign-card__body--page">
               <p class="campaign-card__category"><?php echo esc_html($term_name); ?></p>
