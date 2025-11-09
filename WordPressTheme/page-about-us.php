@@ -42,7 +42,7 @@
 
   <?php
   $gallery = array_filter(SCF::get('gallery'), function($item){
-    return !empty($item['gallery']);
+    return !empty($item['image']);
   });
   ?>
   <!-- Gallery -->
@@ -116,10 +116,10 @@
         </div>
       <?php endif; ?>
       <?php endfor; ?>
+      <?php endif; ?>
       </div>
     </div>
   </div>
-  <?php endif; ?>
 </div>
 
 <!-- モーダル -->
