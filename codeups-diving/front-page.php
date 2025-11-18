@@ -309,8 +309,12 @@ extract($links, EXTR_SKIP);
   ];
 
   $has_price = false;
+
+  $page = get_page_by_path('price');
+  $page_id = $page ? $page->ID : 0;
+
   foreach ($tables as $title => $field_name) {
-    $courses = SCF::get($field_name, 57) ?: [];
+    $courses = SCF::get($field_name, $page_id) ?: [];
     foreach ($courses as $course) {
       if (!empty($course[$field_name . '_course']) && !empty($course[$field_name . '_price'])) {
         $has_price = true;
