@@ -316,8 +316,8 @@ jQuery(function ($) {
   window.addEventListener('hashchange', scrollToHash);
 
   // サイドバーのアーカイブ開閉
+  document.addEventListener('DOMContentLoaded', function () {
     var archiveYears = document.querySelectorAll('.archive-list__year');
-    if(archiveYears.length){
     archiveYears.forEach(function (year) {
       var button = year.querySelector('.archive-list__year-button');
       var months = year.querySelector('.archive-list__months');
@@ -339,8 +339,9 @@ jQuery(function ($) {
         months.hidden = expanded;
       });
     });
-  }
- 
+  });
+
+  //contact
   //独自送信ボタン
   var submitBtn = document.getElementById('submit');
   if (submitBtn) {

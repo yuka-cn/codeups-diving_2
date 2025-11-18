@@ -27,10 +27,10 @@ extract($links, EXTR_SKIP);
   <section class="mv">
     <div class="mv__slider swiper js-mvSwiper">
       <div class="swiper-wrapper">
-      <?php for ($i = 1; $i <= 4; $i++): 
-        $pc = $mv_pc_slides["slide_{$i}"] ?? null;
-        $sp = $mv_sp_slides["slide_{$i}"] ?? null;
-        if ($pc && $sp): ?>
+        <?php for ($i = 1; $i <= 4; $i++): 
+          $pc = $mv_pc_slides["slide_{$i}"] ?? null;
+          $sp = $mv_sp_slides["slide_{$i}"] ?? null;
+          if ($pc && $sp): ?>
         <div class="swiper-slide mv__slide">
           <picture>
             <source srcset="<?php echo esc_url(wp_get_attachment_image_url($pc, 'full')); ?>" media="(min-width: 768px)">
@@ -67,7 +67,7 @@ extract($links, EXTR_SKIP);
               $terms = get_the_terms(get_the_ID(), 'campaign_category');
               $term_name = '';
               if ($terms && !is_wp_error($terms)) {
-                  $term_name = $terms[0]->name;
+                $term_name = $terms[0]->name;
               }
               $image = get_field('campaign_image');
               $note = get_field('campaign_note');
@@ -77,11 +77,11 @@ extract($links, EXTR_SKIP);
             <div class="campaign__slide swiper-slide">
               <div class="campaign__card campaign-card">
                 <div class="campaign-card__image">
-                <?php if ($image) : ?>
-                  <?php echo wp_get_attachment_image($image, 'medium', false, ['alt' => '']); ?>
-                <?php else: ?>
-                  <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.jpg'); ?>" alt="">
-                <?php endif; ?>
+                  <?php if ($image) : ?>
+                    <?php echo wp_get_attachment_image($image, 'medium', false, ['alt' => '']); ?>
+                  <?php else: ?>
+                    <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.jpg'); ?>" alt="">
+                  <?php endif; ?>
                 </div>
                 <div class="campaign-card__body">
                   <p class="campaign-card__category"><?php echo esc_html($term_name); ?></p>
@@ -114,8 +114,7 @@ extract($links, EXTR_SKIP);
   </section>
   <?php endif; ?>
   <?php wp_reset_postdata();?>
-
-
+  
   <!-- aboutセクション -->
   <section class="about about-layout">
     <div class="about__inner inner">
@@ -182,8 +181,8 @@ extract($links, EXTR_SKIP);
   <!-- blogセクション -->
   <?php
   $args = array(
-      'post_type'      => 'post',
-      'posts_per_page' => 3,
+    'post_type'      => 'post',
+    'posts_per_page' => 3,
   );
   $posts = new WP_Query($args);
   $has_blog = $posts->have_posts();
@@ -196,15 +195,15 @@ extract($links, EXTR_SKIP);
         <h2 class="section-header__jatitle section-header__jatitle--white">ブログ</h2>
       </div>
       <div class="blog__cards blog-cards">
-      <?php while ($posts->have_posts()): $posts->the_post();?>
+        <?php while ($posts->have_posts()): $posts->the_post();?>
         <article class="blog-cards__item blog-card">
           <a href="<?php the_permalink(); ?>">
             <div class="blog-card__image">
-            <?php if ( has_post_thumbnail() ): ?>
+              <?php if ( has_post_thumbnail() ): ?>
                 <?php the_post_thumbnail('medium'); ?>
-            <?php else: ?>
+              <?php else: ?>
                 <img src="<?php echo get_theme_file_uri('/assets/images/common/placeholder-default.jpg'); ?>" alt="">
-            <?php endif; ?>
+              <?php endif; ?>
             </div>
             <div class="blog-card__body">
               <time datetime="<?php echo get_the_date('Y-m-d'); ?>" class="blog-card__date">
@@ -212,7 +211,7 @@ extract($links, EXTR_SKIP);
               </time>
               <h3 class="blog-card__title"><?php the_title(); ?></h3>
               <p class="blog-card__text">
-              <?php
+                <?php
                 if ( has_excerpt() ) {
                   $excerpt = get_the_excerpt();
                   $excerpt = mb_strimwidth( $excerpt, 0, 172, '', 'UTF-8' );
@@ -222,7 +221,7 @@ extract($links, EXTR_SKIP);
                   $excerpt = mb_strimwidth( $excerpt, 0, 172, '', 'UTF-8' );
                   echo esc_html( $excerpt );
                 }
-              ?>
+                ?>
               </p>
             </div>
           </a>
@@ -243,8 +242,8 @@ extract($links, EXTR_SKIP);
   <!-- voiceセクション -->
   <?php
   $args = array(
-      'post_type'      => 'voice',
-      'posts_per_page' => 2,
+    'post_type'      => 'voice',
+    'posts_per_page' => 2,
   );
   $voices = new WP_Query($args);
   $has_voice = $voices->have_posts();
@@ -261,8 +260,8 @@ extract($links, EXTR_SKIP);
           $terms = get_the_terms(get_the_ID(), 'voice_category');
           $term_name = '';
           if ($terms && !is_wp_error($terms)) {
-              $term = $terms[0];
-              $term_name = $term->name;
+            $term = $terms[0];
+            $term_name = $term->name;
           }
           $demographic = get_field('voice_demographic');
           $image = get_field('voice_image');
@@ -303,25 +302,25 @@ extract($links, EXTR_SKIP);
   <!-- priceセクション -->
   <?php
   $tables = [
-      'ライセンス講習'      => 'license',
-      '体験ダイビング'      => 'trial-diving',
-      'ファンダイビング'    => 'fun-diving',
-      'スペシャルダイビング' => 'special-diving',
+    'ライセンス講習'      => 'license',
+    '体験ダイビング'      => 'trial-diving',
+    'ファンダイビング'    => 'fun-diving',
+    'スペシャルダイビング' => 'special-diving',
   ];
 
   $has_price = false;
   foreach ($tables as $title => $field_name) {
-      $courses = SCF::get($field_name, 57) ?: [];
-      foreach ($courses as $course) {
-          if (!empty($course[$field_name . '_course']) && !empty($course[$field_name . '_price'])) {
-              $has_price = true;
-              break 2;
-          }
+    $courses = SCF::get($field_name, 57) ?: [];
+    foreach ($courses as $course) {
+      if (!empty($course[$field_name . '_course']) && !empty($course[$field_name . '_price'])) {
+        $has_price = true;
+        break 2;
       }
+    }
   }
 
   if ($has_price):
-      $price_class = ($has_blog || $has_voice) ? 'price price-layout' : 'price';
+    $price_class = ($has_blog || $has_voice) ? 'price price-layout' : 'price';
   ?>
   <section class="<?php echo $price_class; ?>">
     <div class="price__inner inner">

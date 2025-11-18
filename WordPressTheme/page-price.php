@@ -15,14 +15,14 @@
       $tables_with_data = [];
       foreach ($tables as $title => $field_name) {
         $courses = array_filter(SCF::get($field_name) ?: [], function($course) use ($field_name) {
-            return !empty($course[$field_name . '_course']) && !empty($course[$field_name . '_price']);
+          return !empty($course[$field_name . '_course']) && !empty($course[$field_name . '_price']);
         });
     
         if (!empty($courses)) {
-            $tables_with_data[$title] = [
-                'field_name' => $field_name,
-                'courses' => $courses
-            ];
+          $tables_with_data[$title] = [
+            'field_name' => $field_name,
+            'courses' => $courses
+          ];
         }
       }
       ?>
@@ -40,19 +40,19 @@
             </h2>
             <table class="price-table__body">
               <tbody>
-              <?php foreach ($table['courses'] as $course): ?>
-                <tr>
-                  <th scope="row"><?php echo nl2br(esc_html($course[$table['field_name'] . '_course'])); ?></th>
-                  <td><?php echo esc_html($course[$table['field_name'] . '_price']); ?></td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
+                <?php foreach ($table['courses'] as $course): ?>
+                  <tr>
+                    <th scope="row"><?php echo nl2br(esc_html($course[$table['field_name'] . '_course'])); ?></th>
+                    <td><?php echo esc_html($course[$table['field_name'] . '_price']); ?></td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
         <?php endforeach; ?>
       <?php endif;?>
 
-      </div>
     </div>
+  </div>
 </div>
 <?php get_footer(); ?>
