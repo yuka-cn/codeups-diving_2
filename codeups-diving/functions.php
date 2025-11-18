@@ -15,6 +15,7 @@ add_action('after_setup_theme', 'codeups_theme_setup');
 // アセット読み込み
 function codeups_enqueue_assets() {
   $theme_uri = get_theme_file_uri();
+  $theme_version = wp_get_theme()->get('Version');
 
   // Google Fonts
   wp_enqueue_style(
@@ -25,7 +26,7 @@ function codeups_enqueue_assets() {
   );
 
   // メインCSS
-  wp_enqueue_style('codeups-style', $theme_uri . '/assets/css/style.css', [], null);
+  wp_enqueue_style('codeups-style', $theme_uri . '/assets/css/style.css', [], $theme_version);
 
   // Swiper CSS
   wp_enqueue_style('codeups-swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', [], '11');
@@ -37,10 +38,10 @@ function codeups_enqueue_assets() {
   wp_enqueue_script('codeups-swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', ['jquery'], '11', true);
 
   // inview（ローカル）
-  wp_enqueue_script('codeups-inview', $theme_uri . '/assets/js/jquery.inview.min.js', ['jquery'], null, true);
+  wp_enqueue_script('codeups-inview', $theme_uri . '/assets/js/jquery.inview.min.js', ['jquery'], $theme_version, true);
 
   // メインJS（ローカル）
-  wp_enqueue_script('codeups-script', $theme_uri . '/assets/js/script.js', ['jquery'], null, true);
+  wp_enqueue_script('codeups-script', $theme_uri . '/assets/js/script.js', ['jquery'], $theme_version, true);
 }
 add_action('wp_enqueue_scripts', 'codeups_enqueue_assets');
 
