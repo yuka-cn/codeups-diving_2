@@ -223,12 +223,12 @@ jQuery(function ($) {
         backgroundInner.innerHTML = '';
         document.body.style.overflow = '';
       };
-      document.querySelectorAll('.gallery__item img').forEach(function (img) {
-        img.addEventListener('click', function () {
-          var column = img.closest('.gallery__column');
+      document.querySelectorAll('.gallery__item').forEach(function (item) {
+        item.addEventListener('click', function () {
+          var column = item.closest('.gallery__column');
           if (!column) return;
           // モーダル内に画像を複製
-          var clickedImg = img.cloneNode(true);
+          var clickedImg = item.querySelector('img').cloneNode(true);
           content.innerHTML = '';
           content.appendChild(clickedImg);
           // 背景として.gallery__columnを複製

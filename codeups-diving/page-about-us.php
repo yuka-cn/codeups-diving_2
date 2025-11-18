@@ -74,21 +74,21 @@
 
         <?php if (!empty($img1)): ?>
           <div class="gallery__column">
-            <div class="gallery__item gallery__item--single">
+            <button class="gallery__item gallery__item--single" type="button">
               <img src="<?php echo esc_url(wp_get_attachment_url($img1)); ?>" 
                    alt="<?php echo esc_attr($gallery[$i]['alt'] ?? ''); ?>">
-            </div>
+            </button>
             <?php if (!empty($img2)): ?>
               <div class="gallery__stack">
-                <div class="gallery__item gallery__item--stacked">
+                <button class="gallery__item gallery__item--stacked" type="button">
                   <img src="<?php echo esc_url(wp_get_attachment_url($img2)); ?>"
                        alt="<?php echo esc_attr($gallery[$i+1]['alt'] ?? ''); ?>">
-                </div>
+                </button>
                 <?php if (!empty($img3)): ?>
-                  <div class="gallery__item gallery__item--stacked">
+                  <button class="gallery__item gallery__item--stacked" type="button">
                     <img src="<?php echo esc_url(wp_get_attachment_url($img3)); ?>"
                          alt="<?php echo esc_attr($gallery[$i+2]['alt'] ?? ''); ?>">
-                  </div>
+                  </button>
                 <?php endif; ?>
               </div>
             <?php endif; ?>
@@ -98,22 +98,22 @@
         <?php if (!empty($img4)): ?>
           <div class="gallery__column gallery__column--reverse">
             <div class="gallery__stack">
-              <div class="gallery__item gallery__item--stacked">
+              <button class="gallery__item gallery__item--stacked" type="button">
                 <img src="<?php echo esc_url(wp_get_attachment_url($img4)); ?>"
                      alt="<?php echo esc_attr($gallery[$i+3]['alt'] ?? ''); ?>">
-              </div>
+              </button>
               <?php if (!empty($img5)): ?>
-                <div class="gallery__item gallery__item--stacked">
+                <button class="gallery__item gallery__item--stacked" type="button">
                   <img src="<?php echo esc_url(wp_get_attachment_url($img5)); ?>"
                        alt="<?php echo esc_attr($gallery[$i+4]['alt'] ?? ''); ?>">
-                </div>
+                </button>
               <?php endif; ?>
             </div>
             <?php if (!empty($img6)): ?>
-              <div class="gallery__item gallery__item--single">
+              <button class="gallery__item gallery__item--single" type="button">
                 <img src="<?php echo esc_url(wp_get_attachment_url($img6)); ?>" 
                      alt="<?php echo esc_attr($gallery[$i+5]['alt'] ?? ''); ?>">
-              </div>
+              </button>
             <?php endif; ?>
           </div>
         <?php endif; ?>
