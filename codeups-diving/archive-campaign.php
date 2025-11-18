@@ -96,7 +96,7 @@ extract($links, EXTR_SKIP);
 
                   <div class="campaign-card__button campaign-card__button--page">
                     <a 
-                      href="<?php echo esc_url(get_permalink(get_page_by_path('page-contact'))); ?>" 
+                      href="<?php echo $contact; ?>" 
                       class="button"
                     >
                       Contact us
