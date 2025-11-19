@@ -11,13 +11,11 @@ extract($links, EXTR_SKIP);
     <div class="page-campaign__inner inner">
       
       <!-- カテゴリーボタン -->
-      <div id="category-top"></div>
-
       <?php if (!have_posts()): ?>
         <p class="page-campaign__no-post no-post">現在、実施中のキャンペーンはありません。</p>
 
       <?php else: ?>
-        <div class="page-campaign__category-buttons category-buttons">
+        <div class="page-campaign__category-buttons category-buttons" id="category-top">
           <a
             class="category-buttons__item category-button <?php if (!is_tax()) echo 'is-active'; ?>" 
             href="<?php echo $campaign; ?>#category-top"
