@@ -1,3 +1,8 @@
+<?php
+$links = theme_get_links();
+extract($links, EXTR_SKIP);
+?>
+
 <aside class="page-blog__sidebar sidebar">
 
   <!-- 人気記事 -->
