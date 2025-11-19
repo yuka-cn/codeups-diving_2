@@ -2217,6 +2217,10 @@ a {
 	margin-top: 0;
 }
 
+.nav__items.u-desktop {
+	display: none;
+}
+
 .nav__item:first-child {
 	font-weight: 700;
 	position: relative;
@@ -4162,6 +4166,10 @@ html {
 .nav__block:nth-child(2) {
 	margin-top: 0;
 	width: 45%;
+}
+
+.nav__items.u-desktop {
+	display: block;
 }
 
 .nav__items .nav__item--multiline::before {

@@ -54,6 +54,13 @@
   margin-top: 0;
 }
 
+.nav__items.u-desktop{
+  display: none;
+  @include mq("md") {
+    display: block;
+  }
+}
+
 .nav__item:first-child {
   position: relative;
   font-weight: $bold;
