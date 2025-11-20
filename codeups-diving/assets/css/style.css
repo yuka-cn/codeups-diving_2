@@ -955,7 +955,7 @@ a {
 	-webkit-transform: translate(4px, 4px);
 	transform: translate(4px, 4px);
 	width: 100%;
-	z-index: 0;
+	z-index: -2;
 }
 
 .button span {
