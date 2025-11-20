@@ -1238,6 +1238,13 @@ a {
 	width: 100%;
 }
 
+.campaign__swiper-button-prev:focus-visible,
+.campaign__swiper-button-next:focus-visible {
+	border-radius: 6px;
+	outline: 3px solid #1a73e8;
+	outline-offset: 4px;
+}
+
 .campaign__button {
 	margin-top: 2.0625rem;
 	text-align: center;
@@ -1704,6 +1711,14 @@ a {
 .form__agreement--error input[type=checkbox] {
 	background: rgba(201, 72, 0, 0.2);
 	border: 1px solid #C94800;
+}
+
+.form__input--select:focus-visible,
+.form__checkbox input:focus-visible,
+.form__agreement input:focus-visible,
+.button:focus-visible {
+	outline: 2px solid #1a73e8;
+	outline-offset: 2px;
 }
 
 .gallery {

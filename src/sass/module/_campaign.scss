@@ -63,6 +63,13 @@
   width: 100%;
 }
 
+.campaign__swiper-button-prev:focus-visible,
+.campaign__swiper-button-next:focus-visible {
+  outline: 3px solid #1a73e8;
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
 .campaign__button {
   text-align: center;
   margin-top: rem(33);
