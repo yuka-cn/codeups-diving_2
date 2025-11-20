@@ -59,66 +59,58 @@
           <p class="gallery__no-post no-post">ただいま準備中です。<br>掲載までしばらくお待ちください。</p>
         <?php else: ?>
 
-        <?php 
-        $total = count($gallery);
-        for ($i = 0; $i < $total; $i += 6):
+        <?php $index = 0; ?>
+        <?php foreach ($gallery as $item): ?>
+          <?php
+            $img = $item['image'] ?? null;
+            $alt = $item['alt'] ?? '';
+            if (!$img) continue;
 
-          $img1 = $gallery[$i]['image'] ?? null;
-          $img2 = $gallery[$i+1]['image'] ?? null;
-          $img3 = $gallery[$i+2]['image'] ?? null;
-          $img4 = $gallery[$i+3]['image'] ?? null;
-          $img5 = $gallery[$i+4]['image'] ?? null;
-          $img6 = $gallery[$i+5]['image'] ?? null;
+            $slot = ($index % 6) + 1;
+          ?>
 
-        ?>
-
-        <?php if (!empty($img1)): ?>
-          <div class="gallery__column">
-            <button class="gallery__item gallery__item--single" type="button">
-              <img src="<?php echo esc_url(wp_get_attachment_url($img1)); ?>" 
-                   alt="<?php echo esc_attr($gallery[$i]['alt'] ?? ''); ?>">
-            </button>
-            <?php if (!empty($img2)): ?>
+          <?php if ($slot === 1): ?>
+            <div class="gallery__column">
+              <button class="gallery__item gallery__item--single" type="button">
+                <img src="<?php echo esc_url(wp_get_attachment_url($img)); ?>" alt="<?php echo esc_attr($alt); ?>">
+              </button>
+          
+          <?php elseif ($slot === 2): ?>
               <div class="gallery__stack">
                 <button class="gallery__item gallery__item--stacked" type="button">
-                  <img src="<?php echo esc_url(wp_get_attachment_url($img2)); ?>"
-                       alt="<?php echo esc_attr($gallery[$i+1]['alt'] ?? ''); ?>">
+                  <img src="<?php echo esc_url(wp_get_attachment_url($img)); ?>" alt="<?php echo esc_attr($alt); ?>">
                 </button>
-                <?php if (!empty($img3)): ?>
-                  <button class="gallery__item gallery__item--stacked" type="button">
-                    <img src="<?php echo esc_url(wp_get_attachment_url($img3)); ?>"
-                         alt="<?php echo esc_attr($gallery[$i+2]['alt'] ?? ''); ?>">
-                  </button>
-                <?php endif; ?>
-              </div>
-            <?php endif; ?>
-          </div>
-        <?php endif; ?>
-
-        <?php if (!empty($img4)): ?>
-          <div class="gallery__column gallery__column--reverse">
-            <div class="gallery__stack">
-              <button class="gallery__item gallery__item--stacked" type="button">
-                <img src="<?php echo esc_url(wp_get_attachment_url($img4)); ?>"
-                     alt="<?php echo esc_attr($gallery[$i+3]['alt'] ?? ''); ?>">
-              </button>
-              <?php if (!empty($img5)): ?>
+          
+          <?php elseif ($slot === 3): ?>
                 <button class="gallery__item gallery__item--stacked" type="button">
-                  <img src="<?php echo esc_url(wp_get_attachment_url($img5)); ?>"
-                       alt="<?php echo esc_attr($gallery[$i+4]['alt'] ?? ''); ?>">
+                  <img src="<?php echo esc_url(wp_get_attachment_url($img)); ?>" alt="<?php echo esc_attr($alt); ?>">
                 </button>
-              <?php endif; ?>
+              </div>
             </div>
-            <?php if (!empty($img6)): ?>
+          
+          <?php elseif ($slot === 4): ?>
+            <div class="gallery__column gallery__column--reverse">
+              <div class="gallery__stack">
+                <button class="gallery__item gallery__item--stacked" type="button">
+                  <img src="<?php echo esc_url(wp_get_attachment_url($img)); ?>" alt="<?php echo esc_attr($alt); ?>">
+                </button>
+          
+          <?php elseif ($slot === 5): ?>
+                <button class="gallery__item gallery__item--stacked" type="button">
+                  <img src="<?php echo esc_url(wp_get_attachment_url($img)); ?>" alt="<?php echo esc_attr($alt); ?>">
+                </button>
+              </div>
+          
+          <?php elseif ($slot === 6): ?>
               <button class="gallery__item gallery__item--single" type="button">
-                <img src="<?php echo esc_url(wp_get_attachment_url($img6)); ?>" 
-                     alt="<?php echo esc_attr($gallery[$i+5]['alt'] ?? ''); ?>">
+                <img src="<?php echo esc_url(wp_get_attachment_url($img)); ?>" alt="<?php echo esc_attr($alt); ?>">
               </button>
-            <?php endif; ?>
-          </div>
-        <?php endif; ?>
+            </div>
+          <?php endif; ?>
+          
+          <?php $index++; ?>
+        <?php endforeach; ?>
 
-        <?php endfor; ?>
         <?php endif; ?>
       </div>
     </div>
