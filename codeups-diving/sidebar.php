@@ -57,16 +57,16 @@ extract($links, EXTR_SKIP);
     </h2>
     <div class="sidebar-box__body">
       <?php
-        $voice = new WP_Query(array(
+        $voice_query = new WP_Query(array(
           'posts_per_page' => 1,
           'post_type'      => 'voice',
           'orderby'        => 'date',
           'order'          => 'DESC'
         ));
-        if(!$voice->have_posts()): ?>
+        if(!$voice_query->have_posts()): ?>
           <p class="sidebar-box__no-post no-post">現在、投稿はありません。</p>
         <?php else: ?>
-          <?php while($voice->have_posts()): $voice->the_post();
+          <?php while($voice_query->have_posts()): $voice_query->the_post();
             $voice_img = get_post_meta(get_the_ID(), 'voice_image', true);
             $voice_demographic = get_post_meta(get_the_ID(), 'voice_demographic', true);
           ?>
