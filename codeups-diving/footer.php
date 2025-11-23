@@ -122,11 +122,8 @@ if (!(is_page($exclude_pages[0]) || is_page($exclude_pages[1])) && !is_404()) :
             <ul class="nav__items">
               <li class="nav__item"><a href="<?php echo $faq; ?>">よくある質問</a></li>
             </ul>
-            <ul class="nav__items u-mobile">
-              <li class="nav__item nav__item--multiline"><a href="<?php echo $privacy; ?>">プライバシー<br>ポリシー</a></li>
-            </ul>
-            <ul class="nav__items u-desktop">
-              <li class="nav__item"><a href="<?php echo $privacy; ?>">プライバシーポリシー</a></li>
+            <ul class="nav__items">
+              <li class="nav__item nav__item--multiline"><a href="<?php echo $privacy; ?>">プライバシー<br class="u-mobile">ポリシー</a></li>
             </ul>
             <ul class="nav__items">
               <li class="nav__item"><a href="<?php echo $terms; ?>">利用規約</a></li>

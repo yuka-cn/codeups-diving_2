@@ -26,3 +26,10 @@
 .category-button.is-active:hover{
   color: $white;
 }
+
+#category-top{
+  scroll-margin-top: rem(80);
+  @include mq("md"){
+    scroll-margin-top: rem(90);
+  }
+}

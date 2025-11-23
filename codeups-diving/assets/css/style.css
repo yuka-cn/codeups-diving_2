@@ -45,12 +45,6 @@ dd {
 	margin: 0;
 }
 
-/* Set core root defaults */
-
-html {
-	scroll-behavior: smooth;
-}
-
 /* Set core body defaults */
 
 body {
@@ -1188,6 +1182,10 @@ a {
 	grid-template-columns: repeat(1, 1fr);
 }
 
+.campaign {
+	overflow-x: clip;
+}
+
 .campaign__inner {
 	position: relative;
 }
@@ -1282,6 +1280,10 @@ a {
 
 .category-button.is-active:hover {
 	color: #fff;
+}
+
+#category-top {
+	scroll-margin-top: 5rem;
 }
 
 .category-buttons {
@@ -3853,6 +3855,10 @@ html {
 
 .campaign__button {
 	margin-top: 4.5625rem;
+}
+
+#category-top {
+	scroll-margin-top: 5.625rem;
 }
 
 .category-buttons {

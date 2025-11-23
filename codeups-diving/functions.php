@@ -299,25 +299,3 @@ add_filter('pre_get_document_title', function($title) {
   return $title;
 });
 
-// noindexの出力（トップページ・アーカイブページ）
-add_action('wp_head', function() {
-  $seo_page = get_page_by_path('seo-settings');
-  if (!$seo_page) return;
-
-  $noindex = false;
-
-  if (is_front_page()) {
-      $data = get_field('front_settings', $seo_page->ID);
-      $noindex = $data['noindex'] ?? null;
-  } elseif (is_post_type_archive('campaign')) {
-      $data = get_field('campaign_settings', $seo_page->ID);
-      $noindex = $data['noindex'] ?? null;
-  } elseif (is_post_type_archive('voice')) {
-      $data = get_field('voice_settings', $seo_page->ID);
-      $noindex = $data['noindex'] ?? null;
-  }
-
-  if (!empty($noindex)) {
-      echo '<meta name="robots" content="noindex">' . "\n";
-  }
-});

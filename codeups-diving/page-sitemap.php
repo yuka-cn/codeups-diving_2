@@ -48,14 +48,9 @@ extract($links, EXTR_SKIP);
             <ul class="nav__items">
               <li class="nav__item"><a href="<?php echo $faq; ?>">よくある質問</a></li>
             </ul>
-            <ul class="nav__items u-mobile">
+            <ul class="nav__items">
               <li class="nav__item nav__item--multiline">
-                <a href="<?php echo $privacy; ?>">プライバシー<br>ポリシー</a>
-              </li>
-            </ul>
-            <ul class="nav__items u-desktop">
-              <li class="nav__item">
-                <a href="<?php echo $privacy; ?>">プライバシーポリシー</a>
+                <a href="<?php echo $privacy; ?>">プライバシー<br class="u-mobile">ポリシー</a>
               </li>
             </ul>
             <ul class="nav__items">

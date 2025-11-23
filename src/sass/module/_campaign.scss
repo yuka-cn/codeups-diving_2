@@ -1,5 +1,9 @@
 @use "global" as *;
 
+.campaign{
+  overflow-x: clip;
+}
+
 .campaign__inner {
   position: relative;
 }
